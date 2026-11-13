@@ -1,13 +1,14 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="ESCAPE LOG"><link rel="apple-touch-icon" href="icon.png"><link rel="icon" href="icon.png"><meta name="theme-color" content="#eceef0" id="themeColor"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet"><title>ESCAPE LOG v1.0</title>
-<script>try{document.documentElement.dataset.theme=localStorage.getItem('escapeLogTheme3')||'paper'}catch(e){document.documentElement.dataset.theme='paper'}</script><style>
-:root{--bg:#eef0f6;--surface:#fff;--surface-2:#f2f3f9;--line:#1b1e4a14;--line-strong:#1b1e4a26;--ink:#12142e;--ink-2:#3d4162;--muted:#7a7f9c;--accent:#3b4cff;--brass:#e8a93a;--ok:#0b8a62;--ng:#c6303a;--tile:#10153a;--shadow:0 12px 40px #10143c1f;--safe-t:env(safe-area-inset-top,0px);--safe-b:env(safe-area-inset-bottom,0px);--display:"Bricolage Grotesque","Noto Sans JP",system-ui,sans-serif}
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="ESCAPE LOG"><link rel="apple-touch-icon" href="icon.png"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.png"><meta name="theme-color" content="#eceef0" id="themeColor"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet"><title>ESCAPE LOG v1.0</title>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem('escapeLogTheme3')||'paper'}catch(e){document.documentElement.dataset.theme='paper'}</script><style>:root{--bg:#eef0f6;--surface:#fff;--surface-2:#f2f3f9;--line:#1b1e4a14;--line-strong:#1b1e4a26;--ink:#12142e;--ink-2:#3d4162;--muted:#7a7f9c;--accent:#3b4cff;--brass:#e8a93a;--ok:#0b8a62;--ng:#c6303a;--tile:#10153a;--shadow:0 12px 40px #10143c1f;--safe-t:env(safe-area-inset-top,0px);--safe-b:env(safe-area-inset-bottom,0px);--display:"Bricolage Grotesque","Noto Sans JP",system-ui,sans-serif}
 @media(prefers-color-scheme:dark){:root{--bg:#0b0d1a;--surface:#141730;--surface-2:#1b1f3d;--line:#ffffff14;--line-strong:#ffffff26;--ink:#eceefc;--ink-2:#c3c7e6;--muted:#8d92b6;--accent:#7b87ff;--brass:#f0b94f;--ok:#3dd6a3;--ng:#ff7b84;--tile:#1d2250;--shadow:0 12px 40px #0008}}
-*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;color-scheme:light dark}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;color-scheme:light dark}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.6 "Noto Sans JP",system-ui,-apple-system,"Hiragino Sans","Yu Gothic UI",sans-serif;padding:calc(68px + var(--safe-t)) 0 calc(120px + var(--safe-b));-webkit-font-smoothing:antialiased}
-button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .hidden{display:none!important}
 .topbar{position:fixed;z-index:30;top:0;left:0;right:0;height:calc(60px + var(--safe-t));padding:var(--safe-t) max(18px,calc((100vw - 1040px)/2)) 0;display:flex;align-items:center;justify-content:space-between;background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);border-bottom:1px solid var(--line)}
@@ -15,13 +16,16 @@ button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
 .brandmark{width:32px;height:32px;border-radius:10px;background:var(--ink);color:var(--brass);display:grid;place-items:center}
 .topnote{font-size:12.5px;font-weight:700;color:var(--ink-2);background:var(--surface);border:1px solid var(--line);padding:6px 13px;border-radius:99px}
 .shell{max-width:1040px;margin:0 auto;padding:22px 18px 10px}
-.page{display:none}.page.active{display:block;animation:in .28s ease-out}
+.page{display:none}
+.page.active{display:block;animation:in .28s ease-out}
 @keyframes in{from{opacity:0;transform:translateY(6px)}}
 .heading{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;margin:4px 0 22px}
 .heading h1{margin:0;font:800 clamp(30px,7vw,42px)/1.1 var(--display);letter-spacing:-.03em}
-.sub{margin-top:8px;font-size:13px;color:var(--muted)}.eyebrow,.feature-tag,.feature-icon{display:none}
+.sub{margin-top:8px;font-size:13px;color:var(--muted)}
+.eyebrow,.feature-tag{display:none}
 .btn{border:0;border-radius:99px;padding:12px 20px;font-size:13.5px;font-weight:700;color:#fff;background:var(--accent);white-space:nowrap;transition:transform .15s,filter .15s}
-.btn:hover{filter:brightness(1.08)}.btn:active{transform:scale(.97)}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:scale(.97)}
 .btn.light{background:var(--surface);color:var(--ink);border:1px solid var(--line-strong)}
 .btn.warn{background:color-mix(in srgb,var(--ng) 12%,transparent);color:var(--ng)}
 .btn.small{padding:9px 15px;font-size:12.5px}
@@ -29,12 +33,14 @@ button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
 .iconbtn:hover{background:var(--line)}
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:20px;min-width:0}
 .panel-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:14px}
-.panel-head h3{margin:0;font-size:15px;font-weight:800}.panel-head small{color:var(--muted);font-size:12px}
+.panel-head h3{margin:0;font-size:15px;font-weight:800}
+.panel-head small{color:var(--muted);font-size:12px}
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
 .stat{position:relative;overflow:hidden;border-radius:28px;padding:22px;min-height:168px;color:#fff;background:var(--tile);display:flex;flex-direction:column}
 .stat:nth-child(2){background:var(--accent)}
 .stat:before,.stat:after{content:"";position:absolute;border-radius:50%;border:1.5px solid #ffffff1f;pointer-events:none}
-.stat:before{width:150px;height:150px;right:-40px;bottom:-56px}.stat:after{width:84px;height:84px;right:-8px;bottom:-24px}
+.stat:before{width:150px;height:150px;right:-40px;bottom:-56px}
+.stat:after{width:84px;height:84px;right:-8px;bottom:-24px}
 .stat-label{font-size:12.5px;font-weight:700;opacity:.78}
 .stat-num{margin-top:auto;font:800 clamp(46px,12vw,70px)/1 var(--display);letter-spacing:-.04em}
 .stat:first-child .stat-num{color:var(--brass)}
@@ -55,94 +61,125 @@ button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
 .empty{grid-column:1/-1;padding:30px 14px;text-align:center;color:var(--muted);font-size:13px;border:1.5px dashed var(--line-strong);border-radius:20px}
 .toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:16px}
 .field,.formfield input:not([type=radio]):not([type=checkbox]),.formfield select,.formfield textarea{width:100%;min-width:0;min-height:46px;border:1px solid var(--line-strong);border-radius:14px;background:var(--surface);padding:10px 14px;font-size:15px;color:var(--ink);transition:border-color .15s,box-shadow .15s}
-.toolbar .field{width:auto}.search{flex:1 1 200px}
+.toolbar .field{width:auto}
+.search{flex:1 1 200px}
 .field:focus,.formfield input:focus,.formfield select:focus,.formfield textarea:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent)}
 select.field,.formfield select{appearance:none;padding-right:38px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%237a7f9c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m1 1.5 5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
 .formfield input[type=date],.formfield input[type=time]{appearance:none;display:block}
-.formfield input[type=file]{padding:9px 12px;font-size:13px}.formfield textarea{min-height:112px;resize:vertical}
+.formfield input[type=file]{padding:9px 12px;font-size:13px}
+.formfield textarea{min-height:112px;resize:vertical}
 .switch{display:inline-flex;gap:2px;padding:3px;background:var(--surface-2);border-radius:99px}
 .switch button{border:0;background:transparent;border-radius:99px;padding:8px 15px;font-size:12.5px;font-weight:700;color:var(--muted)}
 .switch button.active{background:var(--surface);color:var(--ink);box-shadow:0 1px 4px #10143c22}
 .record-list{display:grid;gap:12px}
 .record-row{position:relative;display:grid;grid-template-columns:84px minmax(0,1fr);gap:16px;align-items:center;padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-radius:22px;cursor:pointer;transition:transform .15s,border-color .15s}
-.record-row:hover{border-color:var(--line-strong)}.record-row:active{transform:scale(.995)}
+.record-row:hover{border-color:var(--line-strong)}
+.record-row:active{transform:scale(.995)}
 .record-row:before,.record-row:after{content:"";position:absolute;top:50%;width:16px;height:16px;margin-top:-8px;border-radius:50%;background:var(--bg);border:1px solid var(--line)}
-.record-row:before{left:-9px}.record-row:after{right:-9px}
+.record-row:before{left:-9px}
+.record-row:after{right:-9px}
 .thumb{width:84px;height:84px;border-radius:16px;overflow:hidden;background:var(--surface-2);display:grid;place-items:center;font-size:28px}
 .thumb img{border-radius:0!important}
-.record-main{min-width:0}.record-title{font-size:15.5px;font-weight:800;line-height:1.45}
+.record-main{min-width:0}
+.record-title{font-size:15.5px;font-weight:800;line-height:1.45}
 .meta{font-size:12.5px;color:var(--muted);margin-top:3px;line-height:1.5;overflow-wrap:anywhere}
-.pill{display:inline-block;margin-top:8px;padding:4px 11px;border-radius:99px;font-size:11.5px;font-weight:800}
-.success{background:color-mix(in srgb,var(--ok) 14%,transparent);color:var(--ok)}.fail{background:color-mix(in srgb,var(--ng) 13%,transparent);color:var(--ng)}
+.pill{display:inline-block;margin-top:8px;padding:4px 11px;border-radius:99px;font-size:12px;font-weight:800}
+.success{background:color-mix(in srgb,var(--ok) 14%,transparent);color:var(--ok)}
+.fail{background:color-mix(in srgb,var(--ng) 13%,transparent);color:var(--ng)}
 .wish-filter{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;scrollbar-width:none}
 .wish-filter button{flex:none;border:1px solid var(--line-strong);background:var(--surface);border-radius:99px;padding:9px 16px;font-size:13px;font-weight:700;color:var(--ink-2)}
-.wish-filter button.active{background:var(--ink);color:var(--bg);border-color:var(--ink)}.wish-filter span{margin-left:4px;opacity:.6}
-.wish-head-actions{display:flex;align-items:center;gap:8px}
-.wish-list-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.wish-list-rows{display:grid;gap:10px}
+.wish-filter button.active{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.wish-filter span{margin-left:4px;opacity:.6}
 .wish-card{background:var(--surface);border:1px solid var(--line);border-radius:22px;overflow:hidden;cursor:pointer;min-width:0;transition:transform .15s}
 .wish-card:active{transform:scale(.985)}
-.wish-thumb{height:132px;display:grid;place-items:center;font-size:32px;background:var(--surface-2) center/cover}
-.wish-card-row{display:grid;grid-template-columns:96px minmax(0,1fr)}.wish-card-row .wish-thumb{height:100%;min-height:100px}.wish-card-row .meta{display:none}
-.wish-card-body{padding:14px}.wish-card-title{font-size:14px;font-weight:800;line-height:1.45}
-.wish-badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
-.wish-badge{display:inline-block;padding:3px 10px;border-radius:99px;font-size:11.5px;font-weight:800}
-.wish-badge.wanted{background:color-mix(in srgb,var(--brass) 22%,transparent);color:#9a6208}.wish-badge.reserved{background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--accent)}
-.wish-badge[style]{background:var(--surface-2)!important;color:var(--muted)!important}
-@media(prefers-color-scheme:dark){.wish-badge.wanted{color:var(--brass)}}
-.wish-price{margin-top:10px;font:800 16px var(--display)}.wish-card .meta{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.stats-page-content{display:grid;gap:14px}.stats-overview{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.wish-card .meta{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.stats-page-content{display:grid;gap:14px}
+.stats-overview{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .stat-mini{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:18px;display:flex;flex-direction:column;gap:10px}
-.stat-mini span{font-size:12.5px;font-weight:700;color:var(--muted)}.stat-mini strong{font:800 32px/1 var(--display);letter-spacing:-.03em}.stat-mini small{font-size:13px;color:var(--muted);margin-left:3px;font-weight:600}
+.stat-mini span{font-size:12.5px;font-weight:700;color:var(--muted)}
+.stat-mini strong{font:800 32px/1 var(--display);letter-spacing:-.03em}
+.stat-mini small{font-size:13px;color:var(--muted);margin-left:3px;font-weight:600}
 .stats-panels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .bar-row{display:grid;grid-template-columns:minmax(64px,104px) 1fr 24px;gap:10px;align-items:center;margin:14px 0;font-size:12.5px;color:var(--ink-2)}
 .bar-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.bar-track{height:8px;border-radius:99px;background:var(--surface-2);overflow:hidden}.bar-track i{display:block;height:100%;border-radius:99px;background:var(--accent)}
+.bar-track{height:8px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.bar-track i{display:block;height:100%;border-radius:99px;background:var(--accent)}
 .bar-row b{text-align:right;font:800 14px var(--display);color:var(--ink)}
-.hint{font-size:12px;line-height:1.6;color:var(--muted)}.stats-note{margin:0 4px}
+.hint{font-size:12px;line-height:1.6;color:var(--muted)}
 .formgrid{display:grid;grid-template-columns:1fr 1fr;gap:20px 16px}
-.formfield{display:flex;flex-direction:column;gap:8px;min-width:0}.formfield.full{grid-column:1/-1}
+.formfield{display:flex;flex-direction:column;gap:8px;min-width:0}
+.formfield.full{grid-column:1/-1}
 .formfield>label{font-size:12.5px;font-weight:800;color:var(--ink-2)}
-.req{margin-left:6px;padding:1px 8px;border-radius:99px;font-size:10.5px;font-weight:800;color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent)}
-.seg{display:flex;gap:8px}.seg label{flex:1;font-size:inherit}.seg input{display:none}
+.req{margin-left:6px;padding:1px 8px;border-radius:99px;font-size:12px;font-weight:800;color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.seg{display:flex;gap:8px}
+.seg label{flex:1;font-size:inherit}
+.seg input{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
 .seg span{display:block;text-align:center;padding:12px 8px;border:1px solid var(--line-strong);border-radius:14px;background:var(--surface);font-size:14px;font-weight:600;transition:.15s}
 .seg label:first-child input:checked+span{background:color-mix(in srgb,var(--ok) 14%,transparent);border-color:var(--ok);color:var(--ok);font-weight:800}
 .seg label:last-child input:checked+span{background:color-mix(in srgb,var(--ng) 12%,transparent);border-color:var(--ng);color:var(--ng);font-weight:800}
-.stars{display:flex;gap:6px}.star{width:42px;height:42px;border:0;border-radius:13px;background:var(--surface-2);color:var(--line-strong);font-size:20px;transition:.15s}
+.stars{display:flex;gap:6px}
+.star{width:42px;height:42px;border:0;border-radius:13px;background:var(--surface-2);color:var(--line-strong);font-size:20px;transition:.15s}
 .star.on{background:color-mix(in srgb,var(--brass) 24%,transparent);color:var(--brass)}
-.inline-add{display:flex;gap:8px;align-items:center}.inline-add select{flex:1}
 .companion-chips{display:flex;flex-wrap:wrap;gap:8px}
 .companion-chip{border:1px solid var(--line-strong);background:var(--surface);border-radius:99px;padding:9px 16px;font-size:13.5px;font-weight:700;color:var(--ink-2)}
 .companion-chip.selected{background:color-mix(in srgb,var(--accent) 13%,transparent);border-color:var(--accent);color:var(--accent)}
 .companion-chip.other{border-style:dashed;color:var(--muted)}
-.other-companion-input{display:none;margin-top:10px}.other-companion-input.show{display:flex;gap:8px;flex-wrap:wrap}.other-companion-input input{flex:1}
-.photo-preview{display:flex;flex-wrap:wrap;gap:8px}.photo-wrap{position:relative}.photo-preview img{width:72px;height:72px;object-fit:cover;border-radius:14px;display:block}
+.other-companion-input{display:none;margin-top:10px}
+.other-companion-input.show{display:flex;gap:8px;flex-wrap:wrap}
+.other-companion-input input{flex:1}
+.photo-preview{display:flex;flex-wrap:wrap;gap:8px}
+.photo-wrap{position:relative}
+.photo-preview img{width:72px;height:72px;object-fit:cover;border-radius:14px;display:block}
 .photo-wrap button{position:absolute;right:-6px;top:-6px;width:22px;height:22px;border:0;border-radius:50%;background:var(--ink);color:var(--bg);font-size:13px;line-height:1}
-.form-actions{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;margin-top:24px}.form-actions .btn{padding:13px 24px}
+.form-actions{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;margin-top:24px}
+.form-actions .btn{padding:13px 24px}
 .master-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.master-box{background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:20px;min-width:0}.master-box h3{margin:0 0 14px;font-size:15px;font-weight:800}
-.master-add{display:flex;gap:8px;margin-bottom:12px}.master-add input{flex:1}.master-items{display:grid;gap:8px}
+.master-box{background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:20px;min-width:0}
+.master-box h3{margin:0 0 14px;font-size:15px;font-weight:800}
+.master-add{display:flex;gap:8px;margin-bottom:12px}
+.master-add input{flex:1}
+.master-items{display:grid;gap:8px}
 .master-item{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 10px 9px 14px;background:var(--surface-2);border-radius:14px;font-size:13.5px;font-weight:600}
-.filelabel{display:inline-flex;align-items:center;cursor:pointer}.safe-note{margin:22px 0 0;text-align:center;font-size:12px;color:var(--muted)}
-.modalback{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;padding:16px;background:#0a0c1e80;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}.modalback.show{display:flex}
+.filelabel{display:inline-flex;align-items:center;cursor:pointer}
+.safe-note{margin:22px 0 0;text-align:center;font-size:12px;color:var(--muted)}
+.modalback{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;padding:16px;background:#0a0c1e80;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.modalback.show{display:flex}
 .modal{width:min(560px,100%);max-height:88vh;overflow:auto;background:var(--surface);border-radius:28px;padding:24px;box-shadow:var(--shadow);animation:pop .22s ease-out}
 @keyframes pop{from{opacity:0;transform:translateY(14px) scale(.98)}}
 .modal h2{margin:0 0 18px;font:800 20px/1.35 var(--display)}
-.detail-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:18px}.detail-head h2{margin:0;overflow-wrap:anywhere}
-.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.detail-item{background:var(--surface-2);border-radius:16px;padding:12px 14px;min-width:0}.detail-item.full{grid-column:1/-1}
-.detail-label{font-size:11.5px;font-weight:700;color:var(--muted);margin-bottom:4px}.detail-value{font-size:14px;font-weight:600;white-space:pre-wrap;overflow-wrap:anywhere}.detail-value a{color:var(--accent)}
-.detail-photos{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}.detail-photos img{width:88px;height:88px;object-fit:cover;border-radius:12px}
-.toast{position:fixed;left:50%;bottom:calc(108px + var(--safe-b));transform:translate(-50%,8px);z-index:80;background:var(--ink);color:var(--bg);padding:11px 20px;border-radius:99px;font-size:13px;font-weight:700;opacity:0;pointer-events:none;transition:.22s;max-width:calc(100% - 32px);text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}
+.detail-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:18px}
+.detail-head h2{margin:0;overflow-wrap:anywhere}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.detail-item{background:var(--surface-2);border-radius:16px;padding:12px 14px;min-width:0}
+.detail-item.full{grid-column:1/-1}
+.detail-label{font-size:12px;font-weight:700;color:var(--muted);margin-bottom:4px}
+.detail-value{font-size:14px;font-weight:600;white-space:pre-wrap;overflow-wrap:anywhere}
+.detail-value a{color:var(--accent)}
+.detail-photos{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.detail-photos img{width:88px;height:88px;object-fit:cover;border-radius:12px}
+.toast{position:fixed;left:50%;bottom:calc(108px + var(--safe-b));transform:translate(-50%,8px);z-index:80;background:var(--ink);color:var(--bg);padding:11px 20px;border-radius:99px;font-size:13px;font-weight:700;opacity:0;pointer-events:none;transition:.22s;max-width:calc(100% - 32px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
 .bottomnav{position:fixed;z-index:40;left:50%;bottom:calc(14px + var(--safe-b));transform:translateX(-50%);width:min(500px,calc(100% - 24px));display:flex;gap:2px;padding:6px;background:color-mix(in srgb,var(--surface) 84%,transparent);backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow)}
-.navbtn{flex:1;min-width:0;border:0;background:transparent;color:var(--muted);border-radius:22px;padding:9px 2px 8px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10.5px;font-weight:700;transition:background .2s,color .2s}
-.navbtn .ico{display:grid;place-items:center;height:22px}.navbtn.active{background:var(--ink);color:var(--bg)}
-@media(max-width:900px){.stats-panels{grid-template-columns:1fr}.stats-overview{grid-template-columns:1fr 1fr}}
-@media(max-width:720px){.shell{padding:16px 14px 10px}.dashgrid,.master-grid{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.formfield.full{grid-column:auto}.stat{padding:18px;min-height:150px;border-radius:24px}.panel,.master-box{border-radius:24px;padding:16px}
-.formfield input:not([type=radio]):not([type=checkbox]),.formfield select,.formfield textarea,.field{font-size:16px}.record-row{grid-template-columns:72px minmax(0,1fr);gap:13px;padding:12px 14px}.thumb{width:72px;height:72px}.wish-thumb{height:112px}
-.modalback{align-items:flex-end;padding:0}.modal{border-radius:28px 28px 0 0;padding:22px 20px calc(22px + var(--safe-b));max-height:90vh;animation:sheet .28s ease-out}@keyframes sheet{from{transform:translateY(40px);opacity:.5}}
-.form-actions .btn{flex:1}.toolbar .switch{margin-left:auto}}
-@media(min-width:760px){.wish-list-cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.navbtn{flex:1;min-width:0;border:0;background:transparent;color:var(--muted);border-radius:22px;padding:9px 2px 8px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:12px;font-weight:700;transition:background .2s,color .2s}
+.navbtn .ico{display:grid;place-items:center;height:22px}
+.navbtn.active{background:var(--ink);color:var(--bg)}
+@media(max-width:900px){.stats-panels{grid-template-columns:1fr}
+.stats-overview{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){.shell{padding:16px 14px 10px}
+.dashgrid,.master-grid{grid-template-columns:1fr}
+.formgrid{grid-template-columns:1fr}
+.formfield.full{grid-column:auto}
+.stat{padding:18px;min-height:150px;border-radius:24px}
+.panel,.master-box{border-radius:24px;padding:16px}
+.formfield input:not([type=radio]):not([type=checkbox]),.formfield select,.formfield textarea,.field{font-size:16px}
+.record-row{grid-template-columns:72px minmax(0,1fr);gap:13px;padding:12px 14px}
+.thumb{width:72px;height:72px}
+.modalback{align-items:flex-end;padding:0}
+.modal{border-radius:28px 28px 0 0;padding:22px 20px calc(22px + var(--safe-b));max-height:90vh;animation:sheet .28s ease-out}
+@keyframes sheet{from{transform:translateY(40px);opacity:.5}}
+.form-actions .btn{flex:1}
+.toolbar .switch{margin-left:auto}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-
 html{overflow-anchor:none}
 .topnote{display:none!important}
 body.home-active{overflow:hidden}
@@ -166,7 +203,6 @@ body.home-active{overflow:hidden}
 .stats-panels{grid-template-columns:repeat(2,minmax(0,1fr))}
 @media(max-width:900px){.stats-panels{grid-template-columns:1fr}}
 @media(max-width:720px){#dashboard .dashgrid{grid-template-rows:repeat(2,minmax(0,1fr))}}
-
 body{padding:0;overflow:hidden;height:100dvh}
 .shell{position:fixed;left:0;right:0;top:calc(60px + var(--safe-t));bottom:0;max-width:none;margin:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:8px max(16px,calc((100vw - 1040px)/2)) calc(120px + var(--safe-b))}
 body.home-active .shell{overflow:hidden}
@@ -179,13 +215,12 @@ body.home-active .shell{overflow:hidden}
 .wish-filter button{padding:8px 13px;font-size:12.5px}
 .master-items{display:flex;flex-wrap:wrap;gap:6px}
 .master-item{padding:3px 4px 3px 12px;border-radius:99px;font-size:12.5px;gap:4px}
-.master-item .iconbtn{padding:3px 9px;font-size:11px}
-html[data-theme="paper"]{--bg:#eceef0;--surface:#f8f9fa;--surface-2:#e1e4e7;--rule:#15171a;--ink:#15171a;--ink-2:#3a3f45;--muted:#5c6169;--accent:#ff5a1f;--on-accent:#15171a;--accent-ink:#b83600;--brass:#c77700;--ok:#0b7a57;--ng:#c6303a;--cs:light;--line:#15171a22;--line-strong:#15171a44;--tile:#e1e4e7;--shadow:none}
+.master-item .iconbtn{padding:3px 9px;font-size:12px}
+html[data-theme="paper"]{--bg:#eceef0;--surface:#f8f9fa;--surface-2:#e1e4e7;--rule:#15171a;--ink:#15171a;--ink-2:#3a3f45;--muted:#5c6169;--accent:#ff5a1f;--on-accent:#15171a;--accent-ink:#b83600;--brass:#c77700;--ok:#0a7150;--ng:#ba2d36;--cs:light;--line:#15171a22;--line-strong:#15171a44;--tile:#e1e4e7;--shadow:none}
 html[data-theme="terminal"]{--bg:#0f1210;--surface:#171b18;--surface-2:#212622;--rule:#4a554d;--ink:#e4ebe5;--ink-2:#c0cac2;--muted:#94a096;--accent:#ffb000;--on-accent:#0f1210;--accent-ink:#ffb000;--brass:#ffb000;--ok:#4ade80;--ng:#ff7a70;--cs:dark;--line:#4a554d22;--line-strong:#4a554d44;--tile:#212622;--shadow:none}
 html[data-theme="midnight"]{--bg:#0c1120;--surface:#141b30;--surface-2:#1d2640;--rule:#3b4a78;--ink:#e8edf8;--ink-2:#c3cde6;--muted:#94a0c2;--accent:#4fd1ff;--on-accent:#0c1120;--accent-ink:#4fd1ff;--brass:#ffd166;--ok:#3ddc97;--ng:#ff7b8a;--cs:dark;--line:#3b4a7822;--line-strong:#3b4a7844;--tile:#1d2640;--shadow:none}
-html[data-theme="mint"]{--bg:#e5efe9;--surface:#f4faf6;--surface-2:#d6e5dd;--rule:#12201b;--ink:#12201b;--ink-2:#35483f;--muted:#53665e;--accent:#1fbf8f;--on-accent:#08241b;--accent-ink:#0b7a5f;--brass:#b7791f;--ok:#0b7a5f;--ng:#c6303a;--cs:light;--line:#12201b22;--line-strong:#12201b44;--tile:#d6e5dd;--shadow:none}
-html[data-theme="sakura"]{--bg:#f3e8ec;--surface:#fcf6f8;--surface-2:#ead9df;--rule:#2a1a20;--ink:#2a1a20;--ink-2:#51393f;--muted:#6f5a62;--accent:#ff6b9d;--on-accent:#2a1a20;--accent-ink:#b52a58;--brass:#b7791f;--ok:#0b7a57;--ng:#c6303a;--cs:light;--line:#2a1a2022;--line-strong:#2a1a2044;--tile:#ead9df;--shadow:none}
-
+html[data-theme="mint"]{--bg:#e5efe9;--surface:#f4faf6;--surface-2:#d6e5dd;--rule:#12201b;--ink:#12201b;--ink-2:#35483f;--muted:#53665e;--accent:#1fbf8f;--on-accent:#08241b;--accent-ink:#0a6c54;--brass:#b7791f;--ok:#0a6c54;--ng:#b62c35;--cs:light;--line:#12201b22;--line-strong:#12201b44;--tile:#d6e5dd;--shadow:none}
+html[data-theme="sakura"]{--bg:#f3e8ec;--surface:#fcf6f8;--surface-2:#ead9df;--rule:#2a1a20;--ink:#2a1a20;--ink-2:#51393f;--muted:#6f5a62;--accent:#ff6b9d;--on-accent:#2a1a20;--accent-ink:#b12956;--brass:#b7791f;--ok:#0a6c4d;--ng:#b12b34;--cs:light;--line:#2a1a2022;--line-strong:#2a1a2044;--tile:#ead9df;--shadow:none}
 html{color-scheme:var(--cs,light)}
 :root,html[data-theme]{--display:"JetBrains Mono","Noto Sans JP",ui-monospace,monospace}
 body{font-family:"JetBrains Mono","Noto Sans JP",ui-monospace,monospace;font-size:14px}
@@ -198,30 +233,38 @@ body{font-family:"JetBrains Mono","Noto Sans JP",ui-monospace,monospace;font-siz
 #history>.heading h1,#wishlist>.heading h1{font-size:22px}
 .heading h1:before{content:"> ";color:var(--accent-ink)}
 .panel-head h3:before{content:"## ";color:var(--muted)}
-.panel,.master-box,.stat,.stat-mini,.feature-card,.record-row,.wish-card,.modal,.detail-item,.field,.formfield input:not([type=radio]):not([type=checkbox]),.formfield select,.formfield textarea,.seg span,.star,.companion-chip,.wish-filter button,.master-item,.thumb,.photo-preview img,.detail-photos img,.empty,.btn,.iconbtn,.pill,.switch,.switch button,.toast,.req,.wish-badge,.bar-track,.bar-track i,.mini-row,.brandmark,.photo-wrap button,.navbtn,.bottomnav{border-radius:0}
+.panel,.master-box,.stat,.stat-mini,.feature-card,.record-row,.wish-card,.modal,.detail-item,.field,.formfield input:not([type=radio]):not([type=checkbox]),.formfield select,.formfield textarea,.seg span,.star,.companion-chip,.wish-filter button,.master-item,.thumb,.photo-preview img,.detail-photos img,.empty,.btn,.iconbtn,.pill,.switch,.switch button,.toast,.req,.bar-track,.bar-track i,.mini-row,.brandmark,.photo-wrap button,.navbtn,.bottomnav{border-radius:0}
 .panel,.master-box,.stat,.stat-mini,.record-row,.wish-card,.modal,.detail-item{border:1.5px solid var(--rule);box-shadow:none}
 .stat,.stat:nth-child(2){background:var(--surface);color:var(--ink)}
-.stat-num,.stat:first-child .stat-num{color:var(--ink)}.stat-label,.stat-foot{opacity:1;color:var(--muted)}
+.stat-num,.stat:first-child .stat-num{color:var(--ink)}
+.stat-label,.stat-foot{opacity:1;color:var(--muted)}
 .stat:before{display:none}
 .stat:after{border:0;border-radius:0;width:auto;height:12px;left:0;right:0;bottom:0;top:auto;border-top:1.5px solid var(--rule)}
 .stat:nth-child(2):after{background:linear-gradient(90deg,var(--accent) var(--rate,0%),transparent 0)}
-#dashboard .stats{gap:0}#dashboard .stat+.stat{border-left:0}#dashboard .stat{padding-bottom:26px}
+#dashboard .stats{gap:0}
+#dashboard .stat+.stat{border-left:0}
+#dashboard .stat{padding-bottom:26px}
 .btn{background:var(--accent);color:var(--on-accent);border:1.5px solid var(--rule)}
-.btn.light{background:var(--surface);color:var(--ink)}.btn.warn{background:transparent;color:var(--ng);border-color:var(--ng)}
+.btn.light{background:var(--surface);color:var(--ink)}
+.btn.warn{background:transparent;color:var(--ng);border-color:var(--ng)}
 .iconbtn{background:transparent;border:1px solid var(--rule);color:var(--ink)}
 .field,.formfield input:not([type=radio]):not([type=checkbox]),.formfield select,.formfield textarea{border:1.5px solid var(--rule);background:var(--surface)}
 .switch{background:transparent;border:1.5px solid var(--rule);padding:0;gap:0}
-.switch button{color:var(--ink);padding:8px 14px}.switch button.active{background:var(--accent);color:var(--on-accent);box-shadow:none}
+.switch button{color:var(--ink);padding:8px 14px}
+.switch button.active{background:var(--accent);color:var(--on-accent);box-shadow:none}
 .wish-filter button{border:1.5px solid var(--rule);background:var(--surface);color:var(--ink)}
 .wish-filter button.active{background:var(--accent);color:var(--on-accent);border-color:var(--rule)}
 .record-row:before,.record-row:after{display:none}
-.pill{border:1px solid currentColor;background:transparent}.pill.wanted,.pill.reserved,.success,.fail{background:transparent}
-.pill.wanted,.pill.reserved,.wish-badge.wanted,.wish-badge.reserved{color:var(--accent-ink)}
-.success{color:var(--ok)}.fail{color:var(--ng)}
+.pill{border:1px solid currentColor;background:transparent}
+.pill.wanted,.pill.reserved,.success,.fail{background:transparent}
+.pill.wanted,.pill.reserved{color:var(--accent-ink)}
+.success{color:var(--ok)}
+.fail{color:var(--ng)}
 .req,.companion-chip.selected,.detail-value a{color:var(--accent-ink)}
 .bar-track{background:var(--surface-2);border:1px solid var(--rule);height:10px}
 .bottomnav{left:0;right:0;bottom:0;transform:none;width:auto;gap:0;padding:0 0 var(--safe-b);background:var(--bg);border:0;border-top:1.5px solid var(--rule);box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
-.navbtn{padding:10px 2px 8px;color:var(--ink);border-right:1px solid var(--rule)}.navbtn:last-child{border-right:0}
+.navbtn{padding:10px 2px 8px;color:var(--ink);border-right:1px solid var(--rule)}
+.navbtn:last-child{border-right:0}
 .navbtn.active{background:var(--accent);color:var(--on-accent)}
 .shell{padding-bottom:calc(84px + var(--safe-b))}
 #dashboard.active{height:calc(100dvh - 152px - var(--safe-t) - var(--safe-b))}
@@ -232,16 +275,13 @@ body{font-family:"JetBrains Mono","Noto Sans JP",ui-monospace,monospace;font-siz
 .mini-row:active{background:var(--surface-2)}
 .mini-thumb{width:52px;height:52px;background-color:var(--surface-2);background-image:repeating-linear-gradient(135deg,transparent 0 6px,var(--line-strong) 6px 7px);background-size:cover;background-position:center}
 .mini-title,.mini-meta{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mini-title{font-size:13.5px;font-weight:700;line-height:1.4}.mini-meta{font-size:11.5px;color:var(--muted)}
-.mini-row .pill{margin:0;font-size:11px;padding:2px 7px}
-.theme-wrap{position:relative}
-.themebtn{width:36px;height:36px;display:grid;place-items:center;border:1.5px solid var(--rule);background:var(--surface);color:var(--ink);padding:0}
-.thememenu{position:absolute;right:0;top:44px;width:190px;background:var(--surface);border:1.5px solid var(--rule);padding:6px;z-index:70;display:grid;gap:2px}
-.thememenu[hidden]{display:none}
+.mini-title{font-size:13.5px;font-weight:700;line-height:1.4}
+.mini-meta{font-size:12px;color:var(--muted)}
+.mini-row .pill{margin:0;font-size:12px;padding:2px 7px}
 .swatch{display:flex;align-items:center;gap:10px;border:0;background:transparent;color:var(--ink);padding:7px 8px;font-size:13px;font-weight:700;text-align:left}
 .swatch i{width:22px;height:22px;border:1.5px solid var(--rule);flex:none}
-.swatch.on{background:var(--surface-2)}.swatch.on:after{content:"✓";margin-left:auto}
-
+.swatch.on{background:var(--surface-2)}
+.swatch.on:after{content:"✓";margin-left:auto}
 .master-box.theme-box{grid-column:1/-1}
 .theme-picker{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 .theme-picker .swatch{flex-direction:column;align-items:stretch;gap:6px;padding:8px;background:var(--surface);border:1.5px solid var(--rule);font-size:12.5px}
@@ -255,7 +295,6 @@ body{font-family:"JetBrains Mono","Noto Sans JP",ui-monospace,monospace;font-siz
 #dashboard>.heading{display:flex;flex:none;height:40px;margin:0;padding:0;align-items:center}
 #dashboard>.heading h1{font-size:22px}
 #dashboard>.heading .sub{display:none}
-
 .heading h1{display:flex;align-items:center;gap:12px}
 .heading h1:before{content:"";flex:none;width:6px;height:.8em;background:var(--accent)}
 #stats>.heading,#settings>.heading{position:sticky;top:0;z-index:20;background:var(--bg);height:52px;margin:0;padding:0;align-items:center}
@@ -267,10 +306,11 @@ body{font-family:"JetBrains Mono","Noto Sans JP",ui-monospace,monospace;font-siz
 .mini-list{gap:6px}
 .mini-row{grid-template-columns:40px minmax(0,1fr) auto;gap:10px;padding:6px 8px 6px 6px}
 .mini-thumb{width:40px;height:40px}
-.mini-title{font-size:13px}.mini-meta{font-size:11px}
+.mini-title{font-size:13px}
+.mini-meta{font-size:12px}
 #dashboard .dashgrid>.panel{padding:12px}
 #dashboard .panel-head{margin-bottom:8px}
-#dashboard .panel-head .iconbtn{padding:5px 10px;font-size:11.5px}
+#dashboard .panel-head .iconbtn{padding:5px 10px;font-size:12px}
 @media(max-width:720px){#dashboard .dashgrid{grid-template-rows:repeat(2,minmax(0,1fr))}}
 .mini-list{gap:8px}
 .mini-row{flex:1 1 0;min-height:52px;max-height:100px;grid-template-columns:56px minmax(0,1fr) auto}
@@ -284,8 +324,7 @@ body{font-family:"JetBrains Mono","Noto Sans JP",ui-monospace,monospace;font-siz
 .slot .mini-title{color:var(--ink-2)}
 .slot .mini-thumb{background:none;border:1px dashed var(--rule);display:grid;place-items:center}
 .slot .mini-thumb:after{content:"+";font-size:22px;line-height:1;color:var(--muted)}
-@media(max-height:720px){
-#dashboard.active{gap:8px}
+@media(max-height:720px){#dashboard.active{gap:8px}
 #dashboard>.heading{height:32px}
 #dashboard .stat{padding:10px 14px}
 #dashboard .stat-num{margin-top:4px;font-size:32px}
@@ -294,8 +333,7 @@ body{font-family:"JetBrains Mono","Noto Sans JP",ui-monospace,monospace;font-siz
 #dashboard .panel-head{margin-bottom:6px}
 .mini-list{gap:6px}
 .mini-row{min-height:44px}
-.mini-thumb{width:44px}
-}
+.mini-thumb{width:44px}}
 .mini-list{overflow:visible}
 .mini-row{min-height:44px}
 .master-item .iconbtn{font-size:15px;line-height:1;padding:3px 9px}
@@ -316,7 +354,6 @@ body{font-family:"JetBrains Mono","Noto Sans JP",ui-monospace,monospace;font-siz
 .bar-row:has(.bar-name) b{grid-column:2;grid-row:1}
 .bar-row:has(.bar-name) .bar-track{grid-column:1/-1;grid-row:2}
 .pill.none{color:var(--muted)}
-.imgq{margin-top:8px}
 .bottomnav{padding-bottom:calc(var(--safe-b)*.3)}
 .shell{padding-top:4px;padding-bottom:calc(78px + var(--safe-b)*.3)}
 #dashboard.active{height:calc(100dvh - 142px - var(--safe-t) - var(--safe-b)*.3)}
@@ -331,23 +368,27 @@ body{font-family:"JetBrains Mono","Noto Sans JP",ui-monospace,monospace;font-siz
 .pill.done{color:var(--accent-ink)}
 .detail-head h2{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .detail-head h2 .dt{overflow-wrap:anywhere}
-.detail-head .pill{margin:0;font-size:11.5px}
+.detail-head .pill{margin:0;font-size:12px}
 .nm{display:inline-block;white-space:nowrap;max-width:100%}
-.segbtns{display:flex;gap:8px}.segbtns.wrap{flex-wrap:wrap}
+.segbtns{display:flex;gap:8px}
+.segbtns.wrap{flex-wrap:wrap}
 .segbtns button{flex:1;padding:11px 8px;border:1.5px solid var(--rule);background:var(--surface);color:var(--ink);font-size:13px;font-weight:600}
 .segbtns button.on{background:var(--accent);color:var(--on-accent);font-weight:800}
 .convert-box{margin-top:18px;padding:12px;border:1.5px dashed var(--rule);display:flex;align-items:center;justify-content:space-between;gap:10px}
 .convert-box .hint{flex:1}
-.panel.tap{cursor:pointer}.panel.tap:active{background:var(--surface-2)}
+.panel.tap{cursor:pointer}
+.panel.tap:active{background:var(--surface-2)}
 .ph-right{display:flex;align-items:center;gap:8px}
 .viewico{width:16px;height:16px;background:var(--muted);-webkit-mask:var(--vi) center/contain no-repeat;mask:var(--vi) center/contain no-repeat}
-.viewico.p{--vi:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3a9 9 0 1 0 9 9h-9zM14.5 3.4A9 9 0 0 1 20.6 9.5h-6.1z'/%3E%3C/svg%3E")}.viewico.b{--vi:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 20v-9M12 20V4M19 20v-6'/%3E%3C/svg%3E")}
+.viewico.p{--vi:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3a9 9 0 1 0 9 9h-9zM14.5 3.4A9 9 0 0 1 20.6 9.5h-6.1z'/%3E%3C/svg%3E")}
+.viewico.b{--vi:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 20v-9M12 20V4M19 20v-6'/%3E%3C/svg%3E")}
 .bar-row.yr{width:100%;background:none;border:0;padding:0;text-align:left;color:var(--ink-2);font:inherit;font-size:12.5px;cursor:pointer}
 .bar-row.yr.open>span{color:var(--accent-ink);font-weight:800}
 .month-chart{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:4px;align-items:end;margin:4px 0 14px;padding:10px 6px 6px;border:1px dashed var(--rule)}
-.mc{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10.5px}
-.mc b{height:14px;font:800 11px var(--display);color:var(--ink)}
-.mc-bar{display:flex;align-items:flex-end;width:100%;height:70px;background:var(--surface-2)}.mc-bar i{display:block;width:100%;background:var(--accent)}
+.mc{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:12px}
+.mc b{height:14px;font:800 12px var(--display);color:var(--ink)}
+.mc-bar{display:flex;align-items:flex-end;width:100%;height:70px;background:var(--surface-2)}
+.mc-bar i{display:block;width:100%;background:var(--accent)}
 .mc em{font-style:normal;color:var(--muted)}
 .pie-wrap{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
 .pie{width:132px;height:132px;flex:none}
@@ -362,7 +403,8 @@ body{font-family:"JetBrains Mono","Noto Sans JP",ui-monospace,monospace;font-siz
 #history>.heading,#wishlist>.heading,#stats>.heading,#settings>.heading{height:36px}
 #history>.toolbar,#wishlist>.toolbar{top:36px;padding-top:2px}
 .iconbtn,.btn{white-space:nowrap}
-.detail-head{align-items:flex-start}.detail-head>div{min-width:0;flex:1}
+.detail-head{align-items:flex-start}
+.detail-head>div{min-width:0;flex:1}
 .detail-head .iconbtn{flex:none;align-self:flex-start}
 .req{font-size:14px}
 .sub .req{margin:0 3px 0 0}
@@ -379,7 +421,7 @@ body{font-family:"JetBrains Mono","Noto Sans JP",ui-monospace,monospace;font-siz
 .chk input{width:20px;height:20px;accent-color:var(--accent);margin:0;flex:none}
 .master-items{display:flex;flex-wrap:wrap;gap:6px}
 .master-item{flex:1 1 auto;justify-content:space-between}
-html[data-theme="sky"]{--bg:#e4f0fb;--surface:#f4f9ff;--surface-2:#d5e6f6;--rule:#0f2a44;--ink:#0f2a44;--ink-2:#34506b;--muted:#5a7590;--accent:#1d63d8;--on-accent:#ffffff;--accent-ink:#1650b0;--brass:#b7791f;--ok:#0b7a57;--ng:#c6303a;--cs:light;--line:#0f2a4422;--line-strong:#0f2a4444;--tile:#d5e6f6;--shadow:none}
+html[data-theme="sky"]{--bg:#e4f0fb;--surface:#f4f9ff;--surface-2:#d5e6f6;--rule:#0f2a44;--ink:#0f2a44;--ink-2:#34506b;--muted:#4e667d;--accent:#1d63d8;--on-accent:#ffffff;--accent-ink:#1650b0;--brass:#b7791f;--ok:#0a7150;--ng:#ba2d36;--cs:light;--line:#0f2a4422;--line-strong:#0f2a4444;--tile:#d5e6f6;--shadow:none}
 .master-item{flex:0 0 auto}
 /* ---- layout pass: one spacing rhythm (12px) under every heading ---- */
 .heading{margin:0 0 12px}
@@ -408,7 +450,10 @@ html[data-theme="sky"]{--bg:#e4f0fb;--surface:#f4f9ff;--surface-2:#d5e6f6;--rule
 #xTemplate{min-height:96px;resize:vertical}
 .safe-note{text-align:left}
 .thumb .ri{width:36px;height:36px}
-.ri.lit{color:var(--ink)}.ri.off{color:var(--muted)}.ri.dn{color:var(--ok)}.ri.tk{color:var(--muted)}
+.ri.lit{color:var(--ink)}
+.ri.off{color:var(--muted)}
+.ri.dn{color:var(--ok)}
+.ri.tk{color:var(--muted)}
 .thumb .ri.dn{width:44px;height:44px;stroke-width:2.2}
 .stat-mini strong{white-space:nowrap}
 .stat-mini.sf strong{font-size:clamp(17px,5.4vw,26px)}
@@ -416,7 +461,8 @@ html[data-theme="sky"]{--bg:#e4f0fb;--surface:#f4f9ff;--surface-2:#d5e6f6;--rule
 .feature-list{grid-template-columns:repeat(2,minmax(0,1fr))}
 @media(min-width:721px){.feature-list{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .feature-card{aspect-ratio:1/1;min-height:0}
-.feature-title{font-size:13px}.feature-meta{font-size:11px}
+.feature-title{font-size:13px}
+.feature-meta{font-size:12px}
 .feature-info{left:12px;right:12px;bottom:12px;max-height:calc(100% - 44px);overflow:hidden}
 .ri.lit,.ri.off{stroke-width:1.2}
 .thumb .ri.dn{width:48px;height:48px;stroke-width:2.4}
@@ -424,7 +470,8 @@ html[data-theme="sky"]{--bg:#e4f0fb;--surface:#f4f9ff;--surface-2:#d5e6f6;--rule
 .stat-mini.sf strong{font-size:clamp(20px,6.6vw,28px);letter-spacing:-.06em}
 .timebtn{text-align:left;color:var(--ink);font-weight:600;cursor:pointer}
 .timebtn.muted{color:var(--muted);font-weight:400}
-.filterbtn{flex:none}.filterbtn.on{background:var(--accent);color:var(--on-accent)}
+.filterbtn{flex:none}
+.filterbtn.on{background:var(--accent);color:var(--on-accent)}
 .wheels{position:relative;display:flex;justify-content:center;align-items:center;gap:6px;height:200px;margin:8px 0 4px}
 .wh-band{position:absolute;left:14%;right:14%;top:80px;height:40px;border-top:1.5px solid var(--rule);border-bottom:1.5px solid var(--rule);background:color-mix(in srgb,var(--accent) 14%,transparent);pointer-events:none}
 .wheel{width:92px;height:200px;overflow-y:auto;scroll-snap-type:y mandatory;padding:80px 0;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;position:relative;z-index:1}
@@ -435,7 +482,8 @@ html[data-theme="sky"]{--bg:#e4f0fb;--surface:#f4f9ff;--surface-2:#d5e6f6;--rule
 .lightbox img{max-width:100%;max-height:100%;object-fit:contain;touch-action:pinch-zoom}
 .lb-close{position:absolute;top:calc(var(--safe-t) + 10px);right:12px;background:#fff;color:#111;border-color:#fff}
 .lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:64px;border:0;background:#00000088;color:#fff;font-size:32px;line-height:1;z-index:2}
-.lb-prev{left:0}.lb-next{right:0}
+.lb-prev{left:0}
+.lb-next{right:0}
 .lb-count{position:absolute;bottom:calc(var(--safe-b) + 12px);left:0;right:0;text-align:center;color:#fff;font-size:12px}
 .detail-photos img,.photo-preview img,#wishPhotoPreview img{cursor:zoom-in}
 .modal{max-height:90vh;max-height:90dvh;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
@@ -449,7 +497,8 @@ html[data-theme="sky"]{--bg:#e4f0fb;--surface:#f4f9ff;--surface-2:#d5e6f6;--rule
 .modal.full .dm-body{flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:16px}
 .modal.full .form-actions{flex:none;display:flex;gap:10px;margin:0;padding:12px 16px calc(12px + var(--safe-b));border-top:1.5px solid var(--rule);background:var(--bg)}
 .modal.full .form-actions .btn{flex:1}
-@media(min-width:721px){.modalback.full{justify-content:center}.modal.full{max-width:720px}}
+@media(min-width:721px){.modalback.full{justify-content:center}
+.modal.full{max-width:720px}}
 .stat-mini.sf strong{font:800 32px/1 var(--display);letter-spacing:-.03em}
 #register.active{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;background:var(--bg);animation:none;padding:0;margin:0}
 #register>.heading{flex:none;margin:0;padding:calc(var(--safe-t) + 12px) 16px 12px;background:var(--bg);border-bottom:1.5px solid var(--rule);align-items:flex-start}
@@ -458,30 +507,66 @@ html[data-theme="sky"]{--bg:#e4f0fb;--surface:#f4f9ff;--surface-2:#d5e6f6;--rule
 #register #recordForm .formgrid{flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:16px;align-content:start}
 #register #recordForm .form-actions{flex:none;display:flex;gap:10px;margin:0;padding:12px 16px calc(12px + var(--safe-b));border-top:1.5px solid var(--rule);background:var(--bg)}
 #register #recordForm .form-actions .btn{flex:1}
-@media(min-width:721px){#register.active{align-items:center}#register>.heading,#register>.panel{width:100%;max-width:720px}}
+@media(min-width:721px){#register.active{align-items:center}
+#register>.heading,#register>.panel{width:100%;max-width:720px}}
 body.reg-open .topbar,body.reg-open .bottomnav{display:none}
+.iconbtn{min-height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:center}
+#dashboard .panel-head .iconbtn{min-height:0;min-width:0;position:relative}
+#dashboard .panel-head .iconbtn::after{content:"";position:absolute;inset:-9px -6px}
+.heading .btn{min-height:44px;padding:0 16px}
+#history>.heading,#wishlist>.heading,#stats>.heading,#settings>.heading{height:60px;padding:2px 0 12px}
+#history>.toolbar,#wishlist>.toolbar{top:60px}
+.xbtn{width:44px;height:44px}
+.star{width:44px;height:44px}
+.btn.small,.companion-chip,.wish-filter button,.switch button,.segbtns button,.fchip{min-height:44px}
+.fchip{padding:0 12px}
+.bar-row.yr{min-height:44px;margin:0}
+.master-items{gap:8px}
+.master-item{min-height:44px;padding:0 0 0 12px;gap:8px;align-items:center}
+.master-item .iconbtn{width:44px;height:44px;min-width:44px;padding:0;font-size:20px;line-height:1;background:transparent;border:0;border-left:1px solid var(--rule);color:var(--ink)}
+.photo-wrap button{width:30px;height:30px;right:-8px;top:-8px;font-size:16px;display:grid;place-items:center}
+.photo-wrap button::after{content:"";position:absolute;inset:-7px}
+.undobar{position:fixed;left:50%;bottom:calc(78px + var(--safe-b)*.3);transform:translateX(-50%);z-index:90;display:flex;align-items:center;gap:12px;max-width:calc(100% - 24px);background:var(--ink);color:var(--bg);padding:4px 4px 4px 16px;font-size:13px;font-weight:700}
+.undobar button{min-height:44px;padding:0 14px;background:transparent;color:var(--bg);border:1.5px solid currentColor;font-weight:800}
+.ic{width:1.15em;height:1.15em;vertical-align:-.22em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.pill{display:inline-flex;align-items:center;gap:4px}
+.master-box h3,.panel-head h3{display:flex;align-items:center;gap:8px}
+.rstars{color:var(--accent-ink);font-size:12px}
+.seg label{position:relative}
+.seg input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+*{-webkit-tap-highlight-color:transparent}
+.panel,.master-box,.record-row,.stat-mini,.mini-row,.detail-item{border:1px solid color-mix(in srgb,var(--rule) 45%,transparent)}
+.mini-row.slot{border-style:dashed}
+.danger-box{border-color:var(--ng)}
+.seg input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.record-row{content-visibility:auto;contain-intrinsic-size:auto 100px}
+.record-row,.mini-row,.wish-card,.detail-item,.master-item{border-width:1px;border-color:color-mix(in srgb,var(--rule) 45%,transparent)}
+.hint,.detail-value,.dlg-msg,.xpreview,textarea{font-family:"Noto Sans JP",system-ui,-apple-system,"Hiragino Sans","Yu Gothic UI",sans-serif}
+.detail-value,.hint{line-height:1.7}
+.panel,.master-box,.record-row,.mini-row,.stat-mini,.wish-card,.detail-item{border-width:1px}
 </style>
 </head>
-<body>
+<body><svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-bulb-on" viewBox="0 0 24 24"><path d="M12 4.5a5.5 5.5 0 0 0-3.4 9.8c.6.5.9 1.1.9 1.7h5c0-.6.3-1.2.9-1.7A5.5 5.5 0 0 0 12 4.5z" fill="#ffd60a"/><path d="M9.8 18.5h4.4M10.6 21h2.8"/><path d="M12 1v1M4.2 4.2l.7.7M19.8 4.2l-.7.7M2 10h1M21 10h1" stroke="#f2b705"/></symbol><symbol id="i-bulb-off" viewBox="0 0 24 24"><path d="M12 4.5a5.5 5.5 0 0 0-3.4 9.8c.6.5.9 1.1.9 1.7h5c0-.6.3-1.2.9-1.7A5.5 5.5 0 0 0 12 4.5z"/><path d="M9.8 18.5h4.4M10.6 21h2.8"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M7.4 12.6l3.1 3.1 6.2-6.6"/></symbol><symbol id="i-ticket" viewBox="0 0 24 24"><path d="M3 7h18v3.5a1.5 1.5 0 0 0 0 3V17H3v-3.5a1.5 1.5 0 0 0 0-3zM14 7v10"/></symbol><symbol id="i-building" viewBox="0 0 24 24"><path d="M5 21V5l7-2 7 2v16M3 21h18M9 9h.01M9 13h.01M9 17h.01M15 9h.01M15 13h.01M15 17h.01"/></symbol><symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 5.5a3 3 0 0 1 0 5.5M18 14.5c1.8.7 3 2.5 3 5.5"/></symbol><symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.7-.8 1.7-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-.9.7-1.6 1.6-1.6H17a4 4 0 0 0 4-4c0-4.4-4-8.3-9-8.3z"/><path d="M7.5 11h.01M10 7h.01M15 7h.01"/></symbol><symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><circle cx="9" cy="10" r="1.5"/><path d="M3 17l5-5 4 4 3-3 6 6"/></symbol><symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4"/></symbol><symbol id="i-package" viewBox="0 0 24 24"><path d="M3 8l9-5 9 5v8l-9 5-9-5zM3 8l9 5 9-5M12 13v8"/></symbol><symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l10 18H2zM12 10v5M12 18h.01"/></symbol></defs></svg>
 <header class="topbar"><div class="brand"><span class="brandmark"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M16 7l3 3M14 9l2 2"/></svg></span><span>ESCAPE LOG</span></div><div class="topnote" id="topPageTitle">ホーム</div></header>
 <main class="shell" id="swipeArea">
 <section class="page active" id="dashboard"><div class="heading"><div><div class="eyebrow">YOUR ADVENTURE LOG</div><h1>ホーム</h1><div class="sub">これまでの挑戦を、ひと目で。</div></div></div><div class="stats"><div class="stat"><div class="stat-label">参加公演数</div><div class="stat-num" id="totalCount">0<span>公演</span></div></div><div class="stat"><div class="stat-label">脱出成功率</div><div class="stat-num" id="successRate">—<span>%</span></div><div class="stat-foot" id="successDetail">成功 0 / 0 公演</div></div></div><div class="dashgrid"><section class="panel"><div class="panel-head"><h3>最近参加した公演</h3><button class="iconbtn" onclick="go('history')">すべて見る →</button></div><div class="mini-list" id="recentList"></div></section><section class="panel"><div class="panel-head"><h3>行きたい公演</h3><button class="iconbtn" onclick="go('wishlist')">リストを見る →</button></div><div class="mini-list" id="dashWish"></div></section></div></section>
-<section class="page" id="history"><div class="heading"><div><h1>行ってきた公演</h1></div><button class="btn add-compact" onclick="newRecord()">+追加</button></div><div class="toolbar"><input class="field search" id="historySearch" placeholder="公演名・団体・場所・ハッシュタグで検索" oninput="renderHistory()"><select class="field" id="sortOrder" onchange="renderHistory()"><option value="desc">新しい順</option><option value="asc">古い順</option></select><button type="button" class="btn light small filterbtn" id="filterBtn" onclick="openFilter()">絞り込み</button><div class="switch"><button data-view="list" class="active" onclick="setView('list',this)">一覧</button><button data-view="cards" onclick="setView('cards',this)">カード</button></div></div><div id="filterChips"></div><div id="historyContent"></div></section>
-<section class="page" id="register"><div class="heading"><div><div class="eyebrow">SAVE YOUR EXPERIENCE</div><h1 id="registerHeading">参加記録を登録</h1><div class="sub"><span class="req">*</span>は必須項目です</div></div><button class="btn light" onclick="cancelRegister()">閉じる</button></div><div class="panel"><form id="recordForm" onsubmit="saveRecord(event)"><input type="hidden" id="editId"><div class="formgrid"><div class="formfield full"><label>公演タイトル <span class="req">*</span></label><input class="field" id="title" required placeholder="公演タイトルを入力"></div><div class="formfield"><label>参加日 <span class="req">*</span></label><input id="date" type="date" required></div><div class="formfield"><label>参加時刻</label><input type="hidden" id="time"><button type="button" class="field timebtn muted" id="timeBtn" onclick="openTimePicker('time')">時刻を選択</button></div><div class="formfield"><label>結果</label><div class="seg"><label><input type="radio" name="result" value="success"><span>🎉 脱出成功</span></label><label><input type="radio" name="result" value="fail"><span>🌀 脱出失敗</span></label><label><input type="radio" name="result" value="done"><span>✅ 完了</span></label></div><div class="hint">未入力でも登録できます（選択済みをもう一度タップすると解除）</div></div><div class="formfield"><label>公演類型 <span class="req">*</span></label><select id="eventType" required><option value="">類型を選択</option><option value="ホール">ホール</option><option value="ルーム">ルーム</option><option value="周遊">周遊</option><option value="館内周遊">館内周遊</option><option value="オンライン">オンライン</option><option value="スタジアム">スタジアム</option><option value="その他">その他</option></select></div><div class="formfield"><label>満足度</label><div class="stars" id="stars"><button type="button" class="star" data-star="1">★</button><button type="button" class="star" data-star="2">★</button><button type="button" class="star" data-star="3">★</button><button type="button" class="star" data-star="4">★</button><button type="button" class="star" data-star="5">★</button></div></div><div class="formfield"><label>主催団体 <span class="req">*</span></label><select id="organizer" class="field" onchange="onMF('organizer')"><option value="">選択してください</option></select><input id="organizerOther" class="field mf-other" placeholder="主催団体名を入力" hidden></div><div class="formfield"><label>会場・店舗</label><select id="venue" class="field" onchange="onMF('venue')"><option value="">選択してください</option></select><input id="venueOther" class="field mf-other" placeholder="会場・店舗名を入力" hidden></div><div class="formfield full"><label>同行者（複数選択可）</label><div id="companionChecks" class="companion-chips"></div><div class="other-companion-input" id="otherCompanionWrap"><input id="otherCompanionName" class="field" placeholder="今回だけの同行者名（複数名は「、」区切り）"><button type="button" class="btn light small" onclick="addOtherCompanion()">反映</button></div><div class="hint">登録済みの同行者は上のボタンから複数選択できます。</div></div><div class="formfield"><label>参加人数</label><select id="participants"></select></div><div class="formfield"><label>知らない同卓者の人数（編集用）</label><select id="tablemates"></select></div><div class="formfield"><label>チケット代（円）</label><input id="ticketPrice" type="number" inputmode="numeric" min="0" step="1" placeholder="例：3500"></div><div class="formfield full"><label>公演URL</label><input id="eventUrl" type="url" placeholder="https://..."><div class="hint" id="urlHint">URLは記録として保存できます。情報の自動取得は未接続です。</div></div><div class="formfield full"><label>感想・メモ</label><textarea id="comment" placeholder="印象に残った謎、演出、感想など"></textarea></div><div class="formfield full"><label>ハッシュタグ（X投稿用）</label><input id="hashtags" placeholder="例：#謎解き #脱出ゲーム" autocomplete="off"><div class="hint">スペースか読点で区切って入力します。詳細画面のXボタンから投稿画面を開くと、ここのタグが入ります。</div></div><div class="formfield full"><label>写真・スクリーンショット（複数可）</label><input id="photos" type="file" accept="image/*" multiple class="field"><div class="hint imgq-note"></div><div class="photo-preview" id="photoPreview"></div><div class="hint"></div></div></div><div class="form-actions"><button type="button" class="btn light" onclick="cancelRegister()">キャンセル</button><button type="submit" class="btn">記録を保存</button></div></form></div></section>
+<section class="page" id="history"><div class="heading"><div><h1>行ってきた公演</h1></div><button class="btn add-compact" onclick="newRecord()">+追加</button></div><div class="toolbar"><input class="field search" id="historySearch" placeholder="公演名・団体・場所・ハッシュタグで検索" oninput="debouncedHistory()"><select class="field" id="sortOrder" onchange="renderHistory()"><option value="desc">新しい順</option><option value="asc">古い順</option></select><button type="button" class="btn light small filterbtn" id="filterBtn" onclick="openFilter()">絞り込み</button><div class="switch"><button data-view="list" class="active" onclick="setView('list',this)">一覧</button><button data-view="cards" onclick="setView('cards',this)">カード</button></div></div><div id="filterChips"></div><div id="historyContent"></div></section>
+<section class="page" id="register"><div class="heading"><div><div class="eyebrow">SAVE YOUR EXPERIENCE</div><h1 id="registerHeading">参加記録を登録</h1><div class="sub"><span class="req">*</span>は必須項目です</div></div><button class="btn light" onclick="cancelRegister()">閉じる</button></div><div class="panel"><form id="recordForm" onsubmit="saveRecord(event)"><input type="hidden" id="editId"><div class="formgrid"><div class="formfield full"><label for="title">公演タイトル <span class="req">*</span></label><input class="field" id="title" required placeholder="公演タイトルを入力"></div><div class="formfield"><label for="date">参加日 <span class="req">*</span></label><input id="date" type="date" required></div><div class="formfield"><label for="timeBtn">参加時刻</label><input type="hidden" id="time"><button type="button" class="field timebtn muted" id="timeBtn" onclick="openTimePicker('time')">時刻を選択</button></div><div class="formfield"><label id="lbl-result">結果</label><div class="seg" role="group" aria-labelledby="lbl-result"><label><input type="radio" name="result" value="success"><span><svg class="ic" aria-hidden="true"><use href="#i-bulb-on"/></svg>脱出成功</span></label><label><input type="radio" name="result" value="fail"><span><svg class="ic" aria-hidden="true"><use href="#i-bulb-off"/></svg>脱出失敗</span></label><label><input type="radio" name="result" value="done"><span><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>完了</span></label></div><div class="hint">未入力でも登録できます（選択済みをもう一度タップすると解除）</div></div><div class="formfield"><label for="eventType">公演類型 <span class="req">*</span></label><select id="eventType" required><option value="">類型を選択</option><option value="ホール">ホール</option><option value="ルーム">ルーム</option><option value="周遊">周遊</option><option value="館内周遊">館内周遊</option><option value="オンライン">オンライン</option><option value="スタジアム">スタジアム</option><option value="その他">その他</option></select></div><div class="formfield"><label id="lbl-rating">満足度</label><div class="stars" id="stars" role="group" aria-labelledby="lbl-rating"><button type="button" class="star" data-star="1" aria-label="星1つ">★</button><button type="button" class="star" data-star="2" aria-label="星2つ">★</button><button type="button" class="star" data-star="3" aria-label="星3つ">★</button><button type="button" class="star" data-star="4" aria-label="星4つ">★</button><button type="button" class="star" data-star="5" aria-label="星5つ">★</button></div></div><div class="formfield"><label for="organizer">主催団体 <span class="req">*</span></label><select id="organizer" class="field" onchange="onMF('organizer')"><option value="">選択してください</option></select><input id="organizerOther" class="field mf-other" placeholder="主催団体名を入力" hidden></div><div class="formfield"><label for="venue">会場・店舗</label><select id="venue" class="field" onchange="onMF('venue')"><option value="">選択してください</option></select><input id="venueOther" class="field mf-other" placeholder="会場・店舗名を入力" hidden></div><div class="formfield full"><label id="lbl-comp">同行者（複数選択可）</label><div id="companionChecks" class="companion-chips" role="group" aria-labelledby="lbl-comp"></div><div class="other-companion-input" id="otherCompanionWrap"><input id="otherCompanionName" class="field" placeholder="今回だけの同行者名（複数名は「、」区切り）"><button type="button" class="btn light small" onclick="addOtherCompanion()">反映</button></div><div class="hint">登録済みの同行者は上のボタンから複数選択できます。</div></div><div class="formfield"><label for="participants">参加人数</label><select id="participants"></select></div><div class="formfield"><label for="tablemates">知らない同卓者の人数（編集用）</label><select id="tablemates"></select></div><div class="formfield"><label for="ticketPrice">チケット代（円）</label><input id="ticketPrice" type="number" inputmode="numeric" min="0" step="1" placeholder="例：3500"></div><div class="formfield full"><label for="eventUrl">公演URL</label><input id="eventUrl" type="url" placeholder="https://..."><div class="hint" id="urlHint">URLは記録として保存できます。情報の自動取得は未接続です。</div></div><div class="formfield full"><label for="comment">感想・メモ</label><textarea id="comment" placeholder="印象に残った謎、演出、感想など"></textarea></div><div class="formfield full"><label for="hashtags">ハッシュタグ（X投稿用）</label><input id="hashtags" placeholder="例：#謎解き #脱出ゲーム" autocomplete="off"><div class="hint">スペースか読点で区切って入力します。詳細画面のXボタンから投稿画面を開くと、ここのタグが入ります。</div></div><div class="formfield full"><label for="photos">写真・スクリーンショット（複数可）</label><input id="photos" type="file" accept="image/*" multiple class="field"><div class="hint imgq-note"></div><div class="photo-preview" id="photoPreview"></div><div class="hint"></div></div></div><div class="form-actions"><button type="button" class="btn light" onclick="cancelRegister()">キャンセル</button><button type="submit" class="btn">記録を保存</button></div></form></div></section>
 <section class="page" id="wishlist"><div class="heading"><div><h1>行きたい公演</h1></div><button class="btn add-compact" onclick="openWishModal()">+追加</button></div><div class="toolbar"><div class="wish-filter"><button class="active" data-wfilter="all" onclick="setWishFilter('all',this)">すべて <span id="wishAllCount">0</span></button><button data-wfilter="wanted" onclick="setWishFilter('wanted',this)">行きたい <span id="wantedCount">0</span></button><button data-wfilter="reserved" onclick="setWishFilter('reserved',this)">購入済み <span id="reservedCount">0</span></button></div><div class="switch view-switch"><button data-wish-view="list" class="active" onclick="setWishView('list',this)">一覧</button><button data-wish-view="cards" onclick="setWishView('cards',this)">カード</button></div></div><div id="wishAll"></div></section>
 
 <section class="page" id="stats"><div class="heading"><div><div class="eyebrow">YOUR ANALYTICS</div><h1>統計</h1></div></div><div id="statsContent" class="stats-page-content"></div></section>
-<section class="page" id="settings"><div class="heading"><div><div class="eyebrow">DATA MANAGEMENT</div><h1>データ管理</h1><div class="sub">テーマカラーと、主催団体・会場・同行者の選択肢を管理します。</div></div></div><div class="master-grid"><section class="master-box theme-box"><h3>🎨 テーマカラー</h3><div class="theme-picker" id="themePicker" role="group" aria-label="テーマカラー"></div></section><section class="master-box theme-box"><h3>🖼️ 画像の圧縮（初期設定）</h3><div class="segbtns" id="imgQSeg" role="group" aria-label="画像の圧縮"><button type="button" data-v="std" onclick="setImgQ('std')">標準</button><button type="button" data-v="small" onclick="setImgQ('small')">強く圧縮</button><button type="button" data-v="none" onclick="setImgQ('none')">圧縮しない</button></div><div class="hint" style="margin-top:10px">標準は長辺1280px、強く圧縮は長辺800px（容量重視）に縮小して保存します。圧縮しない場合は元の画質のまま保存します（容量を多く使います）。写真を追加するときに適用され、追加済みの写真は変わりません。</div></section><section class="master-box theme-box"><h3>📝 X投稿のデフォルト</h3><div class="formfield"><label for="xTemplate">投稿文のひな形</label><textarea id="xTemplate" class="field" oninput="saveXSettings()"></textarea><div class="hint">{title} {date} {time} {organizer} {venue} {type} {result} {companions} {comment}（感想・メモ） が記録の内容に置き換わります。入力のない項目を含む行は自動で省かれます。</div></div><div class="formfield" style="margin-top:12px"><label for="xDefaultTags">デフォルトのハッシュタグ</label><input id="xDefaultTags" placeholder="例：#謎解き #脱出ゲーム" autocomplete="off" oninput="saveXSettings()"><div class="hint">新しい記録のハッシュタグ欄に最初から入ります。記録にタグがないときの投稿にも使われます。</div></div><div class="hint" style="margin-top:12px">投稿文のプレビュー</div><pre id="xPreview" class="xpreview"></pre><button class="btn light small" onclick="resetXTemplate()">ひな形を初期値に戻す</button></section><p class="hint" style="grid-column:1/-1;margin:4px 0 0">主催団体・会場・同行者は、よく使うものだけ登録しておくと入力画面で選べます。それ以外は入力画面の「その他」から、その都度入力できます（登録リストには増えません）。</p><section class="master-box"><h3>🏢 主催団体</h3><div class="master-add"><input class="field" id="newOrganizer" placeholder="団体名"><button class="btn small" onclick="addMaster('organizers','newOrganizer')">追加</button></div><div class="master-items" id="organizerList"></div></section><section class="master-box"><h3>📍 会場・店舗</h3><div class="master-add"><input class="field" id="newVenue" placeholder="会場名"><button class="btn small" onclick="addMaster('venues','newVenue')">追加</button></div><div class="master-items" id="venueList"></div></section><section class="master-box"><h3>♧ 同行者</h3><div class="master-add"><input class="field" id="settingsCompanion" placeholder="ニックネーム"><button class="btn small" onclick="addCompanionFromSettings()">追加</button></div><div class="master-items" id="settingsCompanionList"></div></section><section class="master-box"><h3>📦 CSV・バックアップ</h3><p class="hint">参加記録と行きたい公演をCSVで保存・読み込みできます。写真はCSVに含まれないため、写真も残したいときはバックアップ（JSON）を使ってください。</p><div class="toolbar"><button class="btn small" onclick="exportCSV()">CSVエクスポート</button><label class="btn light small filelabel">CSVインポート<input type="file" id="csvFile" accept=".csv,text/csv" class="hidden" onchange="importCSV()"></label></div><div class="toolbar"><button class="btn small" onclick="exportBackup()">バックアップ書き出し（写真つき）</button><label class="btn light small filelabel">バックアップ読み込み<input type="file" id="backupFile" accept=".json,application/json" class="hidden" onchange="importBackup(this)"></label></div><div id="csvPreview" class="hint"></div></section></div><section class="master-box danger-box"><h3>⚠️ データの全削除</h3><p class="hint">参加記録・行きたい公演・主催団体・会場・同行者の登録をすべて消去します。元に戻せないので、先にバックアップを保存してください。テーマカラーなどの設定は残ります。</p><button class="btn warn" onclick="clearAllData()">すべての登録データを削除…</button></section><p class="safe-note">データはこの端末のブラウザ内にのみ保存されます（クラウド同期はありません）。ブラウザのデータ消去や端末変更で消えるため、CSVまたはバックアップ（JSON）の保存をおすすめします。</p></section>
+<section class="page" id="settings"><div class="heading"><div><div class="eyebrow">SETTINGS</div><h1>設定</h1><div class="sub">テーマカラーと、主催団体・会場・同行者の選択肢を管理します。</div></div></div><div class="master-grid"><section class="master-box theme-box"><h3><svg class="ic" aria-hidden="true"><use href="#i-palette"/></svg>テーマカラー</h3><div class="theme-picker" id="themePicker" role="group" aria-label="テーマカラー"></div></section><section class="master-box theme-box"><h3><svg class="ic" aria-hidden="true"><use href="#i-image"/></svg>画像の圧縮（初期設定）</h3><div class="segbtns" id="imgQSeg" role="group" aria-label="画像の圧縮"><button type="button" data-v="std" onclick="setImgQ('std')">標準</button><button type="button" data-v="small" onclick="setImgQ('small')">強く圧縮</button><button type="button" data-v="none" onclick="setImgQ('none')">圧縮しない</button></div><div class="hint" style="margin-top:10px">標準は長辺1280px、強く圧縮は長辺800px（容量重視）に縮小して保存します。圧縮しない場合は元の画質のまま保存します（容量を多く使います）。写真を追加するときに適用され、追加済みの写真は変わりません。</div></section><section class="master-box theme-box"><h3><svg class="ic" aria-hidden="true"><use href="#i-pen"/></svg>X投稿のデフォルト</h3><div class="formfield"><label for="xTemplate">投稿文のひな形</label><textarea id="xTemplate" class="field" oninput="saveXSettings()"></textarea><div class="hint">{title} {date} {time} {organizer} {venue} {type} {result} {companions} {comment}（感想・メモ） が記録の内容に置き換わります。入力のない項目を含む行は自動で省かれます。</div></div><div class="formfield" style="margin-top:12px"><label for="xDefaultTags">デフォルトのハッシュタグ</label><input id="xDefaultTags" placeholder="例：#謎解き #脱出ゲーム" autocomplete="off" oninput="saveXSettings()"><div class="hint">新しい記録のハッシュタグ欄に最初から入ります。記録にタグがないときの投稿にも使われます。</div></div><div class="hint" style="margin-top:12px">投稿文のプレビュー</div><pre id="xPreview" class="xpreview"></pre><button class="btn light small" onclick="resetXTemplate()">ひな形を初期値に戻す</button></section><p class="hint" style="grid-column:1/-1;margin:4px 0 0">主催団体・会場・同行者は、よく使うものだけ登録しておくと入力画面で選べます。それ以外は入力画面の「その他」から、その都度入力できます（登録リストには増えません）。</p><section class="master-box"><h3><svg class="ic" aria-hidden="true"><use href="#i-building"/></svg>主催団体</h3><div class="master-add"><input class="field" id="newOrganizer" placeholder="団体名"><button class="btn small" onclick="addMaster('organizers','newOrganizer')">追加</button></div><div class="master-items" id="organizerList"></div></section><section class="master-box"><h3><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg>会場・店舗</h3><div class="master-add"><input class="field" id="newVenue" placeholder="会場名"><button class="btn small" onclick="addMaster('venues','newVenue')">追加</button></div><div class="master-items" id="venueList"></div></section><section class="master-box"><h3><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>同行者</h3><div class="master-add"><input class="field" id="settingsCompanion" placeholder="ニックネーム"><button class="btn small" onclick="addCompanionFromSettings()">追加</button></div><div class="master-items" id="settingsCompanionList"></div></section><section class="master-box"><h3><svg class="ic" aria-hidden="true"><use href="#i-package"/></svg>CSV・バックアップ</h3><p class="hint">参加記録と行きたい公演をCSVで保存・読み込みできます。写真はCSVに含まれないため、写真も残したいときはバックアップ（JSON）を使ってください。</p><div class="toolbar"><button class="btn small" onclick="exportCSV()">CSVエクスポート</button><label class="btn light small filelabel">CSVインポート<input type="file" id="csvFile" accept=".csv,text/csv" class="hidden" onchange="importCSV()"></label></div><div class="toolbar"><button class="btn small" onclick="exportBackup()">バックアップ書き出し（写真つき）</button><label class="btn light small filelabel">バックアップ読み込み<input type="file" id="backupFile" accept=".json,application/json" class="hidden" onchange="importBackup(this)"></label></div><div id="csvPreview" class="hint"></div></section></div><section class="master-box danger-box"><h3><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg>データの全削除</h3><p class="hint">参加記録・行きたい公演・主催団体・会場・同行者の登録をすべて消去します。元に戻せないので、先にバックアップを保存してください。テーマカラーなどの設定は残ります。</p><button class="btn warn" onclick="clearAllData()">すべての登録データを削除…</button></section><p class="safe-note">データはこの端末のブラウザ内にのみ保存されます（クラウド同期はありません）。ブラウザのデータ消去や端末変更で消えるため、CSVまたはバックアップ（JSON）の保存をおすすめします。</p></section>
 </main>
 <nav class="bottomnav" aria-label="メインメニュー"><button class="navbtn" data-page="dashboard" onclick="go('dashboard')"><span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/></svg></span><span>ホーム</span></button><button class="navbtn" data-page="stats" onclick="go('stats')"><span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20v-9M12 20V4M19 20v-6"/></svg></span><span>統計</span></button><button class="navbtn" data-page="history" onclick="go('history')"><span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg></span><span>行ってきた</span></button><button class="navbtn" data-page="wishlist" onclick="go('wishlist')"><span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1 5.9-5.2-2.8-5.2 2.8 1-5.9L3.5 9.7l5.9-.8z"/></svg></span><span>行きたい</span></button><button class="navbtn" data-page="settings" onclick="go('settings')"><span class="ico"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg></span><span>設定</span></button></nav>
-<div class="modalback full" id="recordDetailModal"><div class="modal full"><div class="detail-head"><div><div class="eyebrow">ESCAPE RECORD</div><h2 id="detailTitle">公演詳細</h2></div><div class="dh-actions"><a class="iconbtn xbtn" id="detailXLink" href="https://x.com/intent/post" target="_blank" rel="noopener" aria-label="Xに投稿" title="Xに投稿"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a><button class="iconbtn" onclick="closeRecordDetail()">閉じる</button></div></div><div id="recordDetailBody" class="dm-body"></div><div class="form-actions"><button class="btn warn" onclick="deleteRecordFromDetail()">この記録を削除</button><button class="btn" onclick="editRecordFromDetail()">編集する</button></div></div></div>
-<div class="modalback full" id="wishModal"><div class="modal full"><div class="detail-head"><div><h2 id="wishModalTitle">行きたい公演を追加</h2></div><button type="button" class="iconbtn" onclick="closeWishModal()">閉じる</button></div><div class="dm-body"><input type="hidden" id="wishEditId"><div class="formgrid"><div class="formfield full"><label>公演タイトル <span class="req">*</span></label><input id="wishTitle" class="field" required placeholder="公演タイトルを入力"></div><div class="formfield full"><label>状態</label><input type="hidden" id="wishStatus" value="wanted"><div class="segbtns" id="wishStatusSeg" role="group" aria-label="状態"><button type="button" data-v="wanted" onclick="setWishStatus('wanted')">行きたい</button><button type="button" data-v="reserved" onclick="setWishStatus('reserved')">購入済み</button></div></div><div class="formfield"><label>参加予定日</label><input id="wishDate" type="date"></div><div class="formfield"><label>参加予定時刻</label><input type="hidden" id="wishTime"><button type="button" class="field timebtn muted" id="wishTimeBtn" onclick="openTimePicker('wishTime')">時刻を選択</button></div><div class="formfield"><label>公演類型</label><select id="wishType"></select></div><div class="formfield"><label>主催団体</label><select id="wishOrganizer" class="field" onchange="onMF('wishOrganizer')"><option value="">選択してください</option></select><input id="wishOrganizerOther" class="field mf-other" placeholder="主催団体名を入力" hidden></div><div class="formfield"><label>会場・店舗</label><select id="wishVenue" class="field" onchange="onMF('wishVenue')"><option value="">選択してください</option></select><input id="wishVenueOther" class="field mf-other" placeholder="会場・店舗名を入力" hidden></div><div class="formfield full"><label>同行予定者（複数選択可）</label><div id="wishCompanionChecks" class="companion-chips"></div><input id="wishOtherCompanions" class="field" style="margin-top:8px" placeholder="今回だけの同行予定者名（複数名は「、」区切り）"></div><div class="formfield"><label>参加予定人数</label><select id="wishParticipants"></select></div><div class="formfield"><label>知らない同卓者の人数（予定）</label><select id="wishTablemates"></select></div><div class="formfield"><label>チケット代（円）</label><input id="wishPrice" type="number" inputmode="numeric" min="0" step="1" placeholder="例：3500"></div><div class="formfield"><label>立替</label><label class="chk"><input type="checkbox" id="wishAdvance" onchange="toggleAdvance()"><span>立替あり</span></label></div><div class="formfield full" id="wishAdvanceWrap" hidden><label>相手</label><input id="wishAdvanceTo" placeholder="立替の相手の名前"></div><div class="formfield full"><label>公演URL</label><input id="wishUrl" type="url" placeholder="https://..."></div><div class="formfield full"><label>チケット発売日時</label><input id="wishSaleAt" type="datetime-local" step="300"></div><div class="formfield full"><label>アラーム</label><input id="wishAlarmAt" type="datetime-local" step="300"><div class="segbtns wrap" id="alarmPresets"><button type="button" onclick="setAlarmPreset(0)">発売時刻</button><button type="button" onclick="setAlarmPreset(5)">5分前</button><button type="button" onclick="setAlarmPreset(30)">30分前</button><button type="button" onclick="setAlarmPreset(60)">1時間前</button><button type="button" onclick="setAlarmPreset(1440)">1日前</button><button type="button" onclick="setAlarmPreset(-1)">解除</button></div><div class="hint">好きな日時を直接入力するか、発売日時からの時間を選びます。カレンダーには、チケット販売ページのリンクも一緒に登録されます。</div><button type="button" class="btn light small" style="align-self:flex-start" onclick="addSaleToCalendar()">カレンダーに追加…</button></div><div class="formfield full"><label>チケット販売ページのリンク</label><input id="wishSaleUrl" type="url" placeholder="https://..."></div><div class="formfield full"><label>メモ</label><textarea id="wishMemo" placeholder="気になるポイント、購入状況など"></textarea></div><div class="formfield full"><label>写真・スクリーンショット（複数可）</label><input id="wishPhoto" type="file" accept="image/*" multiple class="field"><div class="hint imgq-note"></div><div id="wishPhotoPreview" class="photo-preview"></div></div></div><div class="convert-box" id="wishConvertBox" hidden><div class="hint">この公演に参加したら、内容を参加記録に引き継げます。</div><button type="button" class="btn light small" onclick="convertWishToRecord()">参加記録にする…</button></div></div><div class="form-actions"><button class="btn warn" id="wishDeleteBtn" hidden onclick="deleteWishFromModal()">削除</button><button class="btn light" onclick="closeWishModal()">キャンセル</button><button class="btn" onclick="saveWish()">保存</button></div></div></div>
-<div class="modalback full" id="wishDetailModal"><div class="modal full"><div class="detail-head"><div><h2 id="wishDetailTitle">公演詳細</h2></div><button class="iconbtn" onclick="closeWishDetail()">閉じる</button></div><div id="wishDetailBody" class="dm-body"></div><div class="form-actions"><button class="btn warn" onclick="deleteWishFromDetail()">削除</button><button class="btn light" onclick="editWishFromDetail()">編集する</button></div></div></div>
-<div class="modalback full" id="filterModal"><div class="modal full"><div class="detail-head"><h2>絞り込み</h2><button class="iconbtn" onclick="closeFilter()">閉じる</button></div><div class="dm-body"><div class="formgrid"><div class="formfield full"><label>年月</label><select id="fYm" onchange="applyFilter()"></select></div><div class="formfield full"><label>類型</label><select id="fType" onchange="applyFilter()"></select></div><div class="formfield full"><label>同行者</label><select id="fComp" onchange="applyFilter()"></select></div></div></div><div class="form-actions"><button class="btn light" onclick="clearFilter()">条件をクリア</button><button class="btn" onclick="closeFilter()">表示する</button></div></div></div>
-<div class="modalback" id="timeSheet" onclick="if(event.target===this)closeTimePicker()"><div class="modal tp"><div class="detail-head"><h2>時刻を選択</h2><button class="iconbtn" onclick="closeTimePicker()">閉じる</button></div><div class="wheels"><div class="wh-band"></div><div class="wheel" id="whH" tabindex="0" aria-label="時"></div><div class="wh-sep">:</div><div class="wheel" id="whM" tabindex="0" aria-label="分（5分単位）"></div></div><div class="form-actions"><button class="btn light" onclick="clearTime()">未設定にする</button><button class="btn" onclick="confirmTime()">決定</button></div></div></div>
-<div class="lightbox" id="lightbox" hidden onclick="closeLightbox()"><button class="lb-nav lb-prev" onclick="lbStep(-1,event)" aria-label="前の写真">‹</button><img id="lbImg" alt=""><button class="lb-nav lb-next" onclick="lbStep(1,event)" aria-label="次の写真">›</button><button class="iconbtn lb-close" onclick="closeLightbox()">閉じる</button><div class="lb-count" id="lbCount"></div></div>
+<div class="modalback full" id="recordDetailModal" role="dialog" aria-modal="true" aria-labelledby="detailTitle"><div class="modal full"><div class="detail-head"><div><div class="eyebrow">ESCAPE RECORD</div><h2 id="detailTitle">公演詳細</h2></div><div class="dh-actions"><a class="iconbtn xbtn" id="detailXLink" href="https://x.com/intent/post" target="_blank" rel="noopener" aria-label="Xに投稿" title="Xに投稿"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a><button class="iconbtn" onclick="closeRecordDetail()">閉じる</button></div></div><div id="recordDetailBody" class="dm-body"></div><div class="form-actions"><button class="btn warn" onclick="deleteRecordFromDetail()">この記録を削除</button><button class="btn" onclick="editRecordFromDetail()">編集する</button></div></div></div>
+<div class="modalback full" id="wishModal" role="dialog" aria-modal="true" aria-labelledby="wishModalTitle"><div class="modal full"><div class="detail-head"><div><h2 id="wishModalTitle">行きたい公演を追加</h2></div><button type="button" class="iconbtn" onclick="closeWishModal()">閉じる</button></div><div class="dm-body"><input type="hidden" id="wishEditId"><div class="formgrid"><div class="formfield full"><label for="wishTitle">公演タイトル <span class="req">*</span></label><input id="wishTitle" class="field" required placeholder="公演タイトルを入力"></div><div class="formfield full"><label>状態</label><input type="hidden" id="wishStatus" value="wanted"><div class="segbtns" id="wishStatusSeg" role="group" aria-label="状態"><button type="button" data-v="wanted" onclick="setWishStatus('wanted')">行きたい</button><button type="button" data-v="reserved" onclick="setWishStatus('reserved')">購入済み</button></div></div><div class="formfield"><label for="wishDate">参加予定日</label><input id="wishDate" type="date"></div><div class="formfield"><label for="wishTimeBtn">参加予定時刻</label><input type="hidden" id="wishTime"><button type="button" class="field timebtn muted" id="wishTimeBtn" onclick="openTimePicker('wishTime')">時刻を選択</button></div><div class="formfield"><label for="wishType">公演類型</label><select id="wishType"></select></div><div class="formfield"><label for="wishOrganizer">主催団体</label><select id="wishOrganizer" class="field" onchange="onMF('wishOrganizer')"><option value="">選択してください</option></select><input id="wishOrganizerOther" class="field mf-other" placeholder="主催団体名を入力" hidden></div><div class="formfield"><label for="wishVenue">会場・店舗</label><select id="wishVenue" class="field" onchange="onMF('wishVenue')"><option value="">選択してください</option></select><input id="wishVenueOther" class="field mf-other" placeholder="会場・店舗名を入力" hidden></div><div class="formfield full"><label id="lbl-wcomp">同行予定者（複数選択可）</label><div id="wishCompanionChecks" class="companion-chips" role="group" aria-labelledby="lbl-wcomp"></div><input id="wishOtherCompanions" class="field" style="margin-top:8px" placeholder="今回だけの同行予定者名（複数名は「、」区切り）"></div><div class="formfield"><label for="wishParticipants">参加予定人数</label><select id="wishParticipants"></select></div><div class="formfield"><label for="wishTablemates">知らない同卓者の人数（予定）</label><select id="wishTablemates"></select></div><div class="formfield"><label for="wishPrice">チケット代（円）</label><input id="wishPrice" type="number" inputmode="numeric" min="0" step="1" placeholder="例：3500"></div><div class="formfield"><label for="wishAdvance">立替</label><label class="chk"><input type="checkbox" id="wishAdvance" onchange="toggleAdvance()"><span>立替あり</span></label></div><div class="formfield full" id="wishAdvanceWrap" hidden><label for="wishAdvanceTo">相手</label><input id="wishAdvanceTo" placeholder="立替の相手の名前"></div><div class="formfield full"><label for="wishUrl">公演URL</label><input id="wishUrl" type="url" placeholder="https://..."></div><div class="formfield full"><label for="wishSaleAt">チケット発売日時</label><input id="wishSaleAt" type="datetime-local" step="300"></div><div class="formfield full"><label for="wishAlarmAt">アラーム</label><input id="wishAlarmAt" type="datetime-local" step="300"><div class="segbtns wrap" id="alarmPresets"><button type="button" onclick="setAlarmPreset(0)">発売時刻</button><button type="button" onclick="setAlarmPreset(5)">5分前</button><button type="button" onclick="setAlarmPreset(30)">30分前</button><button type="button" onclick="setAlarmPreset(60)">1時間前</button><button type="button" onclick="setAlarmPreset(1440)">1日前</button><button type="button" onclick="setAlarmPreset(-1)">解除</button></div><div class="hint">好きな日時を直接入力するか、発売日時からの時間を選びます。カレンダーには、チケット販売ページのリンクも一緒に登録されます。</div><button type="button" class="btn light small" style="align-self:flex-start" onclick="addSaleToCalendar()">カレンダーに追加…</button></div><div class="formfield full"><label for="wishSaleUrl">チケット販売ページのリンク</label><input id="wishSaleUrl" type="url" placeholder="https://..."></div><div class="formfield full"><label for="wishMemo">メモ</label><textarea id="wishMemo" placeholder="気になるポイント、購入状況など"></textarea></div><div class="formfield full"><label for="wishPhoto">写真・スクリーンショット（複数可）</label><input id="wishPhoto" type="file" accept="image/*" multiple class="field"><div class="hint imgq-note"></div><div id="wishPhotoPreview" class="photo-preview"></div></div></div><div class="convert-box" id="wishConvertBox" hidden><div class="hint">この公演に参加したら、内容を参加記録に引き継げます。</div><button type="button" class="btn light small" onclick="convertWishToRecord()">参加記録にする…</button></div></div><div class="form-actions"><button class="btn warn" id="wishDeleteBtn" hidden onclick="deleteWishFromModal()">削除</button><button class="btn light" onclick="closeWishModal()">キャンセル</button><button class="btn" onclick="saveWish()">保存</button></div></div></div>
+<div class="modalback full" id="wishDetailModal" role="dialog" aria-modal="true" aria-labelledby="wishDetailTitle"><div class="modal full"><div class="detail-head"><div><h2 id="wishDetailTitle">公演詳細</h2></div><button class="iconbtn" onclick="closeWishDetail()">閉じる</button></div><div id="wishDetailBody" class="dm-body"></div><div class="form-actions"><button class="btn warn" onclick="deleteWishFromDetail()">削除</button><button class="btn light" onclick="editWishFromDetail()">編集する</button></div></div></div>
+<div class="modalback full" id="filterModal" role="dialog" aria-modal="true" aria-labelledby="filterTitle"><div class="modal full"><div class="detail-head"><h2 id="filterTitle">絞り込み</h2><button class="iconbtn" onclick="closeFilter()">閉じる</button></div><div class="dm-body"><div class="formgrid"><div class="formfield full"><label for="fYm">年月</label><select id="fYm" onchange="applyFilter()"></select></div><div class="formfield full"><label for="fType">類型</label><select id="fType" onchange="applyFilter()"></select></div><div class="formfield full"><label for="fComp">同行者</label><select id="fComp" onchange="applyFilter()"></select></div></div></div><div class="form-actions"><button class="btn light" onclick="clearFilter()">条件をクリア</button><button class="btn" onclick="closeFilter()">表示する</button></div></div></div>
+<div class="modalback" id="timeSheet" role="dialog" aria-modal="true" aria-label="時刻を選択" onclick="if(event.target===this)closeTimePicker()"><div class="modal tp"><div class="detail-head"><h2>時刻を選択</h2><button class="iconbtn" onclick="closeTimePicker()">閉じる</button></div><div class="wheels"><div class="wh-band"></div><div class="wheel" id="whH" tabindex="0" aria-label="時"></div><div class="wh-sep">:</div><div class="wheel" id="whM" tabindex="0" aria-label="分（5分単位）"></div></div><div class="form-actions"><button class="btn light" onclick="clearTime()">未設定にする</button><button class="btn" onclick="confirmTime()">決定</button></div></div></div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="写真の拡大表示" hidden onclick="closeLightbox()"><button class="lb-nav lb-prev" onclick="lbStep(-1,event)" aria-label="前の写真">‹</button><img id="lbImg" alt=""><button class="lb-nav lb-next" onclick="lbStep(1,event)" aria-label="次の写真">›</button><button class="iconbtn lb-close" onclick="closeLightbox()">閉じる</button><div class="lb-count" id="lbCount"></div></div>
 <div class="modalback dlg" id="dialogBack"><div class="modal dialog" role="alertdialog" aria-modal="true" aria-labelledby="dlgMsg"><div id="dlgMsg" class="dlg-msg"></div><input id="dlgInput" class="field" hidden autocomplete="off"><div class="form-actions"><button type="button" class="btn light" id="dlgCancel">キャンセル</button><button type="button" class="btn" id="dlgOk">OK</button></div></div></div>
-<div class="toast" id="toast"></div>
+<div class="undobar" id="undoBar" role="status" hidden><span id="undoMsg"></span><button type="button" onclick="runUndo()">元に戻す</button></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script type="text/plain" data-boot>
 'use strict';
 let pendingWishId='',detailWishId='',wishPhotos=[],wishSelectedComp=new Set();const KEY='escapeLogPrototypeV1';
@@ -497,7 +582,7 @@ const askText=(m,ph='')=>askDialog({message:m,input:true,placeholder:ph,okLabel:
 let storageWarned=false;let idbTimer=null;
 function flushDB(){clearTimeout(idbTimer);idbTimer=null;if(!window.__IDB)return Promise.resolve();return window.idbPut('db',db).catch(()=>{toast('保存に失敗しました。端末の空き容量を確認してください')})}
 window.addEventListener('pagehide',()=>{flushDB()});document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')flushDB()});
-function saveDB(){if(window.__IDB){clearTimeout(idbTimer);idbTimer=setTimeout(flushDB,150);return true}try{localStorage.setItem(KEY,JSON.stringify(db));return true}catch(e){if(e&&(e.name==='QuotaExceededError'||e.code===22||e.code===1014)){toast('保存容量を超えました。写真を圧縮するか減らしてください。');return false}if(!storageWarned){storageWarned=true;toast('この環境では端末に保存できません。閉じるとデータが消えます')}return true}}
+function saveDB(){setTimeout(ensureThumbs,400);if(window.__IDB){clearTimeout(idbTimer);idbTimer=setTimeout(flushDB,150);return true}try{localStorage.setItem(KEY,JSON.stringify(db));return true}catch(e){if(e&&(e.name==='QuotaExceededError'||e.code===22||e.code===1014)){toast('保存容量を超えました。写真を圧縮するか減らしてください。');return false}if(!storageWarned){storageWarned=true;toast('この環境では端末に保存できません。閉じるとデータが消えます')}return true}}
 function toast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove('show'),2300)}
 function go(page){if(page==='register'&&currentPage!=='register')prepareRegister();currentPage=page;document.body.classList.toggle('home-active',page==='dashboard');document.body.classList.toggle('reg-open',page==='register');document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===page));document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.page===page));const labels={dashboard:'ホーム',history:'行ってきた',register:$('editId').value?'記録を編集':'参加記録',wishlist:'行きたい',settings:'設定',stats:'統計'};$('topPageTitle').textContent=labels[page]||'ESCAPE LOG';window.scrollTo({top:0,left:0,behavior:'instant'});document.documentElement.scrollTop=0;document.body.scrollTop=0;if(page==='dashboard')renderDashboard();if(page==='history')renderHistory();if(page==='wishlist')renderWishes();if(page==='settings')renderSettings();if(page==='stats')renderStats();$('swipeArea').scrollTop=0;requestAnimationFrame(()=>{$('swipeArea').scrollTop=0})}
 function prepareRegister(){if(!$('editId').value){$('registerHeading').textContent='参加記録を登録';renderMasterSelects();renderCompanionChecks();}}
@@ -506,12 +591,12 @@ function renderDashboard(){const total=db.records.length,success=db.records.filt
 const recent=[...db.records].sort((a,b)=>(b.date+(b.time||'')).localeCompare(a.date+(a.time||''))).slice(0,3);$('recentList').innerHTML=recent.map(x=>miniRow(x,'record')).join('')+slotRows(3-recent.length,'record');
 const wishes=[...db.wishes].slice(0,1);$('dashWish').innerHTML=wishes.map(x=>miniRow(x,'wish')).join('')+slotRows(1-wishes.length,'wish');{const g=document.querySelector('#dashboard .dashgrid');if(g){g.style.setProperty('--rr','330fr');g.style.setProperty('--wr','146fr')}}fitHome();requestAnimationFrame(fitHome);setTimeout(fitHome,300)}
 function slotRows(n,type){const rec=type==='record';return Array.from({length:Math.max(0,n)},()=>`<article class="mini-row slot" role="button" tabindex="0" onclick="${rec?'newRecord()':'openWishModal()'}" onkeydown="if(event.key==='Enter')this.click()"><div class="mini-thumb"></div><div class="mini-main" style="min-width:0"><div class="mini-title">${rec?'公演を記録する':'行きたい公演を追加'}</div><div class="mini-meta">タップして追加</div></div></article>`).join('')}
-function miniRow(x,type){const rec=type==='record',photo=(rec?x.photos?.[0]:wishCover(x))||'',st=rec?(x.result==='success'?'成功':x.result==='fail'?'失敗':x.result==='done'?'完了':'未入力'):(x.status==='reserved'?'購入済':'行きたい'),cls=rec?(x.result==='success'?'success':x.result==='fail'?'fail':x.result==='done'?'done':'none'):(x.status==='reserved'?'reserved':'wanted');return `<article class="mini-row" role="button" tabindex="0" onclick="${rec?`showRecordDetail('${x.id}')`:`showWishDetail('${x.id}')`}" onkeydown="if(event.key==='Enter')this.click()"><div class="mini-thumb" ${photo?`style="background-image:url('${photo}')"`:''}></div><div class="mini-main" style="min-width:0"><div class="mini-title">${esc(x.title)}</div><div class="mini-meta">${esc(x.date||'日程未定')}</div>${x.organizer?`<div class="mini-meta mini-org">${esc(x.organizer)}</div>`:''}</div><span class="pill ${cls}">${st}</span></article>`}
+function miniRow(x,type){const rec=type==='record',photo=(rec?recThumb(x):wishThumb(x))||'',st=rec?(x.result==='success'?'成功':x.result==='fail'?'失敗':x.result==='done'?'完了':'未入力'):(x.status==='reserved'?'購入済':'行きたい'),cls=rec?(x.result==='success'?'success':x.result==='fail'?'fail':x.result==='done'?'done':'none'):(x.status==='reserved'?'reserved':'wanted');return `<article class="mini-row" role="button" tabindex="0" onclick="${rec?`showRecordDetail('${x.id}')`:`showWishDetail('${x.id}')`}" onkeydown="if(event.key==='Enter')this.click()"><div class="mini-thumb" ${photo?`style="background-image:url('${photo}')"`:''}></div><div class="mini-main" style="min-width:0"><div class="mini-title">${esc(x.title)}</div><div class="mini-meta">${esc(x.date||'日程未定')}</div>${x.organizer?`<div class="mini-meta mini-org">${esc(x.organizer)}</div>`:''}</div><span class="pill ${cls}">${st}</span></article>`}
 function fitHome(){}
-function featureCard(x,type){const photo=(type==='record'?x.photos?.[0]:wishCover(x))||'';return `<article class="feature-card ${type==='wish'?'wish':''}" onclick="${type==='record'?`showRecordDetail('${x.id}')`:`showWishDetail('${x.id}')`}"><div class="photo" ${photo?`style="background-image:url('${photo}')"`:''}></div><div class="feature-icon">${type==='record'?'🧩':'🎟️'}</div><div class="feature-info"><div class="feature-tag">${type==='record'?'RECENT ESCAPE':'UPCOMING CHALLENGE'}</div><div class="feature-title">${esc(x.title)}</div><div class="feature-meta">${esc(x.date||'日程未定')} ${esc(x.time||'')} · ${type==='record'?(resText(x.result)):(x.status==='reserved'?'購入済み':'行きたい')}</div></div></article>`}
+function featureCard(x,type){const photo=(type==='record'?recThumb(x):wishThumb(x))||'';return `<article class="feature-card ${type==='wish'?'wish':''}" onclick="${type==='record'?`showRecordDetail('${x.id}')`:`showWishDetail('${x.id}')`}"><div class="photo" ${photo?`style="background-image:url('${photo}')"`:''}></div><div class="feature-info"><div class="feature-tag">${type==='record'?'RECENT ESCAPE':'UPCOMING CHALLENGE'}</div><div class="feature-title">${esc(x.title)}</div><div class="feature-meta">${esc(x.date||'日程未定')} ${esc(x.time||'')} · ${type==='record'?(resText(x.result)):(x.status==='reserved'?'購入済み':'行きたい')}</div></div></article>`}
 function setView(v,btn){if(v==='calendar')return;currentView=v;document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b===btn));renderHistory()}
-function renderHistory(){const q=($('historySearch').value||'').toLowerCase(),sort=$('sortOrder').value;let arr=histFiltered(db.records).filter(x=>[x.title,x.organizer,x.venue,x.hashtags].join(' ').toLowerCase().includes(q)).sort((a,b)=>sort==='desc'?(b.date+(b.time||'')).localeCompare(a.date+(a.time||'')):(a.date+(a.time||'')).localeCompare(b.date+(b.time||'')));const el=$('historyContent');renderFilterChips(arr.length);if(!arr.length){el.innerHTML=`<div class="empty">${db.records.length?'条件に合う参加記録はありません。':'参加記録はまだありません。'}</div>`;stripOrphanBraceText(el);return}if(currentView==='list'){el.innerHTML=`<div class="record-list">${arr.map(recordRow).join('')}</div>`}else{el.innerHTML=`<div class="feature-list">${arr.map(x=>`<article class="feature-card" onclick="showRecordDetail('${x.id}')"><div class="photo" ${x.photos?.[0]?`style="background-image:url('${x.photos[0]}')"`:''}></div><div class="feature-icon">🧩</div><div class="feature-info"><div class="feature-title">${esc(x.title)}</div><div class="feature-meta">${esc(x.date)} · ${resText(x.result)}</div></div></article>`).join('')}</div>`}stripOrphanBraceText(el)}
-function recordRow(x){const img=x.photos?.[0];return `<article class="record-row record-clickable" role="button" tabindex="0" onclick="showRecordDetail('${x.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showRecordDetail('${x.id}')}" ><div class="thumb">${img?`<img src="${img}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:12px">`:resIcon(x.result)}</div><div class="record-main"><div class="record-title">${esc(x.title)}</div><div class="meta">${esc(x.date)} ${esc(x.time||'')}</div><div class="meta">${esc(x.organizer||'主催未登録')}</div>${[...(x.companions||[]),...(x.oneOffCompanions||[])].length?`<div class="meta">${nameList([...(x.companions||[]),...(x.oneOffCompanions||[])])}</div>`:''}<span class="pill ${x.result==='success'?'success':x.result==='fail'?'fail':x.result==='done'?'done':'none'}">${x.result==='success'?'🎉 脱出成功':x.result==='fail'?'🌀 脱出失敗':x.result==='done'?'✅ 完了':'結果未入力'}</span> ${x.rating?`<span style="color:#e3a51a;font-size:11px">${'★'.repeat(x.rating)}</span>`:''}</div></article>}` }
+function renderHistory(){const q=($('historySearch').value||'').toLowerCase(),sort=$('sortOrder').value;let arr=histFiltered(db.records).filter(x=>[x.title,x.organizer,x.venue,x.hashtags].join(' ').toLowerCase().includes(q)).sort((a,b)=>sort==='desc'?(b.date+(b.time||'')).localeCompare(a.date+(a.time||'')):(a.date+(a.time||'')).localeCompare(b.date+(b.time||'')));const el=$('historyContent');renderFilterChips(arr.length);if(!arr.length){el.innerHTML=`<div class="empty">${db.records.length?'条件に合う参加記録はありません。':'参加記録はまだありません。'}</div>`;stripOrphanBraceText(el);return}if(currentView==='list'){el.innerHTML=`<div class="record-list">${arr.map(recordRow).join('')}</div>`}else{el.innerHTML=`<div class="feature-list">${arr.map(x=>`<article class="feature-card" onclick="showRecordDetail('${x.id}')"><div class="photo" ${recThumb(x)?`style="background-image:url('${recThumb(x)}')"`:''}></div><div class="feature-info"><div class="feature-title">${esc(x.title)}</div><div class="feature-meta">${esc(x.date)} · ${resText(x.result)}</div></div></article>`).join('')}</div>`}stripOrphanBraceText(el)}
+function recordRow(x){const img=recThumb(x);return `<article class="record-row record-clickable" role="button" tabindex="0" onclick="showRecordDetail('${x.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showRecordDetail('${x.id}')}" ><div class="thumb">${img?`<img src="${img}" alt="" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;border-radius:12px">`:resIcon(x.result)}</div><div class="record-main"><div class="record-title">${esc(x.title)}</div><div class="meta">${esc(x.date)} ${esc(x.time||'')}</div><div class="meta">${esc(x.organizer||'主催未登録')}</div>${[...(x.companions||[]),...(x.oneOffCompanions||[])].length?`<div class="meta">${nameList([...(x.companions||[]),...(x.oneOffCompanions||[])])}</div>`:''}<span class="pill ${x.result==='success'?'success':x.result==='fail'?'fail':x.result==='done'?'done':'none'}">${x.result==='success'?rIco('success')+'脱出成功':x.result==='fail'?rIco('fail')+'脱出失敗':x.result==='done'?rIco('done')+'完了':'結果未入力'}</span> ${x.rating?`<span class="rstars">${'★'.repeat(x.rating)}</span>`:''}</div></article>}` }
 function renderStats(){const records=db.records||[],total=records.length,success=records.filter(r=>r.result==='success').length,failed=records.filter(r=>r.result==='fail').length,rated=success+failed,rate=rated?Math.round(success/rated*100):0,avg=records.filter(r=>Number(r.rating)>0);const ratings=avg.length?(avg.reduce((a,r)=>a+Number(r.rating),0)/avg.length).toFixed(1):'—';const months={};records.forEach(r=>{if(r.date){const k=r.date.slice(0,4);months[k]=(months[k]||0)+1}});const monthRows=Object.entries(months).sort((a,b)=>a[0].localeCompare(b[0])).slice(-10),max=Math.max(1,...monthRows.map(x=>x[1]));const types={};records.forEach(r=>{const k=r.eventType||'未設定';types[k]=(types[k]||0)+1});const typeRows=Object.entries(types).sort((a,b)=>b[1]-a[1]);const org={};records.forEach(r=>{if(r.organizer)org[r.organizer]=(org[r.organizer]||0)+1});const topOrg=Object.entries(org).sort((a,b)=>b[1]-a[1]).slice(0,5);const companionCounts={};records.forEach(r=>{const names=[...new Set([...(r.companions||[]),...(r.oneOffCompanions||[])].map(n=>String(n).trim()).filter(Boolean))];names.forEach(n=>companionCounts[n]=(companionCounts[n]||0)+1)});const topCompanions=Object.entries(companionCounts).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],'ja')).slice(0,5);$('statsContent').innerHTML=`<div class="stats-overview"><div class="stat-mini"><span>参加公演数</span><strong>${total}</strong></div><div class="stat-mini"><span>脱出成功率</span><strong>${rated?rate+'%':'—'}</strong></div><div class="stat-mini"><span>平均満足度</span><strong>${ratings}${ratings!=='—'?'<small>/5</small>':''}</strong></div><div class="stat-mini sf"><span>成功／失敗</span><strong>${success}／${failed}</strong></div></div><div class="stats-panels">${statsPanels(records)}</div>`}
 let statsYear='',statsView={type:'bar',org:'bar',comp:'bar'};
 const PIECOL=['var(--pc1)','var(--pc2)','var(--pc3)','var(--pc4)','var(--pc5)','var(--pc6)'];
@@ -542,7 +627,7 @@ $('otherCompanionName').addEventListener('input',e=>{otherCompanions=e.target.va
 function currentForm(){return {title:$('title').value,date:$('date').value,time:$('time').value,result:document.querySelector('input[name="result"]:checked')?.value||'',eventType:$('eventType').value,rating,organizer:getMF('organizer'),venue:getMF('venue'),companions:[...selectedCompanions],oneOffCompanions:[...otherCompanions],tablemates:Math.max(0,Number($('tablemates').value)||0),participants:Math.max(0,Number($('participants').value)||0),url:$('eventUrl').value,comment:$('comment').value,price:$('ticketPrice').value===''?'':Number($('ticketPrice').value),hashtags:$('hashtags').value.trim(),photos:newPhotos}}
 function resetForm(){ const fg=document.querySelector('#recordForm .formgrid');if(fg)fg.scrollTop=0;pendingWishId='';$('recordForm').reset();$('time').value='';$('hashtags').value=getXTags();syncMF('organizer');syncMF('venue');['time','participants','tablemates'].forEach(id=>$(id).querySelectorAll('[data-extra]').forEach(o=>o.remove()));selectedCompanions.clear();otherCompanions=[];$('editId').value='';$('tablemates').value='0';$('participants').value='';$('registerHeading').textContent='参加記録を登録';rating=3;newPhotos=[];renderStars();$('photoPreview').innerHTML='';renderMasterSelects();renderCompanionChecks();$('date').value=new Date().toLocaleDateString('sv-SE');}
 function renderStars(){document.querySelectorAll('.star').forEach(b=>b.classList.toggle('on',Number(b.dataset.star)<=rating))}document.querySelectorAll('.star').forEach(b=>b.addEventListener('click',()=>{rating=Number(b.dataset.star);renderStars()}));
-function renderPhotoPreview(){$('photoPreview').innerHTML=newPhotos.map((p,i)=>`<div class="photo-wrap"><img src="${p}"><button type="button" onclick="removePhoto(${i})">×</button></div>`).join('')}
+function renderPhotoPreview(){$('photoPreview').innerHTML=newPhotos.map((p,i)=>`<div class="photo-wrap"><img src="${p}" alt="添付した写真"><button type="button" aria-label="写真を削除" onclick="removePhoto(${i})">×</button></div>`).join('')}
 function removePhoto(i){newPhotos.splice(i,1);renderPhotoPreview()}
 
 async function saveRecord(e){e.preventDefault();const v=currentForm();if(!v.title.trim()||!v.date||!v.eventType||!v.organizer){toast('必須項目（*）を入力してください');return}const id=$('editId').value;if(id){const idx=db.records.findIndex(x=>x.id===id);if(idx>=0)db.records[idx]={...db.records[idx],...v,id}}else{const dup=db.records.some(x=>x.title.trim()===v.title.trim()&&x.date===v.date);if(dup&&!await askConfirm('同じ公演名・参加日の記録があります。重複して登録しますか？','登録する',false))return;db.records.push({id:uid(),...v})}if(saveDB()){const wid=pendingWishId;toast(id?'記録を更新しました':'参加記録を保存しました');resetForm();go('history');if(!id&&wid&&db.wishes.some(x=>x.id===wid)&&await askConfirm('この公演を「行きたい公演」リストから外しますか？','外す',false)){db.wishes=db.wishes.filter(x=>x.id!==wid);saveDB();renderWishes();renderDashboard()}}}
@@ -571,12 +656,12 @@ document.addEventListener('click',e=>{const im=e.target.closest&&e.target.closes
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('lightbox')&&!$('lightbox').hidden)closeLightbox()});
 let hFilter={org:'',comp:'',year:'',month:''};
 const recNames=r=>[...(r.companions||[]),...(r.oneOffCompanions||[])];
-function histFiltered(arr){return arr.filter(x=>(!hFilter.org||x.organizer===hFilter.org)&&(!hFilter.comp||recNames(x).includes(hFilter.comp))&&(!hFilter.year||String(x.date||'').slice(0,4)===hFilter.year)&&(!hFilter.month||String(x.date||'').slice(5,7)===String(hFilter.month).padStart(2,'0')))}
-function openFilter(){const orgs=[...new Set(db.records.map(r=>r.organizer).filter(Boolean))],comps=[...new Set(db.records.flatMap(recNames).filter(Boolean))],years=[...new Set(db.records.map(r=>String(r.date||'').slice(0,4)).filter(y=>/^\d{4}$/.test(y)))].sort().reverse(),opt=(arr,cur)=>'<option value="">すべて</option>'+arr.map(v=>`<option value="${esc(v)}"${v===cur?' selected':''}>${esc(v)}</option>`).join('');$('fOrg').innerHTML=opt(sortJa(orgs),hFilter.org);$('fComp').innerHTML=opt(sortJa(comps),hFilter.comp);$('fYear').innerHTML=opt(years,hFilter.year);$('fMonth').innerHTML='<option value="">すべて</option>'+Array.from({length:12},(_,i)=>`<option value="${i+1}"${String(i+1)===String(hFilter.month)?' selected':''}>${i+1}月</option>`).join('');$('filterModal').classList.add('show')}
-function applyFilter(){hFilter={org:$('fOrg').value,comp:$('fComp').value,year:$('fYear').value,month:$('fMonth').value};updateFilterBtn();renderHistory()}
-function clearFilter(){hFilter={org:'',comp:'',year:'',month:''};openFilter();updateFilterBtn();renderHistory()}
+
+
+
+
 function closeFilter(){$('filterModal').classList.remove('show')}
-function updateFilterBtn(){const n=Object.values(hFilter).filter(Boolean).length,b=$('filterBtn');b.textContent=n?`絞り込み（${n}）`:'絞り込み';b.classList.toggle('on',n>0)}
+
 let tpTarget='';
 function buildWheels(){if($('whH').childElementCount)return;$('whH').innerHTML=Array.from({length:24},(_,i)=>`<div class="wh-item">${pad2(i)}</div>`).join('');$('whM').innerHTML=Array.from({length:12},(_,i)=>`<div class="wh-item">${pad2(i*5)}</div>`).join('')}
 function openTimePicker(id){tpTarget=id;buildWheels();const cur=$(id).value,n=new Date();let h=n.getHours(),m=Math.round(n.getMinutes()/5)*5;if(m>=60){m=0;h=(h+1)%24}if(/^\d{1,2}:\d{2}$/.test(cur)){[h,m]=cur.split(':').map(Number);m=Math.min(55,Math.round(m/5)*5)}$('timeSheet').classList.add('show');requestAnimationFrame(()=>{$('whH').scrollTop=h*40;$('whM').scrollTop=(m/5)*40})}
@@ -588,25 +673,30 @@ function wheelInit(id){const inp=$(id);if(typeof HTMLInputElement!=='undefined')
 function closeRecordDetail(){$('recordDetailModal').classList.remove('show');detailRecordId=''}
 function editRecordFromDetail(){const id=detailRecordId;closeRecordDetail();if(id)editRecord(id)}
 function deleteRecordFromDetail(){const id=detailRecordId;if(id)deleteRecord(id)}
-async function deleteRecord(id){const target=db.records.find(x=>x.id===id);if(!target){toast('対象の記録が見つかりません');return}if(!await askConfirm(`「${target.title}」の参加記録を削除しますか？`))return;const before=db.records.length;db.records=db.records.filter(x=>x.id!==id);if(db.records.length===before){toast('削除できませんでした');return}if(!saveDB()){db.records.push(target);return}closeRecordDetail();renderHistory();renderDashboard();toast('参加記録を削除しました')}
-async function addMasterInline(key,label,target){const v=await askText(`${label}を追加`);if(!v||!v.trim())return;const value=v.trim();if(!db[key].includes(value))db[key].push(value);saveDB();renderMasterSelects();$(target||(key==='organizers'?'organizer':'venue')).value=value;renderSettings();toast(`${label}を登録しました`)}
+let undoFn=null,undoTimer=0;
+function showUndo(msg,fn){undoFn=fn;$('undoMsg').textContent=msg;$('undoBar').hidden=false;clearTimeout(undoTimer);undoTimer=setTimeout(hideUndo,7000)}
+function hideUndo(){undoFn=null;$('undoBar').hidden=true}
+function runUndo(){const f=undoFn;hideUndo();if(f){f();toast('元に戻しました')}}
+function refreshAll(){renderDashboard();renderHistory();renderWishes();renderSettings();renderMasterSelects();renderCompanionChecks();if(currentPage==='stats')renderStats()}
+async function deleteRecord(id){const target=db.records.find(x=>x.id===id);if(!target){toast('対象の記録が見つかりません');return}if(!await askConfirm(`「${target.title}」の参加記録を削除しますか？`))return;const idx=db.records.findIndex(x=>x.id===id),before=db.records.length;db.records=db.records.filter(x=>x.id!==id);if(db.records.length===before){toast('削除できませんでした');return}if(!saveDB()){db.records.push(target);return}closeRecordDetail();renderHistory();renderDashboard();showUndo('参加記録を削除しました',()=>{db.records.splice(Math.min(idx,db.records.length),0,target);saveDB();refreshAll()})}
+
 function addMaster(key,inputId){const v=$(inputId).value.trim();if(!v)return;if(db[key].includes(v)){toast('すでに登録されています');return}db[key].push(v);$(inputId).value='';saveDB();renderSettings();renderMasterSelects();toast('登録しました')}
 function packMasterLists(){}
 function packMasterListsOld(){document.querySelectorAll('.master-items').forEach(box=>{const items=[...box.querySelectorAll('.master-item')],W=box.clientWidth,gap=6;if(items.length<3||!W)return;items.forEach(i=>i.style.flex='none');const ws=new Map(items.map(i=>[i,i.offsetWidth]));items.forEach(i=>i.style.flex='');const rows=[];[...items].sort((a,b)=>ws.get(b)-ws.get(a)).forEach(it=>{const w=ws.get(it);let r=rows.find(r=>r.w+gap+w<=W);if(!r){r={w:0,items:[]};rows.push(r)}r.w+=(r.items.length?gap:0)+w;r.items.push(it)});rows.forEach(r=>r.items.forEach(it=>box.appendChild(it)))})}
 function renderSettings(){for(const [key,id] of [['organizers','organizerList'],['venues','venueList']])$(id).innerHTML=db[key].length?sortJa(db[key]).map(v=>`<div class="master-item"><span>${esc(v)}</span><button class="iconbtn" aria-label="削除" title="削除" onclick="removeMasterEncoded('${key}','${encodeURIComponent(v)}')">×</button></div>`).join(''):'<span class="hint">まだ登録されていません</span>';renderSettingsCompanions();packMasterLists()}
 function removeMasterEncoded(key,v){removeMaster(key,decodeURIComponent(v))}
-async function removeMaster(key,v){if(!await askConfirm(`「${v}」を選択肢から削除しますか？過去の記録には残ります。`))return;db[key]=db[key].filter(x=>x!==v);saveDB();renderSettings();renderMasterSelects()}
+async function removeMaster(key,v){if(!await askConfirm(`「${v}」を選択肢から削除しますか？過去の記録には残ります。`))return;const idx=db[key].indexOf(v);db[key]=db[key].filter(x=>x!==v);saveDB();renderSettings();renderMasterSelects();showUndo(`「${v}」を削除しました`,()=>{if(!db[key].includes(v))db[key].splice(Math.min(idx,db[key].length),0,v);saveDB();refreshAll()})}
 async function addCompanionInline(){const v=await askText('同行者のニックネームを入力');if(!v||!v.trim())return;const value=v.trim();if(!db.companions.includes(value))db.companions.push(value);saveDB();const selected=[...document.querySelectorAll('#companionChecks input:checked')].map(x=>x.value);selected.push(value);renderCompanionChecks(selected);toast('同行者を追加しました')}
-function addCompanion(){if(!$('newCompanion'))return;const v=$('newCompanion').value.trim();if(!v)return;if(db.companions.includes(v)){toast('登録済みです');return}db.companions.push(v);$('newCompanion').value='';saveDB();renderCompanions()}
+
 function addCompanionFromSettings(){const v=$('settingsCompanion').value.trim();if(!v)return;if(db.companions.includes(v)){toast('登録済みです');return}db.companions.push(v);$('settingsCompanion').value='';saveDB();renderSettings();renderCompanions()}
 function renderSettingsCompanions(){$('settingsCompanionList').innerHTML=db.companions.length?sortJa(db.companions).map(c=>`<div class="master-item"><span>${esc(c)}</span><button class="iconbtn" aria-label="削除" title="削除" onclick="removeCompanionEncoded('${encodeURIComponent(c)}')">×</button></div>`).join(''):'<span class="hint">未登録</span>';packMasterLists()}
-function renderCompanions(){const el=$('companionList');if(!el)return;el.innerHTML=db.companions.length?sortJa(db.companions).map(c=>`<div class="master-item"><span>♧ ${esc(c)}</span><button class="iconbtn" aria-label="削除" title="削除" onclick="removeCompanionEncoded('${encodeURIComponent(c)}')">×</button></div>`).join(''):'<div class="empty">同行者はまだ登録されていません。</div>'}
+
 function removeCompanionEncoded(v){removeCompanion(decodeURIComponent(v))}
-async function removeCompanion(c){if(!await askConfirm(`${c} を同行者リストから削除しますか？過去の記録には残ります。`))return;db.companions=db.companions.filter(x=>x!==c);saveDB();renderCompanions();renderSettings();renderCompanionChecks()}
+async function removeCompanion(c){if(!await askConfirm(`${c} を同行者リストから削除しますか？過去の記録には残ります。`))return;const idx=db.companions.indexOf(c);db.companions=db.companions.filter(x=>x!==c);saveDB();renderSettings();renderCompanionChecks();showUndo(`${c} を削除しました`,()=>{if(!db.companions.includes(c))db.companions.splice(Math.min(idx,db.companions.length),0,c);saveDB();refreshAll()})}
 function openWishModal(id=''){const w=db.wishes.find(x=>x.id===id);document.querySelectorAll('#wishModal [data-extra]').forEach(o=>o.remove());renderMasterSelects();$('wishEditId').value=id;$('wishDeleteBtn').hidden=!id;$('wishConvertBox').hidden=!id;$('wishModalTitle').textContent=w?'行きたい公演を編集':'行きたい公演を追加';$('wishTitle').value=w?.title||'';setWishStatus(w?.status||'wanted');$('wishDate').value=w?.date||'';setSel('wishTime',w?.time||'');$('wishType').value=w?.eventType||'';$('wishPrice').value=w?.price??'';$('wishAdvance').checked=!!w?.advance;$('wishAdvanceTo').value=w?.advanceTo||'';toggleAdvance();setMF('wishOrganizer',w?.organizer||'');setMF('wishVenue',w?.venue||'');renderWishCompanionChecks([...(w?.companions||[]),...(w?.oneOffCompanions||[])]);setSel('wishParticipants',w?.participants||'');setSel('wishTablemates',Number(w?.tablemates)||0);$('wishUrl').value=w?.url||'';$('wishSaleAt').value=w?.saleAt||'';$('wishAlarmAt').value=w?.alarmAt||'';$('wishSaleUrl').value=w?.saleUrl||'';$('wishMemo').value=w?.memo||'';wishPhotos=[...(w?.photos&&w.photos.length?w.photos:(w?.photo?[wishCover(w)]:[]))];renderWishPhotoPreview();$('wishPhoto').value='';$('wishModal').classList.add('show')}
-function renderWishCompanionChecks(selected=[]){wishSelectedComp=new Set(selected.filter(x=>db.companions.includes(x)));$('wishOtherCompanions').value=selected.filter(x=>!db.companions.includes(x)).join('、');$('wishCompanionChecks').innerHTML=db.companions.length?sortJa(db.companions).map(c=>`<button type="button" class="companion-chip ${wishSelectedComp.has(c)?'selected':''}" aria-pressed="${wishSelectedComp.has(c)}" onclick="toggleWishCompanion('${encodeURIComponent(c)}')">${wishSelectedComp.has(c)?'✓ ':''}${esc(c)}</button>`).join(''):'<span class="hint">登録済みの同行者はいません（データ管理で登録できます）</span>'}
+function renderWishCompanionChecks(selected=[]){wishSelectedComp=new Set(selected.filter(x=>db.companions.includes(x)));$('wishOtherCompanions').value=selected.filter(x=>!db.companions.includes(x)).join('、');$('wishCompanionChecks').innerHTML=db.companions.length?sortJa(db.companions).map(c=>`<button type="button" class="companion-chip ${wishSelectedComp.has(c)?'selected':''}" aria-pressed="${wishSelectedComp.has(c)}" onclick="toggleWishCompanion('${encodeURIComponent(c)}')">${wishSelectedComp.has(c)?'✓ ':''}${esc(c)}</button>`).join(''):'<span class="hint">登録済みの同行者はいません（設定で登録できます）</span>'}
 function toggleWishCompanion(e){const c=decodeURIComponent(e),other=parseNames($('wishOtherCompanions').value);wishSelectedComp.has(c)?wishSelectedComp.delete(c):wishSelectedComp.add(c);renderWishCompanionChecks([...wishSelectedComp,...other])}
-function renderWishPhotoPreview(){$('wishPhotoPreview').innerHTML=wishPhotos.map((p,i)=>`<div class="photo-wrap"><img src="${p}" alt=""><button type="button" aria-label="削除" onclick="removeWishPhoto(${i})">×</button></div>`).join('')}
+function renderWishPhotoPreview(){$('wishPhotoPreview').innerHTML=wishPhotos.map((p,i)=>`<div class="photo-wrap"><img src="${p}" alt="添付した写真"><button type="button" aria-label="写真を削除" onclick="removeWishPhoto(${i})">×</button></div>`).join('')}
 function removeWishPhoto(i){wishPhotos.splice(i,1);renderWishPhotoPreview()}
 function showWishDetail(id){const w=db.wishes.find(x=>x.id===id);if(!w)return;detailWishId=id;$('wishDetailTitle').innerHTML=`<span class="dt">${esc(w.title)}</span><span class="pill ${w.status==='reserved'?'reserved':'wanted'}">${w.status==='reserved'?'購入済み':'行きたい'}</span>`;const item=(l,v,full)=>`<div class="detail-item ${full?'full':''}"><div class="detail-label">${l}</div><div class="detail-value">${v||'—'}</div></div>`,price=w.price!==''&&w.price!==undefined?'¥'+Number(w.price).toLocaleString('ja-JP'):'',comps=[...new Set([...(w.companions||[]),...(w.oneOffCompanions||[])])],photos=w.photos&&w.photos.length?w.photos:(wishCover(w)?[wishCover(w)]:[]),link=(u,t)=>u?`<a href="${esc(u)}" target="_blank" rel="noopener">${t}</a>`:'';$('wishDetailBody').innerHTML=`<div class="detail-grid">${item('参加予定日・時刻',esc(w.date||'日程未定')+(w.time?' '+esc(w.time):''))}${item('公演類型',esc(w.eventType||'未設定'))}${item('参加予定人数',Number(w.participants)>0?Number(w.participants)+'人':'未入力')}${item('チケット代',esc(price))}${w.advance?item('立替',`<span class="red">${esc(w.advanceTo||'あり')}</span>`):''}${item('主催団体',esc(w.organizer||''),true)}${item('会場・店舗',esc(w.venue||''),true)}${item('同行予定者',comps.length?nameList(comps):'',true)}${item('公演URL',link(w.url,'公演ページを開く'))}${item('チケット発売日時',esc(fmtDT(w.saleAt)))}${item('アラーム',esc(fmtDT(w.alarmAt)))}${item('チケット販売ページ',link(w.saleUrl,'販売ページを開く'))}${item('メモ',esc(w.memo||''),true)}<div class="detail-item full"><div class="detail-label">写真・スクリーンショット</div>${photos.length?`<div class="detail-photos">${photos.map(src=>`<img src="${src}" alt="">`).join('')}</div>`:'<div class="detail-value">—</div>'}</div></div>`;$('wishDetailModal').classList.add('show')}
 function closeWishDetail(){$('wishDetailModal').classList.remove('show')}
@@ -622,13 +712,15 @@ async function addSaleToCalendar(){const title=$('wishTitle').value.trim()||'行
 function cancelRegister(){resetForm();go('history')}
 const svgIcon=(inner,cls)=>`<svg class="ri ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${inner}</svg>`;
 function resIcon(r){const glass='M12 4.5a5.5 5.5 0 0 0-3.4 9.8c.6.5.9 1.1.9 1.7h5c0-.6.3-1.2.9-1.7A5.5 5.5 0 0 0 12 4.5z',base='M9.8 18.5h4.4M10.6 21h2.8';return r==='success'?svgIcon(`<path d="${glass}" fill="#ffd60a"/><path d="${base}"/><path d="M12 1v1M4.2 4.2l.7.7M19.8 4.2l-.7.7M2 10h1M21 10h1" stroke="#f2b705"/>`,'lit'):r==='fail'?svgIcon(`<path d="${glass}"/><path d="${base}"/>`,'off'):r==='done'?svgIcon('<circle cx="12" cy="12" r="10.5"/><path d="M7.4 12.6l3.1 3.1 6.2-6.6"/>','dn'):svgIcon('<path d="M3 7h18v3.5a1.5 1.5 0 0 0 0 3V17H3v-3.5a1.5 1.5 0 0 0 0-3zM14 7v10"/>','tk')}
+const rIco=r=>`<svg class="ic" aria-hidden="true"><use href="#i-${r==='success'?'bulb-on':r==='fail'?'bulb-off':'check'}"/></svg>`;
 function resText(r){return r==='success'?'脱出成功':r==='fail'?'脱出失敗':r==='done'?'完了':'結果未入力'}
 const wishCover=w=>(w.photos&&w.photos[0])||w.photo||'';
+const wishThumb=w=>w.thumb||wishCover(w),recThumb=x=>x.thumb||(x.photos&&x.photos[0])||'';
 const parseNames=v=>String(v||'').split(/[、,，]/).map(x=>x.trim()).filter(Boolean);
 const setSel=(id,v)=>{const el=$(id);if(el.tagName!=='SELECT'){el.value=v??'';return}if(v!==''&&v!==undefined&&![...el.options].some(o=>o.value==String(v))){const o=new Option(v,v);o.dataset.extra=1;el.add(o)}el.value=v??''};
 function sortJa(a){return [...a].sort((x,y)=>String(x).localeCompare(String(y),'ja'))}
 const nameList=a=>sortJa(a).map((n,i)=>`<span class="nm">${esc(n)}${i<a.length-1?'、':''}</span>`).join('');
-function resBadge(r){return r==='success'?'<span class="pill success">🎉 脱出成功</span>':r==='fail'?'<span class="pill fail">🌀 脱出失敗</span>':r==='done'?'<span class="pill done">✅ 完了</span>':''}
+function resBadge(r){return r==='success'?'<span class="pill success">'+rIco('success')+'脱出成功</span>':r==='fail'?'<span class="pill fail">'+rIco('fail')+'脱出失敗</span>':r==='done'?'<span class="pill done">'+rIco('done')+'完了</span>':''}
 function fmtDT(v){return String(v||'').replace('T',' ').replace(/-/g,'/')}
 function closeWishModal(){$('wishModal').classList.remove('show')}
 const IMGQ={std:[1280,.8],small:[800,.6]};
@@ -650,14 +742,14 @@ function renderWishes(){document.querySelectorAll('[data-wish-view]').forEach(b=
 const st=w=>w.status==='reserved'?'購入済み':'行きたい',comps=w=>[...new Set([...(w.companions||[]),...(w.oneOffCompanions||[])])],adv=w=>`立替${w.advanceTo?'：<span class="red">'+esc(w.advanceTo)+'</span>':''}`,when=w=>`${esc(w.date||'日程未定')}${w.time?' '+esc(w.time):''}`,
 rowMeta=w=>`<div class="meta">${when(w)}</div>${w.organizer?`<div class="meta">${esc(w.organizer)}</div>`:''}${comps(w).length?`<div class="meta">${nameList(comps(w))}</div>`:''}${w.saleAt?`<div class="meta red">チケット販売 ${esc(fmtDT(w.saleAt))}</div>`:''}${w.advance?`<div class="meta">${adv(w)}</div>`:''}`,
 cardMeta=w=>`<div>${when(w)}</div>${w.organizer?`<div>${esc(w.organizer)}</div>`:''}${comps(w).length?`<div>${nameList(comps(w))}</div>`:''}${w.saleAt?`<div class="red">チケット販売 ${esc(fmtDT(w.saleAt))}</div>`:''}${w.advance?`<div>${adv(w)}</div>`:''}`;
-target.innerHTML=wishView==='list'?`<div class="record-list">${shown.map(w=>`<article class="record-row record-clickable" role="button" tabindex="0" onclick="showWishDetail('${w.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showWishDetail('${w.id}')}"><div class="thumb">${wishCover(w)?`<img src="${wishCover(w)}" alt="" style="width:100%;height:100%;object-fit:cover">`:'🎟️'}</div><div class="record-main"><div class="record-title">${esc(w.title)}</div>${rowMeta(w)}<span class="pill ${w.status}">${st(w)}</span></div></article>`).join('')}</div>`:`<div class="feature-list">${shown.map(w=>`<article class="feature-card wish" onclick="showWishDetail('${w.id}')"><div class="photo" ${wishCover(w)?`style="background-image:url('${wishCover(w)}')"`:''}></div><span class="pill ${w.status} fc-badge">${st(w)}</span><div class="feature-info"><div class="feature-title">${esc(w.title)}</div><div class="feature-meta">${cardMeta(w)}</div></div></article>`).join('')}</div>`}
+target.innerHTML=wishView==='list'?`<div class="record-list">${shown.map(w=>`<article class="record-row record-clickable" role="button" tabindex="0" onclick="showWishDetail('${w.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showWishDetail('${w.id}')}"><div class="thumb">${wishThumb(w)?`<img src="${wishThumb(w)}" alt="" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover">`:resIcon('')}</div><div class="record-main"><div class="record-title">${esc(w.title)}</div>${rowMeta(w)}<span class="pill ${w.status}">${st(w)}</span></div></article>`).join('')}</div>`:`<div class="feature-list">${shown.map(w=>`<article class="feature-card wish" onclick="showWishDetail('${w.id}')"><div class="photo" ${wishThumb(w)?`style="background-image:url('${wishThumb(w)}')"`:''}></div><span class="pill ${w.status} fc-badge">${st(w)}</span><div class="feature-info"><div class="feature-title">${esc(w.title)}</div><div class="feature-meta">${cardMeta(w)}</div></div></article>`).join('')}</div>`}
 function attachWishSwipe(){document.querySelectorAll('[data-swipe-wish]').forEach(w=>{const card=w.querySelector('.wish-card');let x=0,y=0;card.addEventListener('touchstart',e=>{x=e.touches[0].clientX;y=e.touches[0].clientY},{passive:true});card.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-x,dy=e.changedTouches[0].clientY-y;if(dx < -55 && Math.abs(dx)>Math.abs(dy)*1.3)card.classList.add('swiped');else if(dx>45)card.classList.remove('swiped')},{passive:true})})}
-async function deleteWish(id){const w=db.wishes.find(x=>x.id===id);if(!w||!await askConfirm(`「${w.title}」を行きたいリストから削除しますか？`))return;db.wishes=db.wishes.filter(x=>x.id!==id);selectedWishes.delete(id);saveDB();closeWishModal();renderWishes();renderDashboard();toast('削除しました')}
+async function deleteWish(id){const w=db.wishes.find(x=>x.id===id);if(!w||!await askConfirm(`「${w.title}」を行きたいリストから削除しますか？`))return;const idx=db.wishes.findIndex(x=>x.id===id);db.wishes=db.wishes.filter(x=>x.id!==id);selectedWishes.delete(id);saveDB();closeWishModal();renderWishes();renderDashboard();showUndo('行きたい公演を削除しました',()=>{db.wishes.splice(Math.min(idx,db.wishes.length),0,w);saveDB();refreshAll()})}
 function deleteWishFromModal(){const id=$('wishEditId').value;if(id)deleteWish(id)}
 function trackWish(id,on){on?selectedWishes.add(id):selectedWishes.delete(id);const sc=$('wishSelectedCount');if(sc)sc.textContent=selectedWishes.size+'件選択'}
 function selectAllWishes(on){document.querySelectorAll('#wishAll [data-wish]').forEach(el=>{el.checked=on;trackWish(el.dataset.wish,on)})}
 function bulkWishStatus(){const ids=[...selectedWishes].filter(id=>db.wishes.some(w=>w.id===id));if(!ids.length){toast('公演を選択してください');return}ids.forEach(id=>{const w=db.wishes.find(x=>x.id===id);w.status=w.status==='wanted'?'reserved':'wanted'});selectedWishes.clear();saveDB();renderWishes();renderDashboard();toast(`${ids.length}件の状態を変更しました`)}
-async function bulkDeleteWishes(){const ids=[...selectedWishes];if(!ids.length){toast('公演を選択してください');return}if(!await askConfirm(`選択した${ids.length}件を削除しますか？`))return;db.wishes=db.wishes.filter(w=>!ids.includes(w.id));selectedWishes.clear();saveDB();renderWishes();renderDashboard();toast(`${ids.length}件削除しました`)}
+
 function toggleWish(id){const w=db.wishes.find(x=>x.id===id);if(!w)return;w.status=w.status==='wanted'?'reserved':'wanted';saveDB();renderWishes();renderDashboard()}
 
 function csvCell(v){return '"'+String(v??'').replace(/"/g,'""')+'"'}function exportCSV(){const rows=[['type','title','date','time','result','eventType','venue','organizer','companions','oneOffCompanions','tablemates','participants','rating','comment','url','status','memo','price','saleAt','alarmAt','saleUrl','advance','advanceTo','hashtags'],...db.records.map(x=>['record',x.title,x.date,x.time||'',x.result,x.eventType||'',x.venue,x.organizer,(x.companions||[]).join('|'),(x.oneOffCompanions||[]).join('|'),x.tablemates||0,x.participants||1,x.rating,x.comment,x.url,'','',x.price??'','','','','','',x.hashtags||'']),...db.wishes.map(x=>['wish',x.title,x.date,x.time||'','',x.eventType||'',x.venue||'',x.organizer||'',(x.companions||[]).join('|'),(x.oneOffCompanions||[]).join('|'),x.tablemates||0,x.participants||0,'','',x.url||'',x.status,x.memo,x.price??'',x.saleAt||'',x.alarmAt||'',x.saleUrl||'',x.advance?1:'',x.advanceTo||'','']),...db.organizers.map(n=>['organizer',n]),...db.venues.map(n=>['venue',n]),...sortJa(db.companions).map(n=>['companion',n])];const csv='\ufeff'+rows.map(r=>r.map(csvCell).join(',')).join('\r\n'),a=document.createElement('a'),url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.href=url;a.download='escape-log-backup.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('CSVを書き出しました')}
@@ -669,7 +761,7 @@ async function importCSV(){const f=$('csvFile').files[0];if(!f)return;const rows
 function fillNums(id,from,blank){let h=blank?'<option value="">選択</option>':'';for(let i=from;i<=20;i++)h+=`<option value="${i}"${i===0?' selected':''}>${i}</option>`;$(id).innerHTML=h}
 function fillTimes(){let h='<option value="">--:--</option>';for(let m=540;m<=1260;m+=5)h+=`<option value="${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}">${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}</option>`;$('time').innerHTML=h}
 fillNums('participants',1,true);fillNums('tablemates',0,false);wheelInit('time');wheelInit('wishTime');fillNums('wishParticipants',1,true);fillNums('wishTablemates',0,false);$('wishType').innerHTML=$('eventType').innerHTML;
-$('date').value=new Date().toLocaleDateString('sv-SE');document.body.classList.add('home-active');renderDashboard();renderHistory();renderWishes();renderCompanions();renderSettings();renderMasterSelects();renderCompanionChecks();renderStars();updateFilterBtn();
+$('date').value=new Date().toLocaleDateString('sv-SE');document.body.classList.add('home-active');renderDashboard();renderHistory();renderWishes();renderSettings();renderMasterSelects();renderCompanionChecks();renderStars();updateFilterBtn();
 
 hFilter={ym:'',type:'',comp:''};
 function histFiltered(arr){return arr.filter(x=>(!hFilter.ym||String(x.date||'').slice(0,7)===hFilter.ym)&&(!hFilter.type||x.eventType===hFilter.type)&&(!hFilter.comp||recNames(x).includes(hFilter.comp)))}
@@ -680,15 +772,43 @@ function clearFilter(){hFilter={ym:'',type:'',comp:''};openFilter();updateFilter
 function removeFilter(k){hFilter[k]='';updateFilterBtn();renderHistory()}
 function updateFilterBtn(){const n=Object.values(hFilter).filter(Boolean).length,b=$('filterBtn');b.textContent=n?`絞り込み（${n}）`:'絞り込み';b.classList.toggle('on',n>0)}
 function renderFilterChips(count){const box=$('filterChips'),items=[['ym','年月',hFilter.ym&&ymLabel(hFilter.ym)],['type','類型',hFilter.type],['comp','同行者',hFilter.comp]].filter(x=>x[2]);box.innerHTML=items.length?`<div class="fchips"><span class="fcount">絞り込み中 ${count}件</span>${items.map(([k,l,v])=>`<button type="button" class="fchip" onclick="removeFilter('${k}')">${l}：${esc(v)} ×</button>`).join('')}</div>`:''}
+
+const THUMB_PX=360;
+function thumbKey(p){return p.length+':'+p.slice(-24)}
+function makeThumb(src){return new Promise(res=>{const i=new Image();i.onload=()=>{try{const k=Math.min(1,THUMB_PX/Math.max(i.naturalWidth,i.naturalHeight)),w=Math.max(1,Math.round(i.naturalWidth*k)),h=Math.max(1,Math.round(i.naturalHeight*k)),c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,w,h);g.drawImage(i,0,0,w,h);res(c.toDataURL('image/jpeg',.72))}catch(e){res('')}};i.onerror=()=>res('');i.src=src})}
+let thumbBusy=false;
+async function ensureThumbs(){if(thumbBusy)return;thumbBusy=true;let changed=false;try{for(const x of [...db.records,...db.wishes]){const p=(x.photos&&x.photos[0])||x.photo||'';if(!p){if(x.thumb||x.thumbKey){delete x.thumb;delete x.thumbKey;changed=true}continue}const key=thumbKey(p);if(x.thumbKey===key)continue;if(p.length<60000){x.thumb='';x.thumbKey=key;continue}x.thumb=await makeThumb(p);x.thumbKey=key;changed=true}}catch(e){}thumbBusy=false;if(changed){saveDB();renderDashboard();renderHistory();renderWishes()}}
+let _hdb;function debouncedHistory(){clearTimeout(_hdb);_hdb=setTimeout(renderHistory,150)}
+setTimeout(ensureThumbs,800);
 </script>
 <script type="text/plain" data-boot>
 const THEMES={paper:['ペーパー','#eceef0','#ff5a1f'],terminal:['ターミナル','#0f1210','#ffb000'],midnight:['ミッドナイト','#0c1120','#4fd1ff'],mint:['ミント','#e5efe9','#1fbf8f'],sakura:['サクラ','#f3e8ec','#ff6b9d'],sky:['スカイ','#e4f0fb','#1d63d8']};
 function setTheme(k){if(!THEMES[k])k='paper';document.documentElement.dataset.theme=k;try{localStorage.setItem('escapeLogTheme3',k)}catch(e){}document.getElementById('themeColor').content=THEMES[k][1];document.querySelectorAll('.swatch').forEach(b=>{const on=b.dataset.t===k;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)})}
 (function(){document.getElementById('themePicker').innerHTML=Object.entries(THEMES).map(([k,v])=>`<button class="swatch" data-t="${k}" aria-pressed="false" onclick="setTheme('${k}')"><i style="background:linear-gradient(135deg,${v[1]} 50%,${v[2]} 50%)"></i>${v[0]}</button>`).join('');let k='paper';try{k=localStorage.getItem('escapeLogTheme3')||'paper'}catch(e){}setTheme(k);
 const sr=document.getElementById('successRate');if(sr){const u=()=>{const n=parseInt(sr.textContent)||0;sr.closest('.stats').style.setProperty('--rate',n+'%')};new MutationObserver(u).observe(sr,{childList:true,characterData:true,subtree:true});u()}
-const re=()=>{if(document.getElementById('dashboard').classList.contains('active'))renderDashboard()};window.addEventListener('resize',re);if(document.fonts){document.fonts.ready.then(re);document.fonts.addEventListener('loadingdone',()=>fitHome())}if(window.ResizeObserver){const ro=new ResizeObserver(()=>fitHome());['recentList','dashWish'].forEach(i=>ro.observe(document.getElementById(i)))}})();
+const re=()=>{if(document.getElementById('dashboard').classList.contains('active'))renderDashboard()};window.addEventListener('resize',(()=>{let t;return()=>{clearTimeout(t);t=setTimeout(re,150)}})());if(document.fonts){document.fonts.ready.then(re);document.fonts.addEventListener('loadingdone',()=>fitHome())}if(window.ResizeObserver){const ro=new ResizeObserver(()=>fitHome());['recentList','dashWish'].forEach(i=>ro.observe(document.getElementById(i)))}})();
 </script>
-<script type="text/plain" data-boot>try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}window.addEventListener('resize',()=>packMasterLists());if(document.fonts)document.fonts.addEventListener('loadingdone',()=>packMasterLists());</script><script>
+<script type="text/plain" data-boot>document.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const ms=[...document.querySelectorAll('.modalback.show')];if(!ms.length)return;const z=x=>Number(getComputedStyle(x).zIndex)||0,m=ms.sort((a,b)=>z(a)-z(b))[ms.length-1],f=[...m.querySelectorAll('a[href],button:not([disabled]),input:not([type=hidden]):not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])')].filter(x=>x.getClientRects().length>0);if(!f.length){e.preventDefault();return}const a=f[0],b=f[f.length-1];if(e.shiftKey&&(document.activeElement===a||!m.contains(document.activeElement))){e.preventDefault();b.focus()}else if(!e.shiftKey&&(document.activeElement===b||!m.contains(document.activeElement))){e.preventDefault();a.focus()}});
+try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}window.addEventListener('resize',()=>packMasterLists());if(document.fonts)document.fonts.addEventListener('loadingdone',()=>packMasterLists());</script>
+<script type="text/plain" data-boot>
+(function(){
+document.querySelectorAll('.formfield').forEach((ff,i)=>{const lb=ff.querySelector(':scope>label:not([for])');if(!lb||lb.querySelector('input'))return;const t=ff.querySelector('input:not([type=hidden]):not([type=radio]):not([type=checkbox]),select,textarea,button[id]');if(t&&t.id){lb.htmlFor=t.id}else{lb.id=lb.id||('fl'+i);ff.setAttribute('role','group');ff.setAttribute('aria-labelledby',lb.id)}});
+document.querySelectorAll('.star[data-star]').forEach(b=>b.setAttribute('aria-label',b.dataset.star+'つ星'));
+['toast','undoBar'].forEach(id=>{const e=document.getElementById(id);if(e){e.setAttribute('role','status');e.setAttribute('aria-live','polite')}});
+const modals=[...document.querySelectorAll('.modalback:not(.dlg)')];
+modals.forEach(m=>{const box=m.querySelector('.modal'),h=m.querySelector('h2');if(!box)return;box.setAttribute('role','dialog');box.setAttribute('aria-modal','true');if(h){h.id=h.id||m.id+'Title';box.setAttribute('aria-labelledby',h.id)}});
+const closers={recordDetailModal:'closeRecordDetail',wishDetailModal:'closeWishDetail',wishModal:'closeWishModal',filterModal:'closeFilter',timeSheet:'closeTimePicker'};
+let lastFocus=null;
+const obs=new MutationObserver(ms=>{ms.forEach(r=>{const m=r.target,open=m.classList.contains('show');if(open&&!m._open){m._open=true;lastFocus=document.activeElement;setTimeout(()=>{const f=m.querySelector('.iconbtn,button');f&&f.focus&&f.focus({preventScroll:true})},60)}else if(!open&&m._open){m._open=false;if(lastFocus&&lastFocus.isConnected&&lastFocus.focus)lastFocus.focus({preventScroll:true})}})});
+modals.forEach(m=>obs.observe(m,{attributes:true,attributeFilter:['class']}));
+const topModal=()=>modals.filter(m=>m.classList.contains('show')).pop();
+document.addEventListener('keydown',e=>{
+ if(e.key==='Escape'){const dlg=document.getElementById('dialogBack');if(dlg&&dlg.classList.contains('show'))return;const lb=document.getElementById('lightbox');if(lb&&!lb.hidden){closeLightbox();return}const o=topModal();if(o&&closers[o.id]){window[closers[o.id]]();return}const rg=document.getElementById('register');if(rg&&rg.classList.contains('active'))cancelRegister();return}
+ if(e.key==='Tab'){const o=topModal();if(!o)return;const f=[...o.querySelectorAll('button,input,select,textarea,a[href],[tabindex]:not([tabindex="-1"])')].filter(x=>!x.disabled&&!x.hidden&&x.offsetParent!==null);if(!f.length)return;const first=f[0],last=f[f.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}
+});
+})();
+</script>
+<script>
 (function(){var KEY='escapeLogPrototypeV1',DBN='escape-log',STORE='kv',dbh=null;
 function openDB(){return new Promise(function(res,rej){if(!window.indexedDB){rej(new Error('no idb'));return}var r=indexedDB.open(DBN,1);r.onupgradeneeded=function(){r.result.createObjectStore(STORE)};r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)};r.onblocked=function(){rej(new Error('blocked'))}})}
 window.idbGet=function(k){return new Promise(function(res,rej){var q=dbh.transaction(STORE,'readonly').objectStore(STORE).get(k);q.onsuccess=function(){res(q.result)};q.onerror=function(){rej(q.error)}})};
@@ -702,4 +822,20 @@ if(old){return window.idbPut('db',old).then(function(){window.__BOOT_DB=old;wind
 window.__BOOT_DB=null;window.__IDB=true}).catch(function(){window.__IDB=false;window.__BOOT_DB=ls()}).then(run,run);
 })();
 </script>
+<script type="text/plain" data-boot>(function(){
+let lid=0;
+function linkLabels(){document.querySelectorAll('.formfield').forEach(f=>{const lb=f.querySelector(':scope>label');if(!lb||lb.hasAttribute('for')||lb.querySelector('input'))return;const ctl=f.querySelector('input:not([type=hidden]):not([type=checkbox]):not([type=radio]),select,textarea');if(ctl&&ctl.id){lb.setAttribute('for',ctl.id);return}if(!lb.id)lb.id='fl'+(++lid);f.setAttribute('role','group');f.setAttribute('aria-labelledby',lb.id)})}
+function syncA11y(){document.querySelectorAll('.star').forEach(b=>{b.setAttribute('aria-label','満足度 '+b.dataset.star);b.setAttribute('aria-pressed',b.classList.contains('on'))});document.querySelectorAll('.switch button,.wish-filter button').forEach(b=>b.setAttribute('aria-pressed',b.classList.contains('active')));document.querySelectorAll('.companion-chip').forEach(b=>b.setAttribute('aria-pressed',b.classList.contains('selected')));document.querySelectorAll('.navbtn').forEach(b=>{if(b.classList.contains('active'))b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')})}
+let q=false;const sched=()=>{if(q)return;q=true;requestAnimationFrame(()=>{q=false;syncA11y();linkLabels()})};
+new MutationObserver(sched).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class'],childList:true});sched();
+const closers={recordDetailModal:()=>closeRecordDetail(),wishDetailModal:()=>closeWishDetail(),wishModal:()=>closeWishModal(),filterModal:()=>closeFilter(),timeSheet:()=>closeTimePicker()},order=['timeSheet','filterModal','wishModal','wishDetailModal','recordDetailModal'];
+let opener=null,wasOpen=false;
+function modalState(){const shown=[...document.querySelectorAll('.modalback.show')],lb=document.getElementById('lightbox'),open=shown.length>0||!!(lb&&!lb.hidden),bg=['.shell','.topbar','.bottomnav'].map(x=>document.querySelector(x)).filter(Boolean);
+if(open&&!wasOpen){opener=document.activeElement;const top=shown[shown.length-1]||lb,f=top&&top.querySelector('button,[href],input:not([type=hidden]),select,textarea');setTimeout(()=>{if(f&&f.focus&&document.contains(f))f.focus({preventScroll:true})},60)}
+if(!open&&wasOpen&&opener&&opener.focus&&document.contains(opener)){opener.focus({preventScroll:true});opener=null}
+bg.forEach(el=>{if('inert' in el)el.inert=open});wasOpen=open}
+new MutationObserver(modalState).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class','hidden']});
+document.addEventListener('keydown',e=>{if(e.key!=='Escape'||document.getElementById('dialogBack').classList.contains('show'))return;for(const id of order){const m=document.getElementById(id);if(m&&m.classList.contains('show')){closers[id]();e.preventDefault();return}}});
+})();</script>
+<script>if('serviceWorker' in navigator&&location.protocol==='https:'){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{})})}</script>
 </body></html>
