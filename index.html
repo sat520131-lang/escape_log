@@ -1205,13 +1205,16 @@ html[data-theme="terminal"] .pill.wanted,html[data-theme="midnight"] .pill.wante
   position:fixed;left:50%;bottom:calc(84px + var(--safe-b));
   transform:translateX(-50%);z-index:90;
   display:flex;align-items:center;gap:12px;
-  max-width:calc(100% - 24px);
+  width:max-content;max-width:calc(100% - 24px);white-space:normal;
   background:var(--ink);color:var(--bg);
   border-radius:16px;padding:6px 6px 6px 16px;
   font-size:13px;font-weight:700;box-shadow:var(--shadow-lg);
 }
+.undobar #undoMsg{
+  flex:1 1 auto;min-width:0;white-space:normal;overflow-wrap:anywhere;
+}
 .undobar button{
-  min-height:44px;padding:0 14px;border-radius:11px;
+  min-height:44px;min-width:max-content;white-space:nowrap;flex:0 0 auto;padding:0 14px;border-radius:11px;
   background:var(--accent);color:var(--on-accent);border:0;font-weight:800;
 }
 
@@ -1490,9 +1493,8 @@ html[data-theme="terminal"] .pill.wanted,html[data-theme="midnight"] .pill.wante
       </section>
 
       <section class="master-box theme-box">
-        <h3><svg class="ic" aria-hidden="true"><use href="#i-image"/></svg>画像の圧縮（初期設定）</h3>
-        <div class="segbtns" id="imgQSeg" role="group" aria-label="画像の圧縮"><button type="button" data-v="std" onclick="setImgQ('std')">標準</button><button type="button" data-v="small" onclick="setImgQ('small')">強く圧縮</button><button type="button" data-v="none" onclick="setImgQ('none')">圧縮しない</button></div>
-        <p class="hint" style="margin-top:12px">標準は長辺1280px、強く圧縮は長辺800px（容量重視）に縮小して保存します。圧縮しない場合は元の画質のまま保存します（容量を多く使います）。写真を追加するときに適用され、追加済みの写真は変わりません。</p>
+        <h3><svg class="ic" aria-hidden="true"><use href="#i-image"/></svg>画像の保存容量</h3>
+        <p class="hint">添付した画像はすべて標準設定（長辺1280px）で自動圧縮して保存します。</p>
         <p class="hint" id="storageUsage" style="margin-top:10px">ブラウザの保存容量を確認しています…</p>
       </section>
 
@@ -1861,8 +1863,9 @@ let detailRecordId='';
 function showRecordDetail(id){const x=db.records.find(r=>r.id===id);if(!x)return;detailRecordId=id;$('detailXLink').href=xPostUrl(x);$('detailTitle').innerHTML=`<span class="dt">${esc(x.title)}</span>${resBadge(x.result)}`;const item=(label,value,full=false)=>`<div class="detail-item ${full?'full':''}"><div class="detail-label">${label}</div><div class="detail-value">${value||'—'}</div></div>`;const companions=[...new Set([...(x.companions||[]),...(x.oneOffCompanions||[])])];const photos=(x.photos||[]).length?`<div class="detail-photos">${x.photos.map(src=>`<img src="${src}" alt="参加時の写真">`).join('')}</div>`:'—';$('recordDetailBody').innerHTML=`<div class="detail-grid">${item('参加日・時刻',esc(x.date||'')+(x.time?' '+esc(x.time):''))}${item('公演類型',esc(x.eventType||'未設定'))}${item('参加人数',`${Number(x.participants)>0?Number(x.participants)+'人':'未入力'}`)}${item('チケット代',x.price!==''&&x.price!==undefined?'¥'+Number(x.price).toLocaleString('ja-JP'):'')}${item('主催団体',esc(x.organizer||''),true)}${item('会場・店舗',esc(x.venue||''),true)}${item('同行者',companions.length?nameList(companions):'',true)}${item('満足度',x.rating?'★'.repeat(x.rating):'未評価')}${item('公演URL',x.url?`<a href="${esc(x.url)}" target="_blank" rel="noopener">公演ページを開く</a>`:'')}${item('感想・メモ',esc(x.comment||''),true)}${tagsOf(x.hashtags).length?item('ハッシュタグ',esc(tagsOf(x.hashtags).map(t=>'#'+t).join(' ')),true):''}${x.privateMemo?`<div class="detail-item full private-memo-item"><div class="private-memo-heading"><div class="detail-label">非公開メモ</div><button type="button" class="private-memo-toggle" id="privateMemoToggle" aria-expanded="false" onclick="togglePrivateMemo()">非公開メモを表示</button></div><div class="detail-value private-memo-content" id="privateMemoContent" hidden>${esc(x.privateMemo)}</div></div>`:''}<div class="detail-item full"><div class="detail-label">写真・スクリーンショット</div>${photos}</div></div>`;$('recordDetailModal').classList.add('show')}
 function togglePrivateMemo(){const content=$('privateMemoContent'),button=$('privateMemoToggle');if(!content||!button)return;const willShow=content.hidden;content.hidden=!willShow;button.textContent=willShow?'非公開メモを非表示':'非公開メモを表示';button.setAttribute('aria-expanded',String(willShow))}
 const tagsOf=v=>String(v||'').split(/[\s,、，]+/).map(t=>t.replace(/^[#＃]+/,'')).filter(Boolean);
-const X_DEFAULT_TPL='「{title}」に参加しました！\n{date} {organizer}\n結果：{result}';
-function getXTpl(){return safeStorageGet('escapeLogXTpl',X_DEFAULT_TPL)||X_DEFAULT_TPL}
+const X_DEFAULT_TPL='{date} \n「{title}」に行ってきた！\n{comment}';
+const X_OLD_DEFAULT_TPL='「{title}」に参加しました！\n{date} {organizer}\n結果：{result}';
+function getXTpl(){const saved=safeStorageGet('escapeLogXTpl','');return !saved||saved===X_OLD_DEFAULT_TPL?X_DEFAULT_TPL:saved}
 function getXTags(){return safeStorageGet('escapeLogXTags','')}
 function fillTpl(tpl,x){const res=x.result==='success'?'脱出成功':x.result==='fail'?'脱出失敗':x.result==='done'?'完了':'',val={title:x.title||'',date:x.date?String(x.date).replace(/-/g,'/'):'',time:x.time||'',organizer:x.organizer||'',venue:x.venue||'',type:x.eventType||'',result:res,companions:sortJa([...(x.companions||[]),...(x.oneOffCompanions||[])]).join('、'),comment:String(x.comment||'').trim()};return String(tpl).split('\n').map(l=>{let drop=false;const o=l.replace(/\{(\w+)\}/g,(m,k)=>{if(!(k in val))return m;if(!val[k])drop=true;return val[k]});return drop?null:o.trim()}).filter(l=>l!==null&&l!=='').join('\n')}
 function buildXText(tpl,x,tags){const body=fillTpl(tpl,x);if(!tags||!tags.length)return body;const tagLine=tags.map(t=>'#'+t).join(' ');return body?body+'\n'+tagLine:tagLine}
@@ -2056,18 +2059,14 @@ function storedPhotoBytes(excludeRecordId='',excludeWishId=''){
 }
 function photoCapacityFor(list,kind){const rid=kind==='record'?$('editId').value:'',wid=kind==='wish'?$('wishEditId').value:'';return storedPhotoBytes(rid,wid)+(list||[]).reduce((n,p)=>n+dataUrlBytes(p),0)}
 async function updateStorageUsage(){const el=$('storageUsage');if(!el)return;if(!navigator.storage||!navigator.storage.estimate){el.textContent='このブラウザでは保存容量の確認に対応していません。';return}try{const x=await navigator.storage.estimate(),used=Number(x.usage)||0,quota=Number(x.quota)||0,fmt=n=>n>=1024*1024?(n/1024/1024).toFixed(1)+'MB':Math.round(n/1024)+'KB';el.textContent=quota?`ブラウザの保存領域：約${fmt(used)}使用中／約${fmt(quota)}（目安）。写真の登録上限は合計100MBです。`:`保存領域の使用量：約${fmt(used)}。写真の登録上限は合計100MBです。`}catch(e){el.textContent='保存容量を取得できませんでした。'}}
-function getImgQ(){return safeStorageGet('escapeLogImgQ','std')||'std'}
-const IMGL={std:'標準（長辺1280px）',small:'強く圧縮（長辺800px）',none:'圧縮しない（元のまま）'};
-function setImgQ(v,persist=true){if(!IMGL[v])v='std';if(persist)safeStorageSet('escapeLogImgQ',v,true);document.querySelectorAll('#imgQSeg button').forEach(b=>{const on=b.dataset.v===v;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});document.querySelectorAll('.imgq-note').forEach(n=>n.textContent='画像の圧縮：'+IMGL[v]+'（設定タブで変更できます）')}
 function readDataURL(f){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(f)})}
 async function prepareImage(f){
   if(!f||!/^image\//i.test(f.type)){toast('画像ファイルを選択してください');return null}
   if(f.size>MAX_RAW_PHOTO_BYTES){toast('元画像は1枚20MB以下にしてください');return null}
   try{
-    const raw=await readDataURL(f),q=getImgQ();
-    if(q==='none')return raw;
+    const raw=await readDataURL(f);
     const img=await new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=raw});
-    const [max,baseQ]=IMGQ[q]||IMGQ.std;let scale=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight));
+    const [max,baseQ]=IMGQ.std;let scale=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight));
     for(let attempt=0;attempt<8;attempt++){
       const w=Math.max(1,Math.round(img.naturalWidth*scale)),h=Math.max(1,Math.round(img.naturalHeight*scale)),c=document.createElement('canvas');c.width=w;c.height=h;
       const g=c.getContext('2d');if(!g)throw new Error('canvas unavailable');g.fillStyle='#fff';g.fillRect(0,0,w,h);g.drawImage(img,0,0,w,h);
@@ -2080,7 +2079,7 @@ async function prepareImage(f){
 async function addSelectedPhotos(files,target,kind){let added=0;for(const f of files){const d=await prepareImage(f);if(!d)continue;const next=[...target,d],total=photoCapacityFor(next,kind);if(total>MAX_TOTAL_PHOTO_BYTES){toast('写真の合計容量が100MBを超えるため、これ以上追加できません');break}target.push(d);added++}return added}
 $('photos').addEventListener('change',async e=>{const n=await addSelectedPhotos(e.target.files,newPhotos,'record');renderPhotoPreview();e.target.value='';if(n)toast(`${n}枚の写真を追加しました`)});
 $('wishPhoto').addEventListener('change',async e=>{const n=await addSelectedPhotos(e.target.files,wishPhotos,'wish');renderWishPhotoPreview();e.target.value='';if(n)toast(`${n}枚の写真を追加しました`)});
-setImgQ(getImgQ(),false);updateStorageUsage();initXSettings();
+document.querySelectorAll('.imgq-note').forEach(n=>n.textContent='画像は標準設定（長辺1280px）で自動圧縮されます。');updateStorageUsage();initXSettings();
 document.querySelectorAll('input[name="result"]').forEach(inp=>{const lb=inp.closest('label');lb.addEventListener('pointerdown',()=>{inp.dataset.was=inp.checked?'1':''});inp.addEventListener('click',()=>{if(inp.dataset.was==='1'){inp.checked=false;inp.dataset.was=''}})});
 
 async function saveWish(){
