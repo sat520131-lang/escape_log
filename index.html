@@ -472,6 +472,8 @@ body.reg-open .topbar,body.reg-open .bottomnav{display:none}
   width:100%;
 }
 #history .search-wrap{display:flex;align-items:center;flex:1 1 0%;min-width:0;position:relative}
+#history .history-controls{gap:8px}
+#history #historyResultCount{flex:1 1 0%;min-width:0;text-align:center;font-size:14px;font-weight:700;white-space:nowrap;color:var(--ink)}
 #history .toolbar .search{padding:10px 42px 10px 12px;width:100%}
 #history .search-clear{position:absolute;right:7px;top:50%;transform:translateY(-50%);width:32px;height:32px;min-height:32px;padding:0;border:0;border-radius:50%;background:transparent;color:#70757a;display:grid;place-items:center;cursor:pointer;transition:background .15s,color .15s}
 #history .search-clear:before,#history .search-clear:after{content:"";position:absolute;width:16px;height:1.7px;border-radius:2px;background:currentColor}
@@ -1353,17 +1355,17 @@ html[data-theme="terminal"] .pill.wanted,html[data-theme="midnight"] .pill.wante
           <button type="button" class="search-clear" aria-label="検索ワードをクリア" title="検索ワードをクリア" onclick="clearHistorySearch()"></button>
         </div>
       </div>
-      <div class="toolbar-row" style="justify-content:space-between;align-items:center">
-        <div style="display:flex;align-items:center;gap:8px">
+      <div class="toolbar-row history-controls" style="justify-content:space-between;align-items:center">
+        <div class="history-actions" style="display:flex;align-items:center;gap:8px">
           <select class="field" id="sortOrder" onchange="renderHistory()" aria-label="並び順" style="padding:7px 30px 7px 11px;min-height:36px;font-size:12.5px">
             <option value="desc">新しい順</option>
             <option value="asc">古い順</option>
             <option value="rating">満足度順</option>
-            <option value="price">チケット代順</option>
           </select>
           <button type="button" class="btn light small filterbtn" id="filterBtn" onclick="openFilter()" style="min-height:36px">絞り込み</button>
         </div>
-        <div class="switch"><button data-view="list" class="active" onclick="setView('list',this)">一覧</button><button data-view="cards" onclick="setView('cards',this)">カード</button></div>
+        <span id="historyResultCount" class="hint" aria-live="polite"></span>
+        <div class="switch"><button data-view="list" onclick="setView('list',this)">一覧</button><button data-view="cards" class="active" onclick="setView('cards',this)">カード</button></div>
       </div>
     </div>
     <div id="filterChips"></div>
@@ -1424,7 +1426,7 @@ html[data-theme="terminal"] .pill.wanted,html[data-theme="midnight"] .pill.wante
           <option value="sale">チケット発売日が近い順</option>
           <option value="price">チケット代が高い順</option>
         </select>
-        <div class="switch view-switch"><button data-wish-view="list" class="active" onclick="setWishView('list',this)">一覧</button><button data-wish-view="cards" onclick="setWishView('cards',this)">カード</button></div>
+        <div class="switch view-switch"><button data-wish-view="list" onclick="setWishView('list',this)">一覧</button><button data-wish-view="cards" class="active" onclick="setWishView('cards',this)">カード</button></div>
       </div>
     </div>
     <div id="wishAll"></div>
@@ -1669,7 +1671,7 @@ function loadDB(){
   const v=window.__BOOT_DB;
   return {...blankDB(),...(v||{})};
 }
-let db=loadDB(),currentPage='dashboard',currentView='list',wishView='list',rating=3,newPhotos=[],wishPhotoData='',selectedWishes=new Set(),calDate=new Date(),wishFilter='all';
+let db=loadDB(),currentPage='dashboard',currentView='cards',wishView='cards',rating=3,newPhotos=[],wishPhotoData='',selectedWishes=new Set(),calDate=new Date(),wishFilter='all';
 const $=id=>document.getElementById(id);const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
 function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function stripOrphanBraceText(root){if(!root)return;const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);const remove=[];while(walker.nextNode()){const n=walker.currentNode;if(['{','}','｛','｝'].includes(n.nodeValue.trim()))remove.push(n)}remove.forEach(n=>n.remove())}
@@ -1804,7 +1806,7 @@ function miniRow(x,type){
 
 function setView(v,btn){if(v==='calendar')return;currentView=v;document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b===btn));renderHistory()}
 function clearHistorySearch(){clearTimeout(_hdb);$('historySearch').value='';renderHistory()}
-function renderHistory(){const q=($('historySearch').value||'').trim().toLocaleLowerCase('ja-JP'),sort=$('sortOrder').value;let arr=histFiltered(db.records).filter(x=>[x.title,x.organizer,x.venue,x.hashtags,...recNames(x)].join(' ').toLocaleLowerCase('ja-JP').includes(q)).sort((a,b)=>sort==='asc'?(a.date+(a.time||'')).localeCompare(b.date+(b.time||'')):sort==='rating'?(Number(b.rating)||0)-(Number(a.rating)||0)||(b.date||'').localeCompare(a.date||''):sort==='price'?(Number(b.price)||-1)-(Number(a.price)||-1)||(b.date||'').localeCompare(a.date||''):(b.date+(b.time||'')).localeCompare(a.date+(a.time||'')));const el=$('historyContent');renderFilterChips(arr.length);if(!arr.length){el.innerHTML=`<div class="empty">${db.records.length?'条件に合う参加記録はありません。':'参加記録はまだありません。'}</div>`;stripOrphanBraceText(el);return}if(currentView==='list'){el.innerHTML=`<div class="record-list">${arr.map(recordRow).join('')}</div>`}else{el.innerHTML=`<div class="feature-list">${arr.map(x=>`<article class="feature-card"><div class="photo" ${recThumb(x)?`style="background-image:url('${recThumb(x)}')"`:''}></div><span class="pill ${x.result==='success'?'success':x.result==='fail'?'fail':x.result==='done'?'done':'none'} fc-badge">${resText(x.result)}</span><div class="feature-info"><div class="feature-title title-tap" role="button" tabindex="0" onclick="showRecordDetail('${x.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showRecordDetail('${x.id}')}">${esc(x.title)}</div><div class="feature-meta"><div>${esc(x.date||'日程未定')}${x.time?' '+esc(x.time):''}</div>${x.organizer?`<div>${esc(x.organizer)}</div>`:''}</div></div></article>`).join('')}</div>`}stripOrphanBraceText(el)}
+function renderHistory(){const q=($('historySearch').value||'').trim().toLocaleLowerCase('ja-JP'),sort=$('sortOrder').value;let arr=histFiltered(db.records).filter(x=>[x.title,x.organizer,x.venue,x.hashtags,...recNames(x)].join(' ').toLocaleLowerCase('ja-JP').includes(q)).sort((a,b)=>sort==='asc'?(a.date+(a.time||'')).localeCompare(b.date+(b.time||'')):sort==='rating'?(Number(b.rating)||0)-(Number(a.rating)||0)||(b.date||'').localeCompare(a.date||''):(b.date+(b.time||'')).localeCompare(a.date+(a.time||'')));const el=$('historyContent');const hasFilter=Object.values(hFilter).some(Boolean);$('historyResultCount').textContent=(q||hasFilter)?`${arr.length}件`:'';renderFilterChips();if(!arr.length){el.innerHTML=`<div class="empty">${db.records.length?'条件に合う参加記録はありません。':'参加記録はまだありません。'}</div>`;stripOrphanBraceText(el);return}if(currentView==='list'){el.innerHTML=`<div class="record-list">${arr.map(recordRow).join('')}</div>`}else{el.innerHTML=`<div class="feature-list">${arr.map(x=>`<article class="feature-card"><div class="photo" ${recThumb(x)?`style="background-image:url('${recThumb(x)}')"`:''}></div><span class="pill ${x.result==='success'?'success':x.result==='fail'?'fail':x.result==='done'?'done':'none'} fc-badge">${resText(x.result)}</span><div class="feature-info"><div class="feature-title title-tap" role="button" tabindex="0" onclick="showRecordDetail('${x.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showRecordDetail('${x.id}')}">${esc(x.title)}</div><div class="feature-meta"><div>${esc(x.date||'日程未定')}${x.time?' '+esc(x.time):''}</div>${x.organizer?`<div>${esc(x.organizer)}</div>`:''}</div></div></article>`).join('')}</div>`}stripOrphanBraceText(el)}
 function recordRow(x){const img=recThumb(x);return `<article class="record-row"><div class="thumb">${img?`<img src="${img}" alt="" loading="lazy" decoding="async">`:resIcon(x.result)}</div><div class="record-main"><div class="record-title title-tap" role="button" tabindex="0" onclick="showRecordDetail('${x.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showRecordDetail('${x.id}')}">${esc(x.title)}</div><div class="meta">${esc(x.date)} ${esc(x.time||'')}</div><div class="meta">${esc(x.organizer||'主催未登録')}</div>${[...(x.companions||[]),...(x.oneOffCompanions||[])].length?`<div class="meta">${nameList([...(x.companions||[]),...(x.oneOffCompanions||[])])}</div>`:''}<span class="pill ${x.result==='success'?'success':x.result==='fail'?'fail':x.result==='done'?'done':'none'}">${x.result==='success'?rIco('success')+'脱出成功':x.result==='fail'?rIco('fail')+'脱出失敗':x.result==='done'?rIco('done')+'完了':'結果未入力'}</span> ${x.rating?`<span class="rstars">${'★'.repeat(x.rating)}</span>`:''}</div></article>` }
 
 function renderStats(){const records=db.records||[],total=records.length,success=records.filter(r=>r.result==='success').length,failed=records.filter(r=>r.result==='fail').length,rated=success+failed,rate=rated?Math.round(success/rated*100):0,avg=records.filter(r=>Number(r.rating)>0);const ratings=avg.length?(avg.reduce((a,r)=>a+Number(r.rating),0)/avg.length).toFixed(1):'—';$('statsContent').innerHTML=`<div class="stats-overview"><div class="stat-mini"><span>参加公演数</span><strong>${total}</strong></div><div class="stat-mini"><span>脱出成功率</span><strong>${rated?rate+'%':'—'}</strong></div><div class="stat-mini"><span>平均満足度</span><strong>${ratings}${ratings!=='—'?'<small>/5</small>':''}</strong></div><div class="stat-mini sf"><span>成功 / 失敗</span><strong>${success} / ${failed}</strong></div></div><div class="stats-panels">${statsPanels(records)}</div>`}
@@ -2173,8 +2175,8 @@ function openFilter(){
 function applyFilter(){hFilter={ym:$('fYm').value,res:$('fRes').value,type:$('fType').value,comp:$('fComp').value};updateFilterBtn();renderHistory()}
 function clearFilter(){hFilter={ym:'',res:'',type:'',comp:''};openFilter();updateFilterBtn();renderHistory()}
 function removeFilter(k){hFilter[k]='';updateFilterBtn();renderHistory()}
-function updateFilterBtn(){const n=Object.values(hFilter).filter(Boolean).length,b=$('filterBtn');b.textContent=n?`絞り込み（${n}）`:'絞り込み';b.classList.toggle('on',n>0)}
-function renderFilterChips(count){const box=$('filterChips'),items=[['ym','年月',hFilter.ym&&ymLabel(hFilter.ym)],['res','結果',hFilter.res&&RES_LABELS[hFilter.res]],['type','類型',hFilter.type],['comp','同行者',hFilter.comp]].filter(x=>x[2]);box.innerHTML=items.length?`<div class="fchips"><span class="fcount">絞り込み中 ${count}件</span>${items.map(([k,l,v])=>`<button type="button" class="fchip" onclick="removeFilter('${k}')">${l}：${esc(v)} ×</button>`).join('')}</div>`:''}
+function updateFilterBtn(){const n=Object.values(hFilter).filter(Boolean).length,b=$('filterBtn');b.textContent='絞り込み';b.classList.toggle('on',n>0)}
+function renderFilterChips(){const box=$('filterChips'),items=[['ym','年月',hFilter.ym&&ymLabel(hFilter.ym)],['res','結果',hFilter.res&&RES_LABELS[hFilter.res]],['type','類型',hFilter.type],['comp','同行者',hFilter.comp]].filter(x=>x[2]);box.innerHTML=items.length?`<div class="fchips">${items.map(([k,l,v])=>`<button type="button" class="fchip" onclick="removeFilter('${k}')">${l}：${esc(v)} ×</button>`).join('')}</div>`:''}
 updateFilterBtn();
 
 const THUMB_PX=360;
