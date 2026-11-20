@@ -1928,8 +1928,6 @@ async function importBackup(input){
   try{obj=JSON.parse(await f.text())}catch(e){toast('バックアップファイルを読み込めませんでした');return}
   const d=obj&&obj.data?obj.data:obj,problem=validateBackupData(d);
   if(problem){toast(problem);return}
-  const incomingPhotoBytes=[...(d.records||[]),...(d.wishes||[])].reduce((n,x)=>n+(x.photos||[]).reduce((a,p)=>a+dataUrlBytes(p),0)+dataUrlBytes(x.photo),0);
-  if(storedPhotoBytes()+incomingPhotoBytes>MAX_TOTAL_PHOTO_BYTES){toast('読み込み後の写真合計が100MBを超えるため、バックアップを読み込めません');return}
   if(!await askConfirm(`参加記録${d.records.length}件、行きたい公演${(d.wishes||[]).length}件を、今のデータに追加します。\n同じ記録は重複しません。続けますか？`,'読み込む',false))return;
   let nr=0,nw=0;
   if(!await commitDBChange(()=>{
@@ -2064,14 +2062,9 @@ function getWishSnap(){return JSON.stringify({t:$('wishTitle').value,s:$('wishRe
 function captureWishSnap(){_wishSnap=getWishSnap()}
 async function closeWishModal(force=false){if(!force&&_wishSnap&&getWishSnap()!==_wishSnap&&!await askConfirm('入力中の内容は保存されていません。閉じてもよろしいですか？','閉じる',true))return;_wishSnap='';$('wishModal').classList.remove('show')}
 const IMGQ={std:[1280,.8],small:[800,.6]};
-const MAX_PHOTO_BYTES=2*1024*1024,MAX_TOTAL_PHOTO_BYTES=100*1024*1024,MAX_RAW_PHOTO_BYTES=20*1024*1024,MAX_BACKUP_BYTES=150*1024*1024;
+const MAX_PHOTO_BYTES=2*1024*1024,MAX_RAW_PHOTO_BYTES=20*1024*1024,MAX_BACKUP_BYTES=150*1024*1024;
 function dataUrlBytes(v){if(typeof v!=='string'||!v.startsWith('data:'))return 0;const i=v.indexOf(',');if(i<0)return 0;const b=v.slice(i+1);return Math.floor(b.length*3/4)-(b.endsWith('==')?2:b.endsWith('=')?1:0)}
-function storedPhotoBytes(excludeRecordId='',excludeWishId=''){
-  let n=0;for(const x of db.records||[])if(x.id!==excludeRecordId){for(const p of x.photos||[])n+=dataUrlBytes(p);n+=dataUrlBytes(x.photo)}
-  for(const x of db.wishes||[])if(x.id!==excludeWishId){for(const p of x.photos||[])n+=dataUrlBytes(p);n+=dataUrlBytes(x.photo)}return n;
-}
-function photoCapacityFor(list,kind){const rid=kind==='record'?$('editId').value:'',wid=kind==='wish'?$('wishEditId').value:'';return storedPhotoBytes(rid,wid)+(list||[]).reduce((n,p)=>n+dataUrlBytes(p),0)}
-async function updateStorageUsage(){const el=$('storageUsage');if(!el)return;if(!navigator.storage||!navigator.storage.estimate){el.textContent='このブラウザでは保存容量の確認に対応していません。';return}try{const x=await navigator.storage.estimate(),used=Number(x.usage)||0,quota=Number(x.quota)||0,fmt=n=>n>=1024*1024?(n/1024/1024).toFixed(1)+'MB':Math.round(n/1024)+'KB';el.textContent=quota?`ブラウザの保存領域：約${fmt(used)}使用中／約${fmt(quota)}（目安）。写真の登録上限は合計100MBです。`:`保存領域の使用量：約${fmt(used)}。写真の登録上限は合計100MBです。`}catch(e){el.textContent='保存容量を取得できませんでした。'}}
+async function updateStorageUsage(){const el=$('storageUsage');if(!el)return;if(!navigator.storage||!navigator.storage.estimate){el.textContent='このブラウザでは保存容量の確認に対応していません。';return}try{const x=await navigator.storage.estimate(),used=Number(x.usage)||0,quota=Number(x.quota)||0,fmt=n=>n>=1024*1024?(n/1024/1024).toFixed(1)+'MB':Math.round(n/1024)+'KB';el.textContent=quota?`ブラウザの保存領域：約${fmt(used)}使用中／約${fmt(quota)}（目安）。`:`保存領域の使用量：約${fmt(used)}。`}catch(e){el.textContent='保存容量を取得できませんでした。'}}
 function readDataURL(f){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(f)})}
 async function prepareImage(f){
   if(!f||!/^image\//i.test(f.type)){toast('画像ファイルを選択してください');return null}
@@ -2089,7 +2082,7 @@ async function prepareImage(f){
     toast('圧縮後も1枚2MBを超えるため、この写真は追加できませんでした');return null;
   }catch(err){reportAppError(err,'画像を読み込めませんでした。別の画像を選んでください。');return null}
 }
-async function addSelectedPhotos(files,target,kind){let added=0;for(const f of files){const d=await prepareImage(f);if(!d)continue;const next=[...target,d],total=photoCapacityFor(next,kind);if(total>MAX_TOTAL_PHOTO_BYTES){toast('写真の合計容量が100MBを超えるため、これ以上追加できません');break}target.push(d);added++}return added}
+async function addSelectedPhotos(files,target,kind){let added=0;for(const f of files){const d=await prepareImage(f);if(!d)continue;target.push(d);added++}return added}
 $('photos').addEventListener('change',async e=>{const n=await addSelectedPhotos(e.target.files,newPhotos,'record');renderPhotoPreview();e.target.value='';if(n)toast(`${n}枚の写真を追加しました`)});
 $('wishPhoto').addEventListener('change',async e=>{const n=await addSelectedPhotos(e.target.files,wishPhotos,'wish');renderWishPhotoPreview();e.target.value='';if(n)toast(`${n}枚の写真を追加しました`)});
 document.querySelectorAll('.imgq-note').forEach(n=>n.textContent='画像は標準設定（長辺1280px）で自動圧縮されます。');updateStorageUsage();initXSettings();
