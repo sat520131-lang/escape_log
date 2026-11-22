@@ -951,6 +951,10 @@ html[data-theme="terminal"] .pill.wanted,html[data-theme="midnight"] .pill.wante
 .other-companion-input{display:none;margin-top:8px}
 .other-companion-input.show{display:flex;gap:8px;flex-wrap:wrap}
 .other-companion-input input{flex:1}
+.image-file-input{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.image-paste-target{width:100%;min-height:58px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:3px;padding:10px 13px;border:1px dashed var(--line-strong);border-radius:12px;background:var(--surface-2);color:var(--ink);text-align:left;cursor:pointer;font:600 14px/1.35 var(--font-sans)}
+.image-paste-target:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.image-paste-target-sub{font-size:11px;font-weight:500;color:var(--muted)}
 .photo-preview{display:flex;flex-wrap:wrap;gap:10px}
 .photo-wrap{position:relative}
 .photo-preview img{width:76px;height:76px;object-fit:cover;border-radius:14px;display:block;border:1px solid var(--line)}
@@ -1001,17 +1005,18 @@ html[data-theme="terminal"] .pill.wanted,html[data-theme="midnight"] .pill.wante
   background-color:var(--bg);
   background-image:radial-gradient(var(--dot) 1.15px, transparent 1.15px);
   background-size:18px 18px;
-  animation:none;padding:0;margin:0;
+  animation:none;padding:0;margin:0;transform:none!important;
 }
 #register>.heading{
   position:sticky;top:0;z-index:20;
-  flex:none;margin:0;
+  align-self:stretch;flex:none;margin:0;
   padding:calc(var(--safe-t) + 12px) 16px 12px;
   background:var(--bg);
   backdrop-filter:none;
   -webkit-backdrop-filter:none;
   border-bottom:1px solid var(--line);
   align-items:flex-start;
+  transform:none;
 }
 #register>.panel{
   flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
@@ -1402,7 +1407,7 @@ html[data-theme="terminal"] .pill.wanted,html[data-theme="midnight"] .pill.wante
           <div class="formfield full"><label for="comment">感想・メモ</label><textarea id="comment" placeholder="印象に残った謎、演出、感想など"></textarea></div>
           <div class="formfield full"><label for="privateMemo">非公開メモ <span>（Xには投稿されません）</span></label><textarea id="privateMemo" class="private-record-memo" placeholder="自分だけが見返すメモを入力"></textarea></div>
           <div class="formfield full"><label for="hashtags">ハッシュタグ（X投稿用）</label><input id="hashtags" placeholder="例：#謎解き #脱出ゲーム" autocomplete="off"><div class="hint">スペースか読点で区切って入力します。詳細画面のXボタンから投稿画面を開くと、ここのタグが入ります。</div></div>
-          <div class="formfield full"><label for="photos">写真・スクリーンショット（複数可）</label><input id="photos" type="file" accept="image/*" multiple class="field"><div class="hint imgq-note"></div><div class="photo-preview" id="photoPreview"></div></div>
+          <div class="formfield full"><label for="photos">写真・スクリーンショット（複数可）</label><input id="photos" type="file" accept="image/*" multiple class="image-file-input"><div class="hint imgq-note"></div><button type="button" class="image-paste-target" id="photoPasteTarget" aria-label="画像を選択、またはここに画像をペースト"><span>ファイル未選択</span><span class="image-paste-target-sub">クリックして画像を選択／ここに画像をペースト</span></button><div class="photo-preview" id="photoPreview"></div></div>
         </div>
         <div class="form-actions"><button type="button" class="btn light" onclick="cancelRegister()">キャンセル</button><button type="submit" class="btn">記録を保存</button></div>
       </form>
@@ -2084,6 +2089,9 @@ async function prepareImage(f){
 }
 async function addSelectedPhotos(files,target,kind){let added=0;for(const f of files){const d=await prepareImage(f);if(!d)continue;target.push(d);added++}return added}
 $('photos').addEventListener('change',async e=>{const n=await addSelectedPhotos(e.target.files,newPhotos,'record');renderPhotoPreview();e.target.value='';if(n)toast(`${n}枚の写真を追加しました`)});
+$('photoPasteTarget').addEventListener('click',()=>$('photos').click());
+$('photoPasteTarget').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('photos').click()}});
+document.addEventListener('paste',async e=>{if(currentPage!=='register'||!e.clipboardData||!e.target.closest?.('#photoPasteTarget'))return;const items=Array.from(e.clipboardData.items||[]);let files=items.filter(item=>item.kind==='file'&&/^image\//i.test(item.type)).map(item=>item.getAsFile()).filter(Boolean);if(!files.length)files=Array.from(e.clipboardData.files||[]).filter(file=>/^image\//i.test(file.type));if(!files.length)return;e.preventDefault();const n=await addSelectedPhotos(files,newPhotos,'record');renderPhotoPreview();if(n)toast(`コピーした画像を${n}枚追加しました`)});
 $('wishPhoto').addEventListener('change',async e=>{const n=await addSelectedPhotos(e.target.files,wishPhotos,'wish');renderWishPhotoPreview();e.target.value='';if(n)toast(`${n}枚の写真を追加しました`)});
 document.querySelectorAll('.imgq-note').forEach(n=>n.textContent='画像は標準設定（長辺1280px）で自動圧縮されます。');updateStorageUsage();initXSettings();
 document.querySelectorAll('input[name="result"]').forEach(inp=>{const lb=inp.closest('label');lb.addEventListener('pointerdown',()=>{inp.dataset.was=inp.checked?'1':''});inp.addEventListener('click',()=>{if(inp.dataset.was==='1'){inp.checked=false;inp.dataset.was=''}})});
