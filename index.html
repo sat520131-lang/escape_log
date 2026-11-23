@@ -1198,6 +1198,34 @@ html[data-theme="terminal"] .pill.wanted,html[data-theme="midnight"] .pill.wante
 .lb-next{right:8px}
 .lb-count{position:absolute;bottom:calc(var(--safe-b) + 14px);left:0;right:0;text-align:center;color:#fff;font:700 12.5px var(--font-mono)}
 
+
+
+.import-stage{border:1px solid var(--line);border-radius:16px;padding:15px;margin-top:12px;background:var(--surface-2)}
+.import-stage-title{font-size:14px;font-weight:850;margin-bottom:5px}
+.import-stage .toolbar{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+.import-stage-result{margin-top:12px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.import-stage-result .import-counts{margin:0 0 8px}
+
+/* Import reconciliation preview */
+.import-modal{width:min(680px,100%);max-height:min(88dvh,900px);display:flex;flex-direction:column;padding:0;overflow:hidden}
+.import-head{padding:20px 22px 14px;border-bottom:1px solid var(--line);flex:none}
+.import-body{padding:16px 22px;overflow:auto;min-height:0;-webkit-overflow-scrolling:touch}
+.import-foot{padding:14px 22px calc(14px + var(--safe-b));border-top:1px solid var(--line);display:flex;gap:10px;flex:none;background:var(--surface)}
+.import-foot .btn{flex:1}
+.import-counts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0 16px}
+.import-count{padding:12px;border:1px solid var(--line);border-radius:14px;background:var(--surface-2);min-width:0}
+.import-count strong{display:block;font-size:23px;line-height:1.2;font-variant-numeric:tabular-nums}
+.import-count span{font-size:11px;color:var(--muted);font-weight:700}
+.import-group{margin:16px 0}
+.import-group h4{font-size:13px;margin:0 0 8px;display:flex;align-items:center;gap:7px}
+.import-item{border:1px solid var(--line);border-radius:14px;padding:12px;margin:7px 0;background:var(--surface)}
+.import-item-title{font-size:13px;font-weight:800;line-height:1.5;overflow-wrap:anywhere}
+.import-item-meta{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.5}
+.import-diff{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.import-tag{font-size:10.5px;font-weight:700;border-radius:999px;padding:4px 8px;background:var(--surface-2);color:var(--ink-2)}
+.import-empty{font-size:12px;color:var(--muted);padding:8px 0}
+@media(max-width:520px){.import-head{padding:17px 16px 12px}.import-body{padding:12px 16px}.import-foot{padding:12px 16px calc(12px + var(--safe-b))}.import-counts{gap:6px}.import-count{padding:10px 8px}.import-count strong{font-size:20px}.import-count span{font-size:10px}}
+
 .modalback.dlg{z-index:90;align-items:center;padding:16px}
 .dialog{width:min(420px,100%);border-radius:22px;animation:pop .2s ease-out;padding:22px}
 .dlg-msg{font-size:14.5px;font-weight:700;line-height:1.7;white-space:pre-wrap;margin-bottom:14px;overflow-wrap:anywhere}
@@ -1481,8 +1509,14 @@ html[data-theme="terminal"] .pill.wanted,html[data-theme="midnight"] .pill.wante
       <section class="master-box">
         <h3><svg class="ic" aria-hidden="true"><use href="#i-package"/></svg>CSV・バックアップ</h3>
         <p class="hint">参加記録と行きたい公演をCSVで保存・読み込みできます。写真はCSVに含まれないため、写真も残したいときはバックアップ（JSON）を使ってください。</p>
-        <div class="toolbar"><button class="btn small" onclick="exportCSV()">CSVエクスポート</button><label class="btn light small filelabel">CSVインポート<input type="file" id="csvFile" accept=".csv,text/csv" class="hidden" onchange="importCSV()"></label></div>
-        <div class="toolbar"><button class="btn small" onclick="exportBackup()">バックアップ書き出し（写真つき）</button><label class="btn light small filelabel">バックアップ読み込み<input type="file" id="backupFile" accept=".json,application/json" class="hidden" onchange="importBackup(this)"></label></div>
+        <div class="import-stage" id="importStage">
+          <div class="import-stage-title">データの統合・重複整理</div>
+          <p class="hint">JSONまたはCSVを読み込み、現在のデータとの重複や更新内容を確認してから取り込みます。</p>
+          <div class="toolbar"><label class="btn light small filelabel">CSVを選択<input type="file" id="csvFile" accept=".csv,text/csv" class="hidden" onchange="importCSV()"></label><label class="btn light small filelabel">JSONを選択<input type="file" id="backupFile" accept=".json,application/json" class="hidden" onchange="importBackup(this)"></label></div>
+          <div id="importStageResult" class="import-stage-result" hidden></div>
+          <div class="toolbar"><button type="button" class="btn small" id="importReview" onclick="showImportDetails()" disabled>統合内容を確認</button></div>
+        </div>
+        <div class="toolbar" style="margin-top:12px"><button class="btn small" onclick="exportCSV()">CSVエクスポート</button><button class="btn small" onclick="exportBackup()">バックアップ書き出し（写真つき）</button></div>
         <div id="csvPreview" class="hint"></div>
       </section>
     </div>
@@ -1653,6 +1687,15 @@ html[data-theme="terminal"] .pill.wanted,html[data-theme="midnight"] .pill.wante
   <button class="lb-nav lb-next" onclick="lbStep(1,event)" aria-label="次の写真">›</button>
   <button class="iconbtn lb-close" onclick="closeLightbox()">閉じる</button>
   <div class="lb-count" id="lbCount"></div>
+</div>
+
+<!-- Import reconciliation -->
+<div class="modalback" id="importBack" role="dialog" aria-modal="true" aria-labelledby="importTitle">
+  <div class="modal import-modal">
+    <div class="import-head"><div class="detail-head" style="margin:0"><div><div class="eyebrow">DATA RECONCILIATION</div><h2 id="importTitle" style="font-size:20px;margin:3px 0 0">取り込み内容の確認</h2></div><button class="iconbtn" type="button" onclick="closeImportPreview()" aria-label="閉じる">×</button></div><p class="hint" id="importDescription" style="margin:8px 0 0">既存データと照合しました。統合内容を確認してください。</p></div>
+    <div class="import-body"><div class="import-counts" id="importCounts"></div><div id="importDetails"></div><p class="hint" style="margin-top:14px">統合では既存の写真を残し、取り込み元の写真も追加します。同行者などの複数項目は重複を除いてまとめます。</p></div>
+    <div class="import-foot"><button type="button" class="btn light" onclick="closeImportPreview()">キャンセル</button><button type="button" class="btn" id="importApply" onclick="applyImportPreview()">統合して取り込む</button></div>
+  </div>
 </div>
 
 <!-- Dialog -->
@@ -1928,28 +1971,83 @@ function validateBackupData(d){
   }
   return '';
 }
+let pendingImport=null;
+const importText=v=>String(v??'').normalize('NFKC').trim().replace(/[\s　]+/g,' ').toLocaleLowerCase();
+const importBlank=v=>v===undefined||v===null||v===''||(Array.isArray(v)&&!v.length);
+function importMatch(a,b){
+  if(a.id&&b.id&&a.id===b.id)return true;
+  if(importText(a.title)!==importText(b.title)||!a.date||a.date!==b.date)return false;
+  const av=importText(a.venue),bv=importText(b.venue),ao=importText(a.organizer),bo=importText(b.organizer);
+  return (!av||!bv||av===bv)&&(!ao||!bo||ao===bo);
+}
+function importUnion(a,b){const out=[...(Array.isArray(a)?a:[])];for(const v of (Array.isArray(b)?b:[])){if(!out.some(x=>importText(x)===importText(v)))out.push(v)}return out}
+function importMergeRecord(old,inc){
+  const merged={...old};let changes=[];
+  const multi=['companions','oneOffCompanions','photos'];
+  const text=['comment','privateMemo','memo','hashtags'];
+  for(const k of multi){const vals=importUnion(old[k],inc[k]);if(JSON.stringify(vals)!==JSON.stringify(old[k]||[])){merged[k]=vals;changes.push(k)}}
+  for(const k of Object.keys(inc)){
+    if(['id','photos',...multi,...text,'updatedAt'].includes(k)||inc[k]===undefined)continue;
+    if(importBlank(inc[k]))continue;
+    if(importBlank(old[k])||String(old[k])!==String(inc[k])){merged[k]=inc[k];if(!changes.includes(k))changes.push(k)}
+  }
+  for(const k of text){const a=String(old[k]||'').trim(),b=String(inc[k]||'').trim();if(b&&!a){merged[k]=b;changes.push(k)}else if(b&&a&&importText(a)!==importText(b)&&!a.includes(b)){merged[k]=a+'\n---\n'+b;changes.push(k)}}
+  if(inc.updatedAt&&(!old.updatedAt||inc.updatedAt>old.updatedAt))merged.updatedAt=inc.updatedAt;
+  return {merged,changes:[...new Set(changes)]};
+}
+function importPlanList(existing,incoming){
+  const plan=[];const claimed=new Set();
+  for(const item of incoming){const idx=existing.findIndex((x,i)=>!claimed.has(i)&&importMatch(x,item));
+    if(idx<0){const prior=plan.find(x=>importMatch(x.item,item));if(prior){const base=prior.kind==='new'?prior.item:(prior.merged||prior.existing);const m=importMergeRecord(base,item);prior.item=m.merged;prior.merged=m.merged;prior.changes=[...new Set([...(prior.changes||[]),...m.changes])];if(prior.kind==='new'&&prior.changes.length)prior.kind='new';}else plan.push({kind:'new',item});}
+    else{claimed.add(idx);const m=importMergeRecord(existing[idx],item);plan.push({kind:m.changes.length?'merge':'same',item,existing:existing[idx],merged:m.merged,changes:m.changes})}}
+  return plan;
+}
+function importSummary(plan){return {added:plan.filter(x=>x.kind==='new').length,merged:plan.filter(x=>x.kind==='merge').length,same:plan.filter(x=>x.kind==='same').length}}
+function importFieldLabel(k){return ({companions:'同行者',oneOffCompanions:'その他の同行者',photos:'写真',comment:'感想',privateMemo:'非公開メモ',memo:'メモ',hashtags:'ハッシュタグ',result:'結果',rating:'満足度',venue:'会場',organizer:'主催団体',time:'開始時刻',eventType:'公演タイプ',participants:'参加人数',tablemates:'同卓人数',url:'URL',price:'料金',status:'購入状況',date:'参加日',title:'公演名'})[k]||k}
+function renderImportPlan(label,plan){const sum=importSummary(plan);let html=`<div class="import-group"><h4>${label}</h4>`;
+  const sections=[['new','新規追加'],['merge','重複統合'],['same','変更なし']];
+  for(const [kind,title] of sections){const list=plan.filter(x=>x.kind===kind);if(!list.length)continue;html+=`<div style="font-size:11px;font-weight:800;color:var(--muted);margin:10px 0 5px">${title} ${list.length}件</div>`;
+    for(const x of list){const r=x.item;const meta=[r.date,r.venue,r.organizer].filter(Boolean).join(' · ');const tags=kind==='merge'?x.changes.map(importFieldLabel):kind==='new'?['既存データにない公演']:['取り込む変更なし'];html+=`<div class="import-item"><div class="import-item-title">${esc(r.title||'タイトル未設定')}</div><div class="import-item-meta">${esc(meta||'日付・会場情報なし')}</div><div class="import-diff">${tags.map(t=>`<span class="import-tag">${esc(t)}${kind==='merge'?'を反映':''}</span>`).join('')}</div></div>`}}
+  html+='</div>';return html;
+}
+function openImportPreview(data,source){
+  for(const item of [...(data.records||[]),...(data.wishes||[])])if(!item.id)item.id=uid();
+  const records=importPlanList(db.records,data.records||[]),wishes=importPlanList(db.wishes,data.wishes||[]);
+  const masters={organizers:[],venues:[],companions:[]};for(const k of Object.keys(masters)){const have=new Set((db[k]||[]).map(importText));masters[k]=(data[k]||[]).filter(v=>{const key=importText(v);if(!key||have.has(key))return false;have.add(key);return true})}
+  pendingImport={data,source,records,wishes,masters};
+  const all=[records,wishes].map(importSummary);const added=all.reduce((a,x)=>a+x.added,0),merged=all.reduce((a,x)=>a+x.merged,0),same=all.reduce((a,x)=>a+x.same,0),masterCount=Object.values(masters).reduce((a,x)=>a+x.length,0);
+  $('importDescription').textContent=`${source}のデータを現在の記録と照合しました。追加・統合する内容を確認してください。`;
+  $('importCounts').innerHTML=`<div class="import-count"><strong>${added+masterCount}</strong><span>新規追加</span></div><div class="import-count"><strong>${merged}</strong><span>重複統合</span></div><div class="import-count"><strong>${same}</strong><span>変更なし</span></div>`;
+  $('importDetails').innerHTML=renderImportPlan('参加記録',records)+renderImportPlan('行きたい公演',wishes)+`<div class="import-group"><h4>登録リストの追加</h4><div class="import-item"><div class="import-item-meta">主催団体 ${masters.organizers.length}件　／　会場 ${masters.venues.length}件　／　同行者 ${masters.companions.length}件</div></div></div>`;
+  $('importApply').textContent=added+merged+masterCount?'統合して取り込む':'閉じる';$('importApply').disabled=!(added+merged+masterCount);
+  const total=(data.records||[]).length+(data.wishes||[]).length;
+  $('importStageResult').hidden=false;
+  $('importStageResult').innerHTML=`<div style="font-size:12px;font-weight:800;margin-bottom:8px">${esc(source)}を読み込みました</div><div class="import-counts"><div class="import-count"><strong>${total}</strong><span>読み込んだ公演</span></div><div class="import-count"><strong>${added+masterCount}</strong><span>新規追加</span></div><div class="import-count"><strong>${merged}</strong><span>重複・統合候補</span></div><div class="import-count"><strong>${same}</strong><span>変更なし</span></div></div><div class="hint">参加記録 ${records.length}件 ／ 行きたい公演 ${wishes.length}件</div>`;
+  $('importReview').disabled=false;
+}
+function showImportDetails(){if(!pendingImport)return;$('importBack').classList.add('show')}
+function closeImportPreview(){pendingImport=null;$('importBack').classList.remove('show');$('importStageResult').hidden=true;$('importStageResult').innerHTML='';$('importReview').disabled=true}
+async function applyImportPreview(){const p=pendingImport;if(!p)return;const records=p.records,wishes=p.wishes,masters=p.masters;
+  const has=records.some(x=>x.kind!=='same')||wishes.some(x=>x.kind!=='same')||Object.values(masters).some(x=>x.length);
+  if(!has){closeImportPreview();toast('取り込む新しい情報はありませんでした');return}
+  $('importApply').disabled=true;
+  const saved=await commitDBChange(()=>{
+    const apply=(key,plan)=>{for(const x of plan){if(x.kind==='new')db[key].push(x.item);else if(x.kind==='merge'){const idx=db[key].findIndex(v=>v===x.existing);if(idx>=0)db[key][idx]=x.merged}}};
+    apply('records',records);apply('wishes',wishes);
+    for(const [key,vals] of Object.entries(masters))for(const v of vals)if(!db[key].some(x=>importText(x)===importText(v)))db[key].push(v);
+    [...db.records,...db.wishes].forEach(r=>(r.companions||[]).forEach(c=>{if(!db.companions.some(x=>importText(x)===importText(c)))db.companions.push(c)}));
+  });
+  if(!saved){$('importApply').disabled=false;return}
+  const summary=[...records,...wishes].map(x=>x.kind).reduce((a,k)=>(a[k]=(a[k]||0)+1,a),{});
+  closeImportPreview();refreshAll();toast(`新規${summary.new||0}件・統合${summary.merge||0}件を取り込みました`);
+}
 async function importBackup(input){
   const f=input.files&&input.files[0];input.value='';if(!f)return;if(f.size>MAX_BACKUP_BYTES){toast('バックアップは150MB以下のファイルを選択してください');return}
-  let obj;
-  try{obj=JSON.parse(await f.text())}catch(e){toast('バックアップファイルを読み込めませんでした');return}
-  const d=obj&&obj.data?obj.data:obj,problem=validateBackupData(d);
-  if(problem){toast(problem);return}
-  if(!await askConfirm(`参加記録${d.records.length}件、行きたい公演${(d.wishes||[]).length}件を、今のデータに追加します。\n同じ記録は重複しません。続けますか？`,'読み込む',false))return;
-  let nr=0,nw=0;
-  if(!await commitDBChange(()=>{
-    const next={...db,records:[...db.records],wishes:[...db.wishes],organizers:[...db.organizers],venues:[...db.venues],companions:[...db.companions]};
-    const add=key=>{
-      const ids=new Set(next[key].map(x=>x.id));let count=0;
-      (d[key]||[]).forEach(x=>{if(!ids.has(x.id)){next[key].push(x);ids.add(x.id);count++}});
-      return count;
-    };
-    nr=add('records');nw=add('wishes');
-    ['organizers','venues','companions'].forEach(key=>(d[key]||[]).forEach(v=>{if(!next[key].includes(v))next[key].push(v)}));
-    db=next;
-  }))return;
-  renderMasterSelects();renderCompanionChecks();renderSettings();renderDashboard();renderHistory();renderWishes();
-  toast(`参加記録${nr}件、行きたい公演${nw}件を追加しました`);
+  let obj;try{obj=JSON.parse(await f.text())}catch(e){toast('バックアップファイルを読み込めませんでした');return}
+  const d=obj&&obj.data?obj.data:obj,problem=validateBackupData(d);if(problem){toast(problem);return}
+  openImportPreview({...d,records:d.records||[],wishes:d.wishes||[],organizers:d.organizers||[],venues:d.venues||[],companions:d.companions||[]},'JSONバックアップ');
 }
+
 let lbList=[],lbIdx=0;
 function openLightbox(list,i){lbList=list;lbIdx=i;renderLb();$('lightbox').hidden=false}
 function renderLb(){$('lbImg').src=lbList[lbIdx];$('lbCount').textContent=lbList.length>1?`${lbIdx+1} / ${lbList.length}`:'';document.querySelectorAll('.lb-nav').forEach(b=>b.hidden=lbList.length<2)}
@@ -2131,7 +2229,21 @@ function deleteWishFromModal(){const id=$('wishEditId').value;if(id)deleteWish(i
 
 function csvCell(v){return '"'+String(v??'').replace(/"/g,'""')+'"'}function exportCSV(){const rows=[['type','title','date','time','result','eventType','venue','organizer','companions','oneOffCompanions','tablemates','participants','rating','comment','privateMemo','url','status','memo','price','saleAt','alarmAt','saleUrl','advance','advanceTo','hashtags'],...db.records.map(x=>['record',x.title,x.date,x.time||'',x.result,x.eventType||'',x.venue,x.organizer,(x.companions||[]).join('|'),(x.oneOffCompanions||[]).join('|'),x.tablemates||0,x.participants||1,x.rating,x.comment,x.privateMemo||'',x.url,'','',x.price??'','','','','','',x.hashtags||'']),...db.wishes.map(x=>['wish',x.title,x.date,x.time||'','',x.eventType||'',x.venue||'',x.organizer||'',(x.companions||[]).join('|'),(x.oneOffCompanions||[]).join('|'),x.tablemates||0,x.participants||0,'','','',x.url||'',x.status,x.memo,x.price??'',x.saleAt||'',x.alarmAt||'',x.saleUrl||'',x.advance?1:'',x.advanceTo||'','']),...db.organizers.map(n=>['organizer',n]),...db.venues.map(n=>['venue',n]),...sortJa(db.companions).map(n=>['companion',n])];const csv='\ufeff'+rows.map(r=>r.map(csvCell).join(',')).join('\r\n'),a=document.createElement('a'),url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.href=url;a.download='escape-log-backup.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('CSVを書き出しました')}
 function parseCSV(text){const rows=[];let row=[],v='',q=false;for(let i=0;i<text.length;i++){const c=text[i];if(q){if(c==='"'&&text[i+1]==='"'){v+='"';i++}else if(c==='"')q=false;else v+=c}else if(c==='"')q=true;else if(c===','){row.push(v);v=''}else if(c==='\n'){row.push(v.replace(/\r$/,''));rows.push(row);row=[];v=''}else v+=c}if(v||row.length){row.push(v);rows.push(row)}return rows}
-async function importCSV(){const f=$('csvFile').files[0];if(!f)return;let rows;try{rows=parseCSV((await f.text()).replace(/^\ufeff/,''))}catch(err){reportAppError(err,'CSVファイルを読み込めませんでした。');$('csvFile').value='';return}if(rows.length<2){toast('CSVデータがありません');$('csvFile').value='';return}const h=rows[0],ix=k=>h.indexOf(k),records=[],wishes=[],masters=[];for(const a of rows.slice(1)){if(a[ix('type')]==='record')records.push({id:uid(),title:a[ix('title')]||'',date:a[ix('date')]||'',time:a[ix('time')]||'',result:a[ix('result')]==='success'?'success':a[ix('result')]==='fail'?'fail':a[ix('result')]==='done'?'done':'',eventType:ix('eventType')>=0?(a[ix('eventType')]||''):'',venue:a[ix('venue')]||'',organizer:a[ix('organizer')]||'',companions:(a[ix('companions')]||'').split('|').filter(Boolean),oneOffCompanions:(a[ix('oneOffCompanions')]||'').split('|').filter(Boolean),tablemates:Number(a[ix('tablemates')])||0,participants:Number(a[ix('participants')])||0,rating:Number(a[ix('rating')])||0,comment:a[ix('comment')]||'',privateMemo:ix('privateMemo')>=0?(a[ix('privateMemo')]||''):'',url:a[ix('url')]||'',price:ix('price')>=0&&a[ix('price')]!==''&&a[ix('price')]!==undefined?Number(a[ix('price')]):'',hashtags:ix('hashtags')>=0?(a[ix('hashtags')]||''):'',photos:[]});else if(a[ix('type')]==='wish')wishes.push({id:uid(),title:a[ix('title')]||'',date:a[ix('date')]||'',status:a[ix('status')]==='reserved'?'reserved':'wanted',memo:a[ix('memo')]||'',price:a[ix('price')]||'',saleAt:a[ix('saleAt')]||'',alarmAt:a[ix('alarmAt')]||'',saleUrl:a[ix('saleUrl')]||'',advance:a[ix('advance')]==='1',advanceTo:a[ix('advanceTo')]||'',time:a[ix('time')]||'',eventType:ix('eventType')>=0?(a[ix('eventType')]||''):'',venue:a[ix('venue')]||'',organizer:a[ix('organizer')]||'',companions:(a[ix('companions')]||'').split('|').filter(Boolean),oneOffCompanions:(a[ix('oneOffCompanions')]||'').split('|').filter(Boolean),tablemates:Number(a[ix('tablemates')])||0,participants:Number(a[ix('participants')])||0,url:a[ix('url')]||'',photos:[]});else if(['organizer','venue','companion'].includes(a[ix('type')])&&a[ix('title')])masters.push([a[ix('type')],a[ix('title')]])}if(await askConfirm(`参加記録${records.length}件、行きたい公演${wishes.length}件を追加しますか？既存データは残ります。`,'追加する',false)){const saved=await commitDBChange(()=>{db.records.push(...records);db.wishes.push(...wishes);const addTo=(k,v)=>{v=String(v||'').trim();if(v&&!db[k].includes(v))db[k].push(v)};masters.forEach(([t,v])=>addTo(t==='organizer'?'organizers':t==='venue'?'venues':'companions',v));[...records,...wishes].forEach(r=>{(r.companions||[]).forEach(c=>addTo('companions',c))})});if(saved){renderMasterSelects();renderCompanionChecks();renderSettings();renderDashboard();renderHistory();renderWishes();toast('CSVを取り込みました')}}$('csvFile').value=''}
+async function importCSV(){
+  const f=$('csvFile').files[0];if(!f)return;let rows;
+  try{rows=parseCSV((await f.text()).replace(/^\ufeff/,''))}catch(err){reportAppError(err,'CSVファイルを読み込めませんでした。');$('csvFile').value='';return}
+  if(rows.length<2){toast('CSVデータがありません');$('csvFile').value='';return}
+  const h=rows[0],ix=k=>h.indexOf(k),val=(a,k)=>ix(k)>=0?(a[ix(k)]??''):'';
+  const records=[],wishes=[],organizers=[],venues=[],companions=[];
+  for(const a of rows.slice(1)){
+    const type=val(a,'type'),title=val(a,'title');
+    if(type==='record')records.push({id:'',title,date:val(a,'date'),time:val(a,'time'),result:val(a,'result')==='success'?'success':val(a,'result')==='fail'?'fail':val(a,'result')==='done'?'done':'',eventType:val(a,'eventType'),venue:val(a,'venue'),organizer:val(a,'organizer'),companions:val(a,'companions').split('|').filter(Boolean),oneOffCompanions:val(a,'oneOffCompanions').split('|').filter(Boolean),tablemates:Number(val(a,'tablemates'))||0,participants:Number(val(a,'participants'))||0,rating:Number(val(a,'rating'))||0,comment:val(a,'comment'),privateMemo:val(a,'privateMemo'),url:val(a,'url'),price:val(a,'price')!==''?Number(val(a,'price')):'',hashtags:val(a,'hashtags'),photos:[]});
+    else if(type==='wish')wishes.push({id:'',title,date:val(a,'date'),status:val(a,'status')==='reserved'?'reserved':val(a,'status')==='wanted'?'wanted':'',memo:val(a,'memo'),price:val(a,'price'),saleAt:val(a,'saleAt'),alarmAt:val(a,'alarmAt'),saleUrl:val(a,'saleUrl'),advance:val(a,'advance')==='1',advanceTo:val(a,'advanceTo'),time:val(a,'time'),eventType:val(a,'eventType'),venue:val(a,'venue'),organizer:val(a,'organizer'),companions:val(a,'companions').split('|').filter(Boolean),oneOffCompanions:val(a,'oneOffCompanions').split('|').filter(Boolean),tablemates:Number(val(a,'tablemates'))||0,participants:Number(val(a,'participants'))||0,url:val(a,'url'),photos:[]});
+    else if(type==='organizer'&&title)organizers.push(title);else if(type==='venue'&&title)venues.push(title);else if(type==='companion'&&title)companions.push(title);
+  }
+  if(!records.length&&!wishes.length&&!organizers.length&&!venues.length&&!companions.length){toast('取り込めるデータがありませんでした');$('csvFile').value='';return}
+  openImportPreview({records,wishes,organizers,venues,companions},'CSV');$('csvFile').value='';
+}
 
 function fillNums(id,from,blank){let h=blank?'<option value="">選択</option>':'';for(let i=from;i<=20;i++)h+=`<option value="${i}"${i===0?' selected':''}>${i}</option>`;$(id).innerHTML=h}
 fillNums('participants',1,true);fillNums('tablemates',0,false);wheelInit('time');wheelInit('wishTime');fillNums('wishParticipants',1,true);fillNums('wishTablemates',0,false);$('wishType').innerHTML=$('eventType').innerHTML;
