@@ -952,9 +952,7 @@ html[data-theme="terminal"] .pill.wanted,html[data-theme="midnight"] .pill.wante
 .other-companion-input.show{display:flex;gap:8px;flex-wrap:wrap}
 .other-companion-input input{flex:1}
 .image-file-input{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
-.image-paste-target{width:100%;min-height:58px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:3px;padding:10px 13px;border:1px dashed var(--line-strong);border-radius:12px;background:var(--surface-2);color:var(--ink);text-align:left;cursor:pointer;font:600 14px/1.35 var(--font-sans)}
-.image-paste-target:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.image-paste-target-sub{font-size:11px;font-weight:500;color:var(--muted)}
+.image-pick-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
 .photo-preview{display:flex;flex-wrap:wrap;gap:10px}
 .photo-wrap{position:relative}
 .photo-preview img{width:76px;height:76px;object-fit:cover;border-radius:14px;display:block;border:1px solid var(--line)}
@@ -1000,13 +998,16 @@ html[data-theme="terminal"] .pill.wanted,html[data-theme="midnight"] .pill.wante
 .convert-box .hint{flex:1}
 
 #register.active{
-  position:fixed;inset:0;z-index:60;
+  position:fixed;top:0;left:0;right:0;bottom:0;z-index:60;height:100dvh;overflow:hidden;
   display:flex;flex-direction:column;
   background-color:var(--bg);
   background-image:radial-gradient(var(--dot) 1.15px, transparent 1.15px);
   background-size:18px 18px;
   animation:none;padding:0;margin:0;transform:none!important;
 }
+#register>.heading>div{min-width:0;flex:1}
+#register>.heading h1{margin:0;font:800 19px/1.35 var(--font-sans);gap:9px;flex-wrap:wrap}
+#register>.heading .iconbtn{min-height:36px;height:36px;min-width:0;padding:0 12px;font-size:12.5px;border-radius:9px}
 #register>.heading{
   position:sticky;top:0;z-index:20;
   align-self:stretch;flex:none;margin:0;
@@ -1377,43 +1378,6 @@ html[data-theme="terminal"] .pill.wanted,html[data-theme="midnight"] .pill.wante
     <div id="historyContent"></div>
   </section>
 
-  <!-- REGISTER -->
-  <section class="page" id="register">
-    <div class="heading">
-      <div>
-        <div class="eyebrow">SAVE YOUR EXPERIENCE</div>
-        <h1 id="registerHeading"><span class="h-ico"><svg class="ic" aria-hidden="true"><use href="#i-edit"/></svg></span><span>行ってきた公演の追加</span></h1>
-        <div class="sub"><span class="req">*</span>は必須項目です</div>
-      </div>
-      <button class="btn light" onclick="cancelRegister()">閉じる</button>
-    </div>
-    <div class="panel">
-      <form id="recordForm" onsubmit="saveRecord(event)">
-        <input type="hidden" id="editId">
-        <div class="formgrid">
-          <div class="formfield full"><label for="title">公演タイトル <span class="req">*</span></label><input class="field" id="title" required placeholder="公演タイトルを入力"></div>
-          <div class="formfield"><label for="date">参加日 <span class="req">*</span></label><input id="date" type="date" required></div>
-          <div class="formfield"><label for="timeBtn">参加時刻</label><input type="hidden" id="time"><button type="button" class="field timebtn muted" id="timeBtn" onclick="openTimePicker('time')">時刻を選択</button></div>
-          <div class="formfield"><label id="lbl-result">結果</label><div class="seg" role="group" aria-labelledby="lbl-result"><label><input type="radio" name="result" value="success"><span><svg class="ic" aria-hidden="true"><use href="#i-bulb-on"/></svg>脱出成功</span></label><label><input type="radio" name="result" value="fail"><span><svg class="ic" aria-hidden="true"><use href="#i-bulb-off"/></svg>脱出失敗</span></label><label><input type="radio" name="result" value="done"><span><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>完了</span></label></div><div class="hint">未入力でも登録できます（選択済みをもう一度タップすると解除）</div></div>
-          <div class="formfield"><label for="eventType">公演類型 <span class="req">*</span></label><select id="eventType" required><option value="">類型を選択</option><option value="ホール">ホール</option><option value="ルーム">ルーム</option><option value="周遊">周遊</option><option value="館内周遊">館内周遊</option><option value="オンライン">オンライン</option><option value="スタジアム">スタジアム</option><option value="その他">その他</option></select></div>
-          <div class="formfield"><label id="lbl-rating">満足度</label><div class="stars" id="stars" role="group" aria-labelledby="lbl-rating"><button type="button" class="star" data-star="1" aria-label="星1つ">★</button><button type="button" class="star" data-star="2" aria-label="星2つ">★</button><button type="button" class="star" data-star="3" aria-label="星3つ">★</button><button type="button" class="star" data-star="4" aria-label="星4つ">★</button><button type="button" class="star" data-star="5" aria-label="星5つ">★</button></div></div>
-          <div class="formfield"><label for="organizer">主催団体 <span class="req">*</span></label><select id="organizer" class="field" onchange="onMF('organizer')"><option value="">選択してください</option></select><input id="organizerOther" class="field mf-other" placeholder="主催団体名を入力" hidden></div>
-          <div class="formfield"><label for="venue">会場・店舗</label><select id="venue" class="field" onchange="onMF('venue')"><option value="">選択してください</option></select><input id="venueOther" class="field mf-other" placeholder="会場・店舗名を入力" hidden></div>
-          <div class="formfield full"><label id="lbl-comp">同行者（複数選択可）</label><div id="companionChecks" class="companion-chips" role="group" aria-labelledby="lbl-comp"></div><div class="other-companion-input" id="otherCompanionWrap"><input id="otherCompanionName" class="field" placeholder="今回だけの同行者名（複数名は「、」区切り）"><button type="button" class="btn light small" onclick="addOtherCompanion()">反映</button></div><div class="hint">登録済みの同行者は上のボタンから複数選択できます。</div></div>
-          <div class="formfield"><label for="participants">参加人数</label><select id="participants"></select></div>
-          <div class="formfield"><label for="tablemates">知らない同卓者の人数（編集用）</label><select id="tablemates"></select></div>
-          <div class="formfield"><label for="ticketPrice">チケット代（円）</label><input id="ticketPrice" type="number" inputmode="numeric" min="0" step="1" placeholder="例：3500"></div>
-          <div class="formfield full"><label for="eventUrl">公演URL</label><input id="eventUrl" type="url" placeholder="https://..."><div class="hint" id="urlHint">URLは記録として保存できます。情報の自動取得は未接続です。</div></div>
-          <div class="formfield full"><label for="comment">感想・メモ</label><textarea id="comment" placeholder="印象に残った謎、演出、感想など"></textarea></div>
-          <div class="formfield full"><label for="privateMemo">非公開メモ <span>（Xには投稿されません）</span></label><textarea id="privateMemo" class="private-record-memo" placeholder="自分だけが見返すメモを入力"></textarea></div>
-          <div class="formfield full"><label for="hashtags">ハッシュタグ（X投稿用）</label><input id="hashtags" placeholder="例：#謎解き #脱出ゲーム" autocomplete="off"><div class="hint">スペースか読点で区切って入力します。詳細画面のXボタンから投稿画面を開くと、ここのタグが入ります。</div></div>
-          <div class="formfield full"><label for="photos">写真・スクリーンショット（複数可）</label><input id="photos" type="file" accept="image/*" multiple class="image-file-input"><div class="hint imgq-note"></div><button type="button" class="image-paste-target" id="photoPasteTarget" aria-label="画像を選択、またはここに画像をペースト"><span>ファイル未選択</span><span class="image-paste-target-sub">クリックして画像を選択／ここに画像をペースト</span></button><div class="photo-preview" id="photoPreview"></div></div>
-        </div>
-        <div class="form-actions"><button type="button" class="btn light" onclick="cancelRegister()">キャンセル</button><button type="submit" class="btn">記録を保存</button></div>
-      </form>
-    </div>
-  </section>
-
   <!-- WISHLIST -->
   <section class="page" id="wishlist">
     <div class="heading">
@@ -1534,6 +1498,44 @@ html[data-theme="terminal"] .pill.wanted,html[data-theme="midnight"] .pill.wante
   </section>
 </main>
 
+  <!-- REGISTER -->
+  <section class="page" id="register">
+    <div class="heading">
+      <div>
+        <div class="eyebrow">SAVE YOUR EXPERIENCE</div>
+        <h1 id="registerHeading"><span class="h-ico"><svg class="ic" aria-hidden="true"><use href="#i-edit"/></svg></span><span>行ってきた公演の追加</span></h1>
+        <div class="sub"><span class="req">*</span>は必須項目です</div>
+      </div>
+      <button type="button" class="iconbtn" onclick="cancelRegister()">閉じる</button>
+    </div>
+    <div class="panel">
+      <form id="recordForm" onsubmit="saveRecord(event)">
+        <input type="hidden" id="editId">
+        <div class="formgrid">
+          <div class="formfield full"><label for="title">公演タイトル <span class="req">*</span></label><input class="field" id="title" required placeholder="公演タイトルを入力"></div>
+          <div class="formfield"><label for="date">参加日 <span class="req">*</span></label><input id="date" type="date" required></div>
+          <div class="formfield"><label for="timeBtn">参加時刻</label><input type="hidden" id="time"><button type="button" class="field timebtn muted" id="timeBtn" onclick="openTimePicker('time')">時刻を選択</button></div>
+          <div class="formfield"><label id="lbl-result">結果</label><div class="seg" role="group" aria-labelledby="lbl-result"><label><input type="radio" name="result" value="success"><span><svg class="ic" aria-hidden="true"><use href="#i-bulb-on"/></svg>脱出成功</span></label><label><input type="radio" name="result" value="fail"><span><svg class="ic" aria-hidden="true"><use href="#i-bulb-off"/></svg>脱出失敗</span></label><label><input type="radio" name="result" value="done"><span><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>完了</span></label></div><div class="hint">未入力でも登録できます（選択済みをもう一度タップすると解除）</div></div>
+          <div class="formfield"><label for="eventType">公演類型 <span class="req">*</span></label><select id="eventType" required><option value="">類型を選択</option><option value="ホール">ホール</option><option value="ルーム">ルーム</option><option value="周遊">周遊</option><option value="館内周遊">館内周遊</option><option value="オンライン">オンライン</option><option value="スタジアム">スタジアム</option><option value="その他">その他</option></select></div>
+          <div class="formfield"><label id="lbl-rating">満足度</label><div class="stars" id="stars" role="group" aria-labelledby="lbl-rating"><button type="button" class="star" data-star="1" aria-label="星1つ">★</button><button type="button" class="star" data-star="2" aria-label="星2つ">★</button><button type="button" class="star" data-star="3" aria-label="星3つ">★</button><button type="button" class="star" data-star="4" aria-label="星4つ">★</button><button type="button" class="star" data-star="5" aria-label="星5つ">★</button></div></div>
+          <div class="formfield"><label for="organizer">主催団体 <span class="req">*</span></label><select id="organizer" class="field" onchange="onMF('organizer')"><option value="">選択してください</option></select><input id="organizerOther" class="field mf-other" placeholder="主催団体名を入力" hidden></div>
+          <div class="formfield"><label for="venue">会場・店舗</label><select id="venue" class="field" onchange="onMF('venue')"><option value="">選択してください</option></select><input id="venueOther" class="field mf-other" placeholder="会場・店舗名を入力" hidden></div>
+          <div class="formfield full"><label id="lbl-comp">同行者（複数選択可）</label><div id="companionChecks" class="companion-chips" role="group" aria-labelledby="lbl-comp"></div><div class="other-companion-input" id="otherCompanionWrap"><input id="otherCompanionName" class="field" placeholder="今回だけの同行者名（複数名は「、」区切り）"><button type="button" class="btn light small" onclick="addOtherCompanion()">反映</button></div><div class="hint">登録済みの同行者は上のボタンから複数選択できます。</div></div>
+          <div class="formfield"><label for="participants">参加人数</label><select id="participants"></select></div>
+          <div class="formfield"><label for="tablemates">知らない同卓者の人数（編集用）</label><select id="tablemates"></select></div>
+          <div class="formfield"><label for="ticketPrice">チケット代（円）</label><input id="ticketPrice" type="number" inputmode="numeric" min="0" step="1" placeholder="例：3500"></div>
+          <div class="formfield full"><label for="eventUrl">公演URL</label><input id="eventUrl" type="url" placeholder="https://..."><div class="hint" id="urlHint">URLは記録として保存できます。情報の自動取得は未接続です。</div></div>
+          <div class="formfield full"><label for="comment">感想・メモ</label><textarea id="comment" placeholder="印象に残った謎、演出、感想など"></textarea></div>
+          <div class="formfield full"><label for="privateMemo">非公開メモ <span>（Xには投稿されません）</span></label><textarea id="privateMemo" class="private-record-memo" placeholder="自分だけが見返すメモを入力"></textarea></div>
+          <div class="formfield full"><label for="hashtags">ハッシュタグ（X投稿用）</label><input id="hashtags" placeholder="例：#謎解き #脱出ゲーム" autocomplete="off"><div class="hint">スペースか読点で区切って入力します。詳細画面のXボタンから投稿画面を開くと、ここのタグが入ります。</div></div>
+          <div class="formfield full"><label for="photos">写真・スクリーンショット（複数可）</label><input id="photos" type="file" accept="image/*" multiple class="image-file-input"><div class="hint imgq-note"></div><div class="image-pick-row"><button type="button" class="btn light small" id="photoPickBtn">ファイルを選択</button><button type="button" class="btn light small" id="photoPasteBtn">コピーした画像を貼り付け</button></div><div class="photo-preview" id="photoPreview"></div></div>
+        </div>
+        <div class="form-actions"><button type="button" class="btn light" onclick="cancelRegister()">キャンセル</button><button type="submit" class="btn">記録を保存</button></div>
+      </form>
+    </div>
+  </section>
+
+
 <!-- Bottom Navigation -->
 <nav class="bottomnav" aria-label="メインメニュー">
   <button class="navbtn active" data-page="dashboard" onclick="go('dashboard')"><span class="ico"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg></span><span>ホーム</span></button>
@@ -1589,7 +1591,7 @@ html[data-theme="terminal"] .pill.wanted,html[data-theme="midnight"] .pill.wante
         <div class="formfield full"><label for="wishAlarmAt">アラーム</label><input id="wishAlarmAt" type="datetime-local" step="300"><div class="segbtns wrap" id="alarmPresets"><button type="button" onclick="setAlarmPreset(0)">発売時刻</button><button type="button" onclick="setAlarmPreset(5)">5分前</button><button type="button" onclick="setAlarmPreset(30)">30分前</button><button type="button" onclick="setAlarmPreset(60)">1時間前</button><button type="button" onclick="setAlarmPreset(1440)">1日前</button><button type="button" onclick="setAlarmPreset(-1)">解除</button></div><div class="hint">好きな日時を直接入力するか、発売日時からの時間を選びます。カレンダーには、チケット販売ページのリンクも一緒に登録されます。</div><button type="button" class="btn light small" style="align-self:flex-start" onclick="addSaleToCalendar()">カレンダーに追加…</button></div>
         <div class="formfield full"><label for="wishSaleUrl">チケット販売ページのリンク</label><input id="wishSaleUrl" type="url" placeholder="https://..."></div>
         <div class="formfield full"><label for="wishMemo">メモ</label><textarea id="wishMemo" placeholder="気になるポイント、購入状況など"></textarea></div>
-        <div class="formfield full"><label for="wishPhoto">写真・スクリーンショット（複数可）</label><input id="wishPhoto" type="file" accept="image/*" multiple class="field"><div class="hint imgq-note"></div><div id="wishPhotoPreview" class="photo-preview"></div></div>
+        <div class="formfield full"><label for="wishPhoto">写真・スクリーンショット（複数可）</label><input id="wishPhoto" type="file" accept="image/*" multiple class="image-file-input"><div class="hint imgq-note"></div><div class="image-pick-row"><button type="button" class="btn light small" id="wishPhotoPickBtn">ファイルを選択</button><button type="button" class="btn light small" id="wishPhotoPasteBtn">コピーした画像を貼り付け</button></div><div id="wishPhotoPreview" class="photo-preview"></div></div>
       </div>
       <div class="convert-box" id="wishConvertBox" hidden><div class="hint">この公演に参加したら、内容を参加記録に引き継げます。</div><button type="button" class="btn light small" onclick="convertWishToRecord()">参加記録にする…</button></div>
     </div>
@@ -2089,9 +2091,24 @@ async function prepareImage(f){
 }
 async function addSelectedPhotos(files,target,kind){let added=0;for(const f of files){const d=await prepareImage(f);if(!d)continue;target.push(d);added++}return added}
 $('photos').addEventListener('change',async e=>{const n=await addSelectedPhotos(e.target.files,newPhotos,'record');renderPhotoPreview();e.target.value='';if(n)toast(`${n}枚の写真を追加しました`)});
-$('photoPasteTarget').addEventListener('click',()=>$('photos').click());
-$('photoPasteTarget').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('photos').click()}});
-document.addEventListener('paste',async e=>{if(currentPage!=='register'||!e.clipboardData||!e.target.closest?.('#photoPasteTarget'))return;const items=Array.from(e.clipboardData.items||[]);let files=items.filter(item=>item.kind==='file'&&/^image\//i.test(item.type)).map(item=>item.getAsFile()).filter(Boolean);if(!files.length)files=Array.from(e.clipboardData.files||[]).filter(file=>/^image\//i.test(file.type));if(!files.length)return;e.preventDefault();const n=await addSelectedPhotos(files,newPhotos,'record');renderPhotoPreview();if(n)toast(`コピーした画像を${n}枚追加しました`)});
+$('photoPickBtn').addEventListener('click',()=>$('photos').click());
+async function pasteClipboardImages(target,render){
+  if(!navigator.clipboard||!navigator.clipboard.read){toast('この環境では貼り付けボタンが使えません。「ファイルを選択」から追加してください');return}
+  try{
+    const items=await navigator.clipboard.read(),files=[];
+    for(const it of items)for(const type of it.types){
+      if(!/^image\//i.test(type))continue;
+      const blob=await it.getType(type);
+      files.push(new File([blob],`pasted-${Date.now()}-${files.length}.${(type.split('/')[1]||'png').replace('jpeg','jpg')}`,{type}));
+    }
+    if(!files.length){toast('クリップボードに画像がありません');return}
+    const n=await addSelectedPhotos(files,target,'paste');render();
+    if(n)toast(`コピーした画像を${n}枚追加しました`);
+  }catch(err){toast('貼り付けできませんでした。許可するか、「ファイルを選択」から追加してください')}
+}
+$('photoPasteBtn').addEventListener('click',()=>pasteClipboardImages(newPhotos,renderPhotoPreview));
+$('wishPhotoPickBtn').addEventListener('click',()=>$('wishPhoto').click());
+$('wishPhotoPasteBtn').addEventListener('click',()=>pasteClipboardImages(wishPhotos,renderWishPhotoPreview));
 $('wishPhoto').addEventListener('change',async e=>{const n=await addSelectedPhotos(e.target.files,wishPhotos,'wish');renderWishPhotoPreview();e.target.value='';if(n)toast(`${n}枚の写真を追加しました`)});
 document.querySelectorAll('.imgq-note').forEach(n=>n.textContent='画像は標準設定（長辺1280px）で自動圧縮されます。');updateStorageUsage();initXSettings();
 document.querySelectorAll('input[name="result"]').forEach(inp=>{const lb=inp.closest('label');lb.addEventListener('pointerdown',()=>{inp.dataset.was=inp.checked?'1':''});inp.addEventListener('click',()=>{if(inp.dataset.was==='1'){inp.checked=false;inp.dataset.was=''}})});
